@@ -1,0 +1,14 @@
+{
+  "verfaellt_30_juni_folgejahr": {
+    "label": "Verfällt am 30.06. des Folgejahres",
+    "description": "Nicht genutzte Beträge aus dem Vorjahr können bis zum 30. Juni des Folgejahres eingesetzt werden. Danach verfallen sie unwiderruflich.",
+    "reminder_days_before": [90, 30, 7],
+    "calculate": "YEAR_END_PLUS_6_MONTHS"
+  },
+  "jahresende": {
+    "label": "Verfällt am 31.12.",
+    "description": "Budget muss im laufenden Kalenderjahr genutzt werden. Keine Übertragung ins Folgejahr möglich.",
+    "reminder_days_before": [90, 30, 7],
+    "calculate": "YEAR_END"
+  }
+}
