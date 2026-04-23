@@ -104,17 +104,14 @@ function Step1({
       {state.keinPflegegrad && (
         <div className="mt-4 rounded-2xl bg-primary-50 border border-primary-200 p-4 space-y-3">
           <p className="text-sm text-primary-800 font-medium">
-            Noch keinen Pflegegrad? Nutzen Sie zuerst den kostenlosen
-            Pflegegrad-Rechner der Verbraucherzentrale.
+            Noch keinen Pflegegrad? Schätzen Sie ihn jetzt kostenlos selbst ein — in 5 Minuten.
           </p>
-          <a
-            href={VERBRAUCHERZENTRALE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-sm font-semibold text-primary-700 underline underline-offset-2"
+          <Link
+            href="/pflegegrad-einschaetzen"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-white bg-primary-600 px-4 py-2 rounded-xl hover:bg-primary-700 transition-colors"
           >
-            Zum Pflegegrad-Rechner →
-          </a>
+            Pflegegrad selbst einschätzen →
+          </Link>
           <div className="pt-1">
             <button
               type="button"
@@ -127,7 +124,7 @@ function Step1({
               }
               className="text-sm text-gray-500 underline underline-offset-2 hover:text-gray-700"
             >
-              Trotzdem schätzen (mit PG 2 als Beispiel)
+              Überspringen (mit PG 2 als Beispiel)
             </button>
           </div>
         </div>

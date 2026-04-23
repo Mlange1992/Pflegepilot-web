@@ -16,6 +16,7 @@ struct AuthView: View {
     @State private var password = ""
     @State private var isRegister: Bool
     @State private var confirmationSent = false
+    @State private var showConfirmationAlert = false
 
     // Einwilligungen (Registrierung)
     @State private var consentAGB = false
@@ -248,6 +249,13 @@ struct AuthView: View {
                     .padding(.bottom, 40)
             }
         }
+        .alert("E-Mail bestätigen", isPresented: $showConfirmationAlert) {
+            Button("OK") {
+                withAnimation { isRegister = false }
+            }
+        } message: {
+            Text("Wir haben eine Bestätigungs-E-Mail an \(email) gesendet. Bitte öffnen Sie den Link darin und melden Sie sich danach hier an.")
+        }
         .sheet(isPresented: $showNutzungsbedingungen) {
             LegalTextView(titel: "Nutzungsbedingungen", text: LegalTexts.nutzungsbedingungen)
         }
@@ -301,7 +309,7 @@ struct AuthView: View {
             } else {
                 let needsConfirmation = try await authService.signUp(email: email, password: password)
                 if needsConfirmation {
-                    withAnimation { confirmationSent = true }
+                    showConfirmationAlert = true
                 }
             }
         } catch {
