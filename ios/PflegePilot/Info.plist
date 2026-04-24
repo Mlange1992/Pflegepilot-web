@@ -33,6 +33,8 @@
 	<string>1</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Für schnellen Zugriff auf Ihr Budget-Dashboard</string>
+	<key>NSUserNotificationUsageDescription</key>
+	<string>PflegePilot erinnert Sie rechtzeitig an Verfallsfristen Ihrer Pflegeleistungen und an die monatliche Bestellung der Pflegehilfsmittel.</string>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>
