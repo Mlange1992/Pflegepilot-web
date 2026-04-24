@@ -447,7 +447,7 @@ struct RatgeberConfig {
         // MARK: 12 - DiPA
         RatgeberArtikel(
             id: "dipa",
-            titel: "DiPA-Budget 2024+: Digitale Pflegeanwendungen",
+            titel: "DiPA-Budget 2026: Digitale Pflegeanwendungen",
             kurztext: "Neue Leistung kaum bekannt — bis zu 50 EUR/Monat für Pflege-Apps.",
             inhalt: """
             ## Was sind DiPAs?
