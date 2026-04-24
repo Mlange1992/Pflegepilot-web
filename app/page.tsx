@@ -176,6 +176,10 @@ export default function HomePage() {
             Leistungen
           </Link>
           {' · '}
+          <Link href="/fristen" className="hover:text-gray-600 underline">
+            Fristen
+          </Link>
+          {' · '}
           <Link href="/preise" className="hover:text-gray-600 underline">
             Kostenlos
           </Link>
