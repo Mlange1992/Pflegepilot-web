@@ -23,10 +23,9 @@ class NotificationService: ObservableObject {
         isAuthorized = settings.authorizationStatus == .authorized
     }
 
-    /// Lokale Fristen-Erinnerungen für alle ablaufenden Budgets planen
+    /// Fristen-Erinnerungen (90/30/7 Tage vor Ablauf) + monatliche Hilfsmittel-Erinnerung
     func scheduleReminders(for budgets: [BudgetItem]) async {
         let center = UNUserNotificationCenter.current()
-        // Bestehende Fristen-Notifications entfernen
         center.removePendingNotificationRequests(withIdentifiers:
             budgets.map { "frist_\($0.id)" }
         )
@@ -35,8 +34,7 @@ class NotificationService: ObservableObject {
             guard let expiresAt = budget.expiresAt,
                   budget.remainingCents > 0 else { continue }
 
-            let reminderDays = [90, 30, 7]
-            for days in reminderDays {
+            for days in [90, 30, 7] {
                 guard let triggerDate = Calendar.current.date(byAdding: .day, value: -days, to: expiresAt),
                       triggerDate > Date() else { continue }
 
@@ -56,6 +54,32 @@ class NotificationService: ObservableObject {
                 try? await center.add(request)
             }
         }
+
+        let hasHilfsmittel = budgets.contains { $0.benefitType.slug == "pflegehilfsmittel" }
+        await scheduleMonthlyHilfsmittelReminder(active: hasHilfsmittel)
+    }
+
+    /// Wiederkehrende Erinnerung am 25. jeden Monats: Pflegehilfsmittel bestellen.
+    /// Viele Berechtigte haben keinen Dauerauftrag — der Anspruch verfällt monatlich.
+    private func scheduleMonthlyHilfsmittelReminder(active: Bool) async {
+        let center = UNUserNotificationCenter.current()
+        let id = "hilfsmittel_monthly"
+        center.removePendingNotificationRequests(withIdentifiers: [id])
+        guard active else { return }
+
+        let content = UNMutableNotificationContent()
+        content.title = "Pflegehilfsmittel für diesen Monat?"
+        content.body = "Ihr monatliches Budget von 42 € (§ 40 SGB XI) für Handschuhe, Bettschutz & Co. — verfällt am Monatsende."
+        content.sound = .default
+
+        var comps = DateComponents()
+        comps.day = 25
+        comps.hour = 9
+        comps.minute = 0
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
+        let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+        try? await center.add(request)
     }
 
     func schedulePendingReminders() async {
