@@ -19,16 +19,23 @@ function getYearlyCents(l: LeistungConfig, pg: number): number {
   return perPeriod
 }
 
-function gesamtMaxCents(): number {
-  return (leistungen as LeistungConfig[]).reduce((sum, l) => {
+function isActive(l: LeistungConfig): boolean {
+  const today = new Date()
+  if (l.active_from && new Date(l.active_from) > today) return false
+  if (l.active_to && new Date(l.active_to) < today) return false
+  return true
+}
+
+function gesamtMaxCents(liste: LeistungConfig[]): number {
+  return liste.filter(isActive).reduce((sum, l) => {
     const max = Math.max(...[2, 3, 4, 5].map((pg) => getYearlyCents(l, pg)))
     return sum + max
   }, 0)
 }
 
 export default function LeistungenPage() {
-  const liste = leistungen as LeistungConfig[]
-  const gesamtMax = gesamtMaxCents()
+  const liste = (leistungen as LeistungConfig[]).filter(isActive)
+  const gesamtMax = gesamtMaxCents(leistungen as LeistungConfig[])
 
   return (
     <div className="min-h-screen bg-gray-50">
