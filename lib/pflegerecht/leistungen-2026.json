@@ -23,10 +23,10 @@
     "description": "Pflegegeld erhalten Pflegebedürftige ab Pflegegrad 2, die zu Hause von Angehörigen oder Freunden gepflegt werden. Es wird direkt an den Pflegebedürftigen ausgezahlt und kann frei verwendet werden.",
     "frequency": "monthly",
     "category": "geld",
-    "per_pflegegrad": { "1": 0, "2": 34700, "3": 59900, "4": 79900, "5": 99000 },
+    "per_pflegegrad": { "1": 0, "2": 34700, "3": 59900, "4": 80000, "5": 99000 },
     "deadline_rule": null,
     "requires_antrag": true,
-    "gesetzestext": "§ 37 SGB XI – Pflegegeld für selbst beschaffte Pflegehilfen\n\n(1) Pflegebedürftige der Pflegegrade 2 bis 5 können anstelle der häuslichen Pflegehilfe ein Pflegegeld beantragen. Der Anspruch setzt voraus, dass der Pflegebedürftige mit dem Pflegegeld dessen Umfang entsprechend die erforderlichen körperbezogenen Pflegemaßnahmen und pflegerischen Betreuungsmaßnahmen sowie Hilfen bei der Haushaltsführung in geeigneter Weise selbst sicherstellt.\n\n(2) Das Pflegegeld beträgt je Kalendermonat:\n– Pflegegrad 2: 332 Euro\n– Pflegegrad 3: 573 Euro\n– Pflegegrad 4: 765 Euro\n– Pflegegrad 5: 947 Euro\n\n(3) Pflegebedürftige, die Pflegegeld nach Absatz 1 beziehen, haben in folgenden Intervallen eine Beratung in einer zugelassenen Pflegeeinrichtung oder, sofern dies durch die zuständige Pflegekasse angeboten wird, eine Beratung durch einen von der Pflegekasse beauftragten Gutachter abzurufen: bei den Pflegegraden 2 und 3 halbjährlich, bei den Pflegegraden 4 und 5 vierteljährlich."
+    "gesetzestext": "§ 37 SGB XI – Pflegegeld für selbst beschaffte Pflegehilfen\n\n(1) Pflegebedürftige der Pflegegrade 2 bis 5 können anstelle der häuslichen Pflegehilfe ein Pflegegeld beantragen. Der Anspruch setzt voraus, dass der Pflegebedürftige mit dem Pflegegeld dessen Umfang entsprechend die erforderlichen körperbezogenen Pflegemaßnahmen und pflegerischen Betreuungsmaßnahmen sowie Hilfen bei der Haushaltsführung in geeigneter Weise selbst sicherstellt.\n\n(2) Das Pflegegeld beträgt je Kalendermonat (Stand 2025, nach PUEG):\n– Pflegegrad 2: 347 Euro\n– Pflegegrad 3: 599 Euro\n– Pflegegrad 4: 800 Euro\n– Pflegegrad 5: 990 Euro\n\n(3) Pflegebedürftige, die Pflegegeld nach Absatz 1 beziehen, haben in folgenden Intervallen eine Beratung in einer zugelassenen Pflegeeinrichtung oder, sofern dies durch die zuständige Pflegekasse angeboten wird, eine Beratung durch einen von der Pflegekasse beauftragten Gutachter abzurufen: bei den Pflegegraden 2 und 3 halbjährlich, bei den Pflegegraden 4 und 5 vierteljährlich."
   },
   {
     "slug": "pflegesachleistungen",
@@ -37,11 +37,11 @@
     "description": "Für professionelle Pflege durch ambulante Pflegedienste. Kann mit Pflegegeld kombiniert werden (Kombinationsleistung). Der Anteil des genutzten Sachleistungsbudgets reduziert den Pflegegeld-Anspruch anteilig.",
     "frequency": "monthly",
     "category": "sach",
-    "per_pflegegrad": { "1": 0, "2": 79500, "3": 149600, "4": 185800, "5": 229900 },
+    "per_pflegegrad": { "1": 0, "2": 79600, "3": 149700, "4": 185900, "5": 229900 },
     "deadline_rule": null,
     "requires_antrag": true,
     "tip": "Bis zu 40% ungenutzter Sachleistungen können in zusätzlichen Entlastungsbetrag umgewandelt werden!",
-    "gesetzestext": "§ 36 SGB XI – Pflegesachleistungen\n\n(1) Pflegebedürftige der Pflegegrade 2 bis 5 haben Anspruch auf körperbezogene Pflegemaßnahmen und pflegerische Betreuungsmaßnahmen sowie Hilfen bei der Haushaltsführung als Sachleistung (häusliche Pflegehilfe).\n\n(2) Der Anspruch auf häusliche Pflegehilfe umfasst auch die Beratung von Pflegebedürftigen sowie deren Angehörigen und vergleichbar Nahestehenden.\n\n(3) Der Wert der je Kalendermonat zu erbringenden häuslichen Pflegehilfe beträgt bis zu:\n– Pflegegrad 2: 761 Euro\n– Pflegegrad 3: 1.432 Euro\n– Pflegegrad 4: 1.778 Euro\n– Pflegegrad 5: 2.200 Euro\n\n(4) Häusliche Pflegehilfe ist auch zulässig, wenn Pflegebedürftige nicht in ihrem eigenen Haushalt gepflegt werden. Wird häusliche Pflegehilfe nur teilweise erbracht, wird Pflegegeld anteilig gewährt (Kombinationsleistung gemäß § 38)."
+    "gesetzestext": "§ 36 SGB XI – Pflegesachleistungen\n\n(1) Pflegebedürftige der Pflegegrade 2 bis 5 haben Anspruch auf körperbezogene Pflegemaßnahmen und pflegerische Betreuungsmaßnahmen sowie Hilfen bei der Haushaltsführung als Sachleistung (häusliche Pflegehilfe).\n\n(2) Der Anspruch auf häusliche Pflegehilfe umfasst auch die Beratung von Pflegebedürftigen sowie deren Angehörigen und vergleichbar Nahestehenden.\n\n(3) Der Wert der je Kalendermonat zu erbringenden häuslichen Pflegehilfe beträgt bis zu (Stand 2025, nach PUEG):\n– Pflegegrad 2: 796 Euro\n– Pflegegrad 3: 1.497 Euro\n– Pflegegrad 4: 1.859 Euro\n– Pflegegrad 5: 2.299 Euro\n\n(4) Häusliche Pflegehilfe ist auch zulässig, wenn Pflegebedürftige nicht in ihrem eigenen Haushalt gepflegt werden. Wird häusliche Pflegehilfe nur teilweise erbracht, wird Pflegegeld anteilig gewährt (Kombinationsleistung gemäß § 38)."
   },
   {
     "slug": "entlastungsbudget",
@@ -98,11 +98,11 @@
     "description": "Für Verbrauchsmaterialien wie Einmalhandschuhe, Bettschutzeinlagen und Desinfektionsmittel. Viele Anbieter liefern direkt nach Hause und rechnen mit der Pflegekasse ab.",
     "frequency": "monthly",
     "category": "sach",
-    "per_pflegegrad": { "1": 4000, "2": 4000, "3": 4000, "4": 4000, "5": 4000 },
+    "per_pflegegrad": { "1": 4200, "2": 4200, "3": 4200, "4": 4200, "5": 4200 },
     "deadline_rule": null,
     "requires_antrag": true,
     "tip": "Einmal beantragen, dann kommt die Box jeden Monat automatisch. Viele Anbieter übernehmen auch den Antrag kostenlos.",
-    "gesetzestext": "§ 40 Abs. 2 SGB XI – Pflegehilfsmittel zum Verbrauch\n\n(1) Pflegebedürftige haben Anspruch auf Versorgung mit Pflegehilfsmitteln, die zur Erleichterung der Pflege oder zur Linderung der Beschwerden des Pflegebedürftigen beitragen oder ihm eine selbständigere Lebensführung ermöglichen, soweit die Hilfsmittel nicht wegen Krankheit oder Behinderung von der Krankenversicherung oder anderen zuständigen Leistungsträgern zu leisten sind.\n\n(2) Zum Verbrauch bestimmte Pflegehilfsmittel werden von der Pflegekasse in Höhe von bis zu 40 Euro monatlich ersetzt. Dazu gehören insbesondere:\n– Einmalhandschuhe\n– Fingerlinge\n– Mundschutz\n– Schutzschürzen\n– Bettschutzeinlagen (Matratzenschoner)\n– Desinfektionsmittel für Hände und Flächen\n– saugende Bettschutzeinlagen"
+    "gesetzestext": "§ 40 Abs. 2 SGB XI – Pflegehilfsmittel zum Verbrauch\n\n(1) Pflegebedürftige haben Anspruch auf Versorgung mit Pflegehilfsmitteln, die zur Erleichterung der Pflege oder zur Linderung der Beschwerden des Pflegebedürftigen beitragen oder ihm eine selbständigere Lebensführung ermöglichen, soweit die Hilfsmittel nicht wegen Krankheit oder Behinderung von der Krankenversicherung oder anderen zuständigen Leistungsträgern zu leisten sind.\n\n(2) Zum Verbrauch bestimmte Pflegehilfsmittel werden von der Pflegekasse in Höhe von bis zu 42 Euro monatlich ersetzt (Stand 2025, nach PUEG). Dazu gehören insbesondere:\n– Einmalhandschuhe\n– Fingerlinge\n– Mundschutz\n– Schutzschürzen\n– Bettschutzeinlagen (Matratzenschoner)\n– Desinfektionsmittel für Hände und Flächen\n– saugende Bettschutzeinlagen"
   },
   {
     "slug": "wohnumfeldverbesserung",

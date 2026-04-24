@@ -396,11 +396,11 @@ export function getOptimizationTips(
   // Tipp 4: Pflegehilfsmittel nicht beantragt
   const hilfsmittelBudget = getBudget('pflegehilfsmittel')
   if (!hilfsmittelBudget || hilfsmittelBudget.usedCents === 0) {
-    const monatlichCents = 4000 // §40 Abs.2: 40€/Monat für alle PG
+    const monatlichCents = 4200 // §40 Abs.2: 42€/Monat (Stand 2025, nach PUEG)
     tips.push({
       type: 'hilfsmittel',
       title: 'Gratis Pflegehilfsmittel bestellen',
-      description: `40€ pro Monat für Einmalhandschuhe, Bettschutz und Desinfektionsmittel — einmal beantragen, kommt dann automatisch. Viele Anbieter übernehmen auch den Antrag.`,
+      description: `42€ pro Monat für Einmalhandschuhe, Bettschutz und Desinfektionsmittel — einmal beantragen, kommt dann automatisch. Viele Anbieter übernehmen auch den Antrag.`,
       potentialGainCents: monatlichCents * 12,
       actionLabel: 'Jetzt beantragen',
       actionSlug: 'pflegehilfsmittel',
