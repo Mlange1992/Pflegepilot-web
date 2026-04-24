@@ -14,7 +14,7 @@ const FEATURES = [
   'Fristen-Alarm: Benachrichtigung vor Budget-Verfall',
   'PDF-Anträge: Erstantrag, Höherstufung, Widerspruch, VHP, Entlastungsbetrag',
   'MD-Termin-Checkliste: personalisiert basierend auf Selbsttest',
-  '15 Ratgeber-Artikel zu allen Pflegeleistungen',
+  '21 Ratgeber-Artikel zu allen Pflegeleistungen',
   'Mehrere Pflegebedürftige in einem Account',
   'Keine Registrierung nötig für den Pflegegrad-Check',
 ]
@@ -33,12 +33,12 @@ const FAQ = [
   {
     frage: 'Gibt es eine iOS-App?',
     antwort:
-      'Ja! PflegePilot ist als iOS-App für iPhone und iPad verfügbar — kostenlos im App Store. Die Web-Version und die App sind gleichwertig ausgestattet.',
+      'Die iOS-App ist in Entwicklung. Tragen Sie sich auf unserer Warteliste ein — wir benachrichtigen Sie, sobald sie verfügbar ist.',
   },
   {
-    frage: 'Ist das wirklich für immer kostenlos?',
+    frage: 'Bleibt PflegePilot kostenlos?',
     antwort:
-      'Ja. Die App finanziert sich über Affiliate-Empfehlungen, die als "Anzeige" gekennzeichnet sind. Es gibt und wird kein Abo, keinen In-App-Kauf und keine Premium-Version geben.',
+      'Ja. Der Dienst finanziert sich über klar gekennzeichnete Affiliate-Empfehlungen. Es gibt kein Abo, keinen In-App-Kauf und keine Premium-Version.',
   },
   {
     frage: 'Wie werden meine Gesundheitsdaten geschützt?',
@@ -75,7 +75,7 @@ export default function PreisePage() {
               <span className="text-6xl font-extrabold text-green-600">0 €</span>
               <span className="text-gray-400 text-lg mb-2">/Monat</span>
             </div>
-            <p className="text-gray-500 mt-2">Für immer. Kein Haken.</p>
+            <p className="text-gray-500 mt-2">Dauerhaft kostenlos. Kein Haken.</p>
           </div>
           <ul className="space-y-3 mb-8">
             {FEATURES.map((f) => (
