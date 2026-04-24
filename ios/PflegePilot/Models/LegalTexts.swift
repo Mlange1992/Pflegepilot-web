@@ -13,7 +13,7 @@ struct LegalTexts {
 
     // MARK: - Budget-Tracker
     static let budgetDisclaimer = """
-    Alle Leistungsbeträge entsprechen dem Stand 2025/2026. Änderungen durch \
+    Alle Leistungsbeträge entsprechen dem Stand 2026. Änderungen durch \
     künftige Gesetzgebung sind möglich. Aktuelle Beträge können bei Ihrer \
     Pflegekasse erfragt werden. PflegePilot übernimmt keine Gewähr für die \
     Richtigkeit der angezeigten Beträge.
@@ -41,8 +41,8 @@ struct LegalTexts {
     Angaben gemäß § 5 TMG:
 
     Markus Lange
-    [STRASSE HAUSNUMMER ERGÄNZEN]
-    73345 Waeschenbeuren
+    Seestraße 17
+    73116 Wäschenbeuren
     Deutschland
 
     Kontakt:
@@ -76,7 +76,7 @@ struct LegalTexts {
     Datenschutzerklärung
 
     1. Verantwortlicher
-    Markus Lange, 73345 Waeschenbeuren, info@pflege-pilot.com
+    Markus Lange, Seestraße 17, 73116 Wäschenbeuren, info@pflege-pilot.com
 
     2. Welche Daten wir erheben
     Ohne Registrierung: KEINE personenbezogenen Daten. Der Pflegegrad-Rechner \
@@ -132,7 +132,7 @@ struct LegalTexts {
     Du kannst Push-Benachrichtigungen jederzeit in den iOS-Einstellungen oder in \
     der App deaktivieren.
 
-    Stand: 2025/2026
+    Stand: 2026
     """
 
     // MARK: - Nutzungsbedingungen
@@ -154,7 +154,7 @@ struct LegalTexts {
     in der App dienen ausschließlich zur Information und Orientierung.
 
     4. Keine Gewähr
-    Die angezeigten Leistungsbeträge basieren auf dem Stand 2025/2026. Der \
+    Die angezeigten Leistungsbeträge basieren auf dem Stand 2026. Der \
     Betreiber übernimmt keine Gewähr für die Richtigkeit, Vollständigkeit oder \
     Aktualität der Angaben. Maßgeblich sind die Angaben Ihrer Pflegekasse.
 
@@ -183,6 +183,6 @@ struct LegalTexts {
     geänderten Bedingungen gilt als Zustimmung. Die aktuelle Version ist in der \
     App unter Profil › Nutzungsbedingungen einsehbar.
 
-    Stand: 2025/2026
+    Stand: 2026
     """
 }

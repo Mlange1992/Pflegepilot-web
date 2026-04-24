@@ -348,10 +348,10 @@ struct RatgeberConfig {
 
             Pflegegeld (§ 37 SGB XI) ist eine monatliche Zahlung an die pflegebedürftige Person. Das Geld kann frei eingesetzt werden — z.B. als "Dankeschön" für pflegende Angehörige.
 
-            Beträge je Pflegegrad (Stand 2025):
+            Beträge je Pflegegrad (Stand 2026):
             - PG 2: 347 EUR/Monat
             - PG 3: 599 EUR/Monat
-            - PG 4: 799 EUR/Monat
+            - PG 4: 800 EUR/Monat
             - PG 5: 990 EUR/Monat
 
             ## Was sind Sachleistungen?
@@ -416,7 +416,7 @@ struct RatgeberConfig {
             inhalt: """
             ## Was ist Wohnraumanpassung?
 
-            Maßnahmen zur Wohnraumanpassung nach § 40 Abs. 4 SGB XI verbessern das Wohnumfeld so, dass Pflege zu Hause möglich oder leichter wird. Die Pflegekasse zahlt bis zu 4.180 EUR pro Maßnahme (Stand 2025/2026).
+            Maßnahmen zur Wohnraumanpassung nach § 40 Abs. 4 SGB XI verbessern das Wohnumfeld so, dass Pflege zu Hause möglich oder leichter wird. Die Pflegekasse zahlt bis zu 4.180 EUR pro Maßnahme (Stand 2026).
 
             ## Was wird gefördert?
 
@@ -611,12 +611,12 @@ struct RatgeberConfig {
 
             ## Was zahlt die Pflegekasse?
 
-            Das Tagespflegebudget (§ 41 SGB XI) entspricht dem ambulanten Sachleistungsbetrag (§ 36) — NICHT den Beträgen der vollstationären Pflege:
-            - PG 2: bis 795 EUR/Monat
-            - PG 3: bis 1.496 EUR/Monat
-            - PG 4: bis 1.858 EUR/Monat
-            - PG 5: bis 2.299 EUR/Monat
-            (Stand 2025; Quelle: § 41 Abs. 2 SGB XI)
+            Das Tagespflegebudget (§ 41 SGB XI) ist ein eigenständiges Budget — zusätzlich zum Sachleistungsbudget (§ 36):
+            - PG 2: bis 721 EUR/Monat
+            - PG 3: bis 1.357 EUR/Monat
+            - PG 4: bis 1.685 EUR/Monat
+            - PG 5: bis 2.085 EUR/Monat
+            (Stand 2026; Quelle: § 41 Abs. 2 SGB XI)
 
             ## Wichtig: Doppeltes Budget möglich!
 
@@ -645,7 +645,7 @@ struct RatgeberConfig {
             inhalt: """
             ## Die Pflegelücke ist real
 
-            Die gesetzliche Pflegeversicherung ist eine Teilkaskoversicherung — sie zahlt Fixbeträge, deckt aber nicht alle Kosten. Im Pflegeheim bleibt nach Pflegekassen-Leistung ein monatlicher Eigenanteil von durchschnittlich 2.000–3.000 EUR übrig (Stand 2025).
+            Die gesetzliche Pflegeversicherung ist eine Teilkaskoversicherung — sie zahlt Fixbeträge, deckt aber nicht alle Kosten. Im Pflegeheim bleibt nach Pflegekassen-Leistung ein monatlicher Eigenanteil von durchschnittlich 2.000–3.000 EUR übrig (Stand 2026).
 
             Wer keine Rücklagen hat, muss Sozialhilfe beantragen oder Kinder werden herangezogen.
 
@@ -799,7 +799,7 @@ struct RatgeberConfig {
 
             ## Was zahlt die Pflegekasse?
 
-            Die Pflegekasse zahlt einen pauschalen Betrag je Pflegegrad (§ 43 SGB XI, Stand 2025):
+            Die Pflegekasse zahlt einen pauschalen Betrag je Pflegegrad (§ 43 SGB XI, Stand 2026):
             - PG 2: 805 EUR/Monat
             - PG 3: 1.319 EUR/Monat
             - PG 4: 1.855 EUR/Monat

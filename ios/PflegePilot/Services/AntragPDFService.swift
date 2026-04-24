@@ -258,8 +258,8 @@ class AntragPDFService {
         <div class="section">
             <div class="section-header">Angaben zur Verhinderungspflege</div>
             <table>
-                <tr><td class="label">Gesetzliche Grundlage:</td><td>§ 39 SGB XI</td></tr>
-                <tr><td class="label">Maximalbetrag 2025:</td><td>bis zu 1.685 EUR/Jahr (zzgl. bis zu 1.854 EUR aus ungenutzter Kurzzeitpflege)</td></tr>
+                <tr><td class="label">Gesetzliche Grundlage:</td><td>§ 42a SGB XI (Gemeinsames Entlastungsbudget, ab 01.07.2025)</td></tr>
+                <tr><td class="label">Maximalbetrag 2026:</td><td>bis zu 3.539 EUR/Jahr (frei aufteilbar für Verhinderungs- und Kurzzeitpflege)</td></tr>
                 <tr><td class="label">Mindestpflegedauer:</td><td>Pflegeperson muss mind. 6 Monate häuslich gepflegt haben</td></tr>
             </table>
         </div>
