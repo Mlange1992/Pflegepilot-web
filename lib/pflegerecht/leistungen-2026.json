@@ -12,6 +12,7 @@
     "deadline_rule": "verfaellt_30_juni_folgejahr",
     "requires_antrag": false,
     "tip": "Nicht genutzte Beträge können bis zum 30.06. des Folgejahres angespart werden. Danach verfallen sie unwiderruflich!",
+    "warning": "⚠️ Nur anerkannte Anbieter: Der Entlastungsbetrag darf ausschließlich bei nach Landesrecht anerkannten Angeboten (§ 45a SGB XI) eingesetzt werden. Rechnungen von nicht zugelassenen Anbietern werden von der Pflegekasse abgelehnt. Im Zweifel Anerkennung vor Inanspruchnahme prüfen (BSG, Urt. v. 09.04.2019 – B 3 P 2/17 R).",
     "gesetzestext": "§ 45b SGB XI – Entlastungsbetrag\n\n(1) Pflegebedürftige in häuslicher Pflege haben Anspruch auf einen Entlastungsbetrag in Höhe von bis zu 131 Euro monatlich. Der Entlastungsbetrag ist zweckgebunden einzusetzen für qualitätsgesicherte Leistungsangebote zur Entlastung pflegender Angehöriger und vergleichbar Nahestehender sowie zur Förderung der Selbständigkeit und Selbstbestimmtheit der Pflegebedürftigen bei der Gestaltung ihres Alltags.\n\n(2) Der Anspruch kann genutzt werden für:\n1. Leistungen von nach Landesrecht anerkannten Angeboten zur Unterstützung im Alltag,\n2. Leistungen der teilstationären Pflege (§ 41),\n3. Kurzzeitpflege (§ 42),\n4. Leistungen der ambulanten Pflegedienste im Sinne des § 36.\n\n(3) Nicht in Anspruch genommene Leistungen des Entlastungsbetrags können auf das Folgejahr übertragen werden, sofern sie bis zum 30. Juni des Folgejahres verbraucht werden. Danach verfallen sie."
   },
   {

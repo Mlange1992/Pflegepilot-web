@@ -4,7 +4,7 @@ import { ratgeberArtikel } from '@/lib/ratgeber-data'
 import { DISCLAIMER } from '@/lib/utils/constants'
 
 export const metadata: Metadata = {
-  title: 'Ratgeber Pflege 2025 – Alle Leistungen erklärt | PflegePilot',
+  title: 'Ratgeber Pflege 2026 – Alle Leistungen erklärt | PflegePilot',
   description:
     'Kostenloser Pflege-Ratgeber: Entlastungsbetrag, Verhinderungspflege, Pflegegrad beantragen, Widerspruch einlegen und mehr. Einfach erklärt von PflegePilot.',
 }
@@ -32,7 +32,7 @@ export default function RatgeberPage() {
             21 Ratgeber-Artikel
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3">
-            Pflege-Ratgeber 2025
+            Pflege-Ratgeber 2026
           </h1>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto mb-6">
             Alle wichtigen Pflegeleistungen verständlich erklärt — von Entlastungsbetrag

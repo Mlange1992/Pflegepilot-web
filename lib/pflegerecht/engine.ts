@@ -22,6 +22,7 @@ export interface LeistungConfig {
   active_from?: string
   active_to?: string
   tip?: string
+  warning?: string
   gesetzestext?: string
 }
 

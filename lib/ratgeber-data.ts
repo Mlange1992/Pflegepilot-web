@@ -20,7 +20,7 @@ export const ratgeberArtikel: RatgeberArtikel[] = [
     icon: '💶',
     tags: ['entlastungsbetrag', 'budget', 'frist', '131 euro', 'pflegeleistungen'],
     meta: {
-      title: 'Entlastungsbetrag 2025: 131 EUR/Monat beantragen | PflegePilot',
+      title: 'Entlastungsbetrag 2026: 131 EUR/Monat beantragen | PflegePilot',
       description: 'Alles zum Entlastungsbetrag 131 EUR/Monat: Wer hat Anspruch? Wie beantragen? Bis wann? Verfall-Frist 30. Juni. Kostenlos prüfen mit PflegePilot.',
       keywords: 'Entlastungsbetrag, 131 Euro, Pflegegrad, Pflegekasse, Antrag, Verfall, SGB XI',
     },
@@ -64,14 +64,14 @@ Beispiel: Der Entlastungsbetrag von 2024 verfällt am 30. Juni 2025.
 
   {
     slug: 'verhinderungspflege',
-    titel: 'Verhinderungspflege: 1.612 EUR wenn die Pflegeperson ausfällt',
-    kurztext: 'Urlaub, Krankheit, Auszeit — die Pflegekasse zahlt bis zu 6 Wochen Ersatzpflege.',
+    titel: 'Verhinderungspflege: bis 3.539 EUR über das gemeinsame Entlastungsbudget',
+    kurztext: 'Urlaub, Krankheit, Auszeit — ab 01.07.2025 Teil des gemeinsamen Entlastungsbudgets (§ 42a SGB XI).',
     icon: '🔄',
     tags: ['verhinderungspflege', 'urlaub', 'pflegeperson', '1612 euro', 'SGB XI'],
     meta: {
-      title: 'Verhinderungspflege 2025: 1.612 EUR beantragen | PflegePilot',
-      description: 'Verhinderungspflege: Anspruch, Höhe, Beantragung. 1.612 EUR/Jahr wenn die Pflegeperson ausfällt. Kostenloser PDF-Antrag mit PflegePilot.',
-      keywords: 'Verhinderungspflege, 1612 Euro, Pflegekasse, Antrag, Urlaub, Ersatzpflege',
+      title: 'Verhinderungspflege 2026: bis 3.539 EUR (§ 42a) beantragen | PflegePilot',
+      description: 'Verhinderungspflege: Anspruch, Höhe, Beantragung. Ab 01.07.2025 Teil des gemeinsamen Entlastungsbudgets (§ 42a SGB XI) — bis 3.539 EUR/Jahr. Kostenloser PDF-Antrag.',
+      keywords: 'Verhinderungspflege, 3539 Euro, Entlastungsbudget, § 42a, Pflegekasse, Antrag, Urlaub, Ersatzpflege',
     },
     inhalt: `## Was ist Verhinderungspflege?
 
@@ -114,14 +114,14 @@ Plane frühzeitig! Besonders bei professionellen Pflegediensten gibt es oft Wart
 
   {
     slug: 'kurzzeitpflege',
-    titel: 'Kurzzeitpflege: 1.774 EUR für vorübergehende stationäre Pflege',
-    kurztext: 'Nach dem Krankenhaus, bei Überlastung der Pflegeperson — die Pflegekasse zahlt bis zu 8 Wochen.',
+    titel: 'Kurzzeitpflege: bis 3.539 EUR über das gemeinsame Entlastungsbudget',
+    kurztext: 'Nach dem Krankenhaus, bei Überlastung — ab 01.07.2025 Teil des gemeinsamen Entlastungsbudgets (§ 42a SGB XI).',
     icon: '🏥',
     tags: ['kurzzeitpflege', 'stationär', 'pflegeheim', '1774 euro', 'SGB XI'],
     meta: {
-      title: 'Kurzzeitpflege 2025: 1.774 EUR beantragen | PflegePilot',
-      description: 'Kurzzeitpflege nach § 42 SGB XI: Anspruch, Höhe, Beantragung. 1.774 EUR/Jahr für bis zu 8 Wochen stationäre Pflege.',
-      keywords: 'Kurzzeitpflege, 1774 Euro, Pflegekasse, Pflegeheim, stationär, Antrag',
+      title: 'Kurzzeitpflege 2026: bis 3.539 EUR (§ 42a) beantragen | PflegePilot',
+      description: 'Kurzzeitpflege nach § 42/42a SGB XI: Anspruch, Höhe, Beantragung. Ab 01.07.2025 gemeinsames Entlastungsbudget bis 3.539 EUR/Jahr.',
+      keywords: 'Kurzzeitpflege, 3539 Euro, Entlastungsbudget, § 42a, Pflegekasse, Pflegeheim, stationär, Antrag',
     },
     inhalt: `## Was ist Kurzzeitpflege?
 
@@ -161,7 +161,7 @@ Die Pflegekasse zahlt nur den **pflegebedingten Aufwand** — nicht Unterkunft u
     icon: '🧤',
     tags: ['pflegehilfsmittel', 'hilfsmittel', '42 euro', 'pflegebox', 'monatlich'],
     meta: {
-      title: 'Pflegehilfsmittel 2025: 42 EUR/Monat kostenlos beantragen | PflegePilot',
+      title: 'Pflegehilfsmittel 2026: 42 EUR/Monat kostenlos beantragen | PflegePilot',
       description: 'Pflegehilfsmittel nach § 40 SGB XI: Handschuhe, Desinfektionsmittel, Bettschutz — 42 EUR/Monat auf Kosten der Pflegekasse. So beantragen.',
       keywords: 'Pflegehilfsmittel, 42 Euro, Pflegebox, Handschuhe, Desinfektionsmittel, Bettschutz, kostenlos',
     },
@@ -207,7 +207,7 @@ Vergleiche Anbieter hinsichtlich Produktqualität und Lieferzeit.`,
     icon: '📄',
     tags: ['pflegegrad', 'antrag', 'erstantrag', 'medizinischer dienst', 'md'],
     meta: {
-      title: 'Pflegegrad beantragen 2025: Schritt-für-Schritt-Anleitung | PflegePilot',
+      title: 'Pflegegrad beantragen 2026: Schritt-für-Schritt-Anleitung | PflegePilot',
       description: 'Pflegegrad beantragen: Wer? Wie? Wann? Komplette Anleitung mit Muster-Antrag als PDF. Kostenloser Selbsttest auf PflegePilot.',
       keywords: 'Pflegegrad beantragen, Antrag Pflegekasse, Medizinischer Dienst, MD, NBA, Erstantrag',
     },
@@ -261,7 +261,7 @@ Warte nicht auf bessere Dokumentation. Je früher du den Antrag stellst, desto f
     icon: '⚠️',
     tags: ['begutachtung', 'md', 'gutachter', 'fehler', 'tipps', 'pflegegrad'],
     meta: {
-      title: 'MD-Begutachtung: 10 Fehler die Punkte kosten 2025 | PflegePilot',
+      title: 'MD-Begutachtung: 10 Fehler die Punkte kosten 2026 | PflegePilot',
       description: 'Die 10 häufigsten Fehler bei der MD-Begutachtung. So maximieren Sie Ihren Pflegegrad. Tipps für den Gutachtertermin.',
       keywords: 'MD Begutachtung, Fehler, Gutachter, Pflegegrad erhöhen, Tipps, Selbstttest',
     },
@@ -319,7 +319,7 @@ Nutze PflegePilots NBA-Selbsttest **vor** dem Termin — und vergleiche danach m
     icon: '⚖️',
     tags: ['widerspruch', 'bescheid', 'pflegegrad', 'widerspruchsfrist', 'klage'],
     meta: {
-      title: 'Widerspruch Pflegegrad 2025: Anleitung & Muster | PflegePilot',
+      title: 'Widerspruch Pflegegrad 2026: Anleitung & Muster | PflegePilot',
       description: 'Pflegegrad zu niedrig? So legst du Widerspruch ein. Frist, Begründung, kostenloser Muster-Widerspruch als PDF.',
       keywords: 'Widerspruch Pflegegrad, zu niedrig, Frist, Muster, Begründung, Sozialgericht',
     },
@@ -373,7 +373,7 @@ Der Widerspruch muss **schriftlich** und **begründet** an die Pflegekasse. Grun
     icon: '💰',
     tags: ['pflegegeld', 'sachleistungen', 'kombination', 'pflegedienst', 'SGB XI'],
     meta: {
-      title: 'Pflegegeld + Sachleistungen kombinieren 2025 | PflegePilot',
+      title: 'Pflegegeld + Sachleistungen kombinieren 2026 | PflegePilot',
       description: 'Kombinationsleistung § 38 SGB XI: Pflegegeld und ambulante Pflege kombinieren. Berechnung, Vorteile, Beantragung.',
       keywords: 'Pflegegeld, Sachleistungen, Kombinationsleistung, Pflegedienst, § 38 SGB XI',
     },
@@ -385,7 +385,7 @@ Pflegegeld ist eine monatliche Zahlung an die pflegebedürftige Person:
 |-----------|-----------------|
 | PG 2 | 347 EUR |
 | PG 3 | 599 EUR |
-| PG 4 | 799 EUR |
+| PG 4 | 800 EUR |
 | PG 5 | 990 EUR |
 
 Das Geld kann frei eingesetzt werden — z.B. als Anerkennung für pflegende Angehörige.
@@ -396,9 +396,9 @@ Sachleistungen sind ambulante Pflegeleistungen durch einen zugelassenen Pflegedi
 
 | Pflegegrad | Sachleistung/Monat |
 |-----------|------------------|
-| PG 2 | 795 EUR |
-| PG 3 | 1.496 EUR |
-| PG 4 | 1.858 EUR |
+| PG 2 | 796 EUR |
+| PG 3 | 1.497 EUR |
+| PG 4 | 1.859 EUR |
 | PG 5 | 2.299 EUR |
 
 ## Kombinationsleistung (§ 38 SGB XI)
@@ -406,7 +406,7 @@ Sachleistungen sind ambulante Pflegeleistungen durch einen zugelassenen Pflegedi
 Das Beste aus beiden Welten! Wenn du **nicht den vollen Sachleistungsbetrag** nutzt, erhältst du **anteilig Pflegegeld**.
 
 **Beispiel PG 3:**
-- Sachleistungsanspruch: 1.496 EUR
+- Sachleistungsanspruch: 1.497 EUR
 - Genutzt durch Pflegedienst: 748 EUR (50%)
 - → Pflegegeld: 50% von 599 EUR = 300 EUR/Monat
 
@@ -429,7 +429,7 @@ Einfach beim Pflegedienst und der Pflegekasse mitteilen, dass du die Kombination
     icon: '🆘',
     tags: ['hausnotruf', 'notfall', 'pflegekasse', 'hilfsmittel', 'sicherheit'],
     meta: {
-      title: 'Hausnotruf 2025 kostenlos über Pflegekasse beantragen | PflegePilot',
+      title: 'Hausnotruf 2026 kostenlos über Pflegekasse beantragen | PflegePilot',
       description: 'Hausnotruf auf Kosten der Pflegekasse: Anspruch, Beantragung, Anbieter-Vergleich. Pflegegrad 1-5 berechtigt.',
       keywords: 'Hausnotruf, Pflegekasse, kostenlos, beantragen, Anbieter, Notfall',
     },
@@ -474,33 +474,33 @@ Auch wer noch keinen Pflegegrad hat, kann auf eigene Kosten einen Hausnotruf nut
 
   {
     slug: 'wohnraumanpassung',
-    titel: 'Wohnraumanpassung: Bis zu 4.000 EUR Zuschuss von der Pflegekasse',
+    titel: 'Wohnraumanpassung: Bis zu 4.180 EUR Zuschuss von der Pflegekasse',
     kurztext: 'Treppenlift, bodengleiche Dusche, Handläufe — so beantragst du den Zuschuss.',
     icon: '🏠',
     tags: ['wohnraumanpassung', 'treppenlift', 'barrierefrei', 'zuschuss', '4000 euro'],
     meta: {
-      title: 'Wohnraumanpassung 2025: 4.000 EUR Zuschuss beantragen | PflegePilot',
-      description: 'Zuschuss für Treppenlift, barrierefreie Dusche, Handläufe: bis zu 4.000 EUR von der Pflegekasse nach § 40 SGB XI.',
-      keywords: 'Wohnraumanpassung, Treppenlift, barrierefrei, Zuschuss, Pflegekasse, 4000 Euro',
+      title: 'Wohnraumanpassung 2026: 4.180 EUR Zuschuss beantragen | PflegePilot',
+      description: 'Zuschuss für Treppenlift, barrierefreie Dusche, Handläufe: bis zu 4.180 EUR von der Pflegekasse nach § 40 SGB XI.',
+      keywords: 'Wohnraumanpassung, Treppenlift, barrierefrei, Zuschuss, Pflegekasse, 4180 Euro',
     },
     inhalt: `## Was fördert die Pflegekasse?
 
-Maßnahmen zur Wohnraumanpassung (§ 40 Abs. 4 SGB XI) machen die häusliche Pflege möglich oder erleichtern sie erheblich. Die Pflegekasse zahlt bis zu **4.000 EUR pro Maßnahme**.
+Maßnahmen zur Wohnraumanpassung (§ 40 Abs. 4 SGB XI) machen die häusliche Pflege möglich oder erleichtern sie erheblich. Die Pflegekasse zahlt bis zu **4.180 EUR pro Maßnahme**.
 
 ## Was wird gefördert?
 
 | Maßnahme | Typische Kosten | Förderung |
 |----------|----------------|-----------|
-| Bodengleiche Dusche | 2.000–6.000 EUR | bis 4.000 EUR |
-| Treppenlift | 3.000–8.000 EUR | bis 4.000 EUR |
-| Türverbreiterung | 1.000–3.000 EUR | bis 4.000 EUR |
-| Haltegriffe | 200–800 EUR | bis 4.000 EUR |
-| Pflegebett | 500–2.000 EUR | bis 4.000 EUR |
-| Rampen | 500–2.000 EUR | bis 4.000 EUR |
+| Bodengleiche Dusche | 2.000–6.000 EUR | bis 4.180 EUR |
+| Treppenlift | 3.000–8.000 EUR | bis 4.180 EUR |
+| Türverbreiterung | 1.000–3.000 EUR | bis 4.180 EUR |
+| Haltegriffe | 200–800 EUR | bis 4.180 EUR |
+| Pflegebett | 500–2.000 EUR | bis 4.180 EUR |
+| Rampen | 500–2.000 EUR | bis 4.180 EUR |
 
 ## Mehrfachförderung möglich!
 
-Bei **mehreren pflegebedürftigen Personen** im selben Haushalt kann jede Person bis zu 4.000 EUR erhalten. Maximum: **16.000 EUR pro Haushalt**.
+Bei **mehreren pflegebedürftigen Personen** im selben Haushalt kann jede Person bis zu 4.180 EUR erhalten. Maximum: **16.720 EUR pro Haushalt**.
 
 ## WICHTIG: Antrag VOR dem Umbau!
 
@@ -522,12 +522,12 @@ Die Pflegekasse zahlt nur, wenn du **vor** dem Umbau einen Antrag gestellt hast.
 
   {
     slug: 'dipa-digitale-pflegeanwendungen',
-    titel: 'DiPA 2025: Digitale Pflegeanwendungen auf Kosten der Pflegekasse',
+    titel: 'DiPA 2026: Digitale Pflegeanwendungen auf Kosten der Pflegekasse',
     kurztext: 'Neue Leistung kaum bekannt — Apps für Pflege und Demenz auf Kassenkosten.',
     icon: '📱',
     tags: ['dipa', 'digitale pflegeanwendungen', 'app', 'bfarm', 'modern', '2025'],
     meta: {
-      title: 'DiPA 2025: Digitale Pflegeanwendungen Pflegekasse | PflegePilot',
+      title: 'DiPA 2026: Digitale Pflegeanwendungen Pflegekasse | PflegePilot',
       description: 'Digitale Pflegeanwendungen (DiPA) auf Kosten der Pflegekasse: Wer hat Anspruch? Welche Apps sind zugelassen? Wie beantragen?',
       keywords: 'DiPA, Digitale Pflegeanwendungen, Pflegekasse, App, BfArM, Demenz, Pflege',
     },
@@ -573,7 +573,7 @@ Die Liste zugelassener DiPAs wächst stetig. Schau regelmäßig auf bfarm.de/DiP
     icon: '📅',
     tags: ['beratungsbesuch', 'pflegegeld', 'pflicht', 'frist', 'qualitätssicherung'],
     meta: {
-      title: 'Beratungsbesuche Pflegegeld 2025: Pflicht & Fristen | PflegePilot',
+      title: 'Beratungsbesuche Pflegegeld 2026: Pflicht & Fristen | PflegePilot',
       description: 'Beratungsbesuche bei Pflegegeld: Wie oft? Was passiert bei Versäumnis? Wer führt durch? Alle Infos für Pflegegrad 2–5.',
       keywords: 'Beratungsbesuch, Pflegegeld, Pflicht, Frist, § 37 SGB XI, Qualitätssicherung',
     },
@@ -622,7 +622,7 @@ Trag die nächste Frist in PflegePilot ein — du bekommst eine Push-Benachricht
     icon: '📊',
     tags: ['steuer', 'steuererklärung', 'außergewöhnliche belastungen', 'pflegekosten', 'steuerbonus'],
     meta: {
-      title: 'Pflegekosten Steuer 2025: Was kann ich absetzen? | PflegePilot',
+      title: 'Pflegekosten Steuer 2026: Was kann ich absetzen? | PflegePilot',
       description: 'Pflegekosten von der Steuer absetzen: Außergewöhnliche Belastungen, Haushaltsbonus, Pflegepauschbetrag. Komplette Übersicht für 2025.',
       keywords: 'Pflege Steuer, absetzen, außergewöhnliche Belastungen, Pflegepauschbetrag, Steuerbonus',
     },
@@ -671,7 +671,7 @@ Sammle alle Rechnungen im Jahr und beauftrage einen Steuerberater mit Erfahrung 
     icon: '🎓',
     tags: ['pflegekurs', 'angehörige', 'kostenlos', 'online', 'schulung', 'weiterbildung'],
     meta: {
-      title: 'Pflegekurse 2025: Kostenlos für Angehörige | PflegePilot',
+      title: 'Pflegekurse 2026: Kostenlos für Angehörige | PflegePilot',
       description: 'Pflegekurse nach § 45 SGB XI: Komplett kostenlos für pflegende Angehörige. Online, vor Ort, Zertifikat. Alle Infos.',
       keywords: 'Pflegekurs, Angehörige, kostenlos, § 45 SGB XI, online, Pflegekasse',
     },
@@ -721,7 +721,7 @@ Viele Kurse bieten ein **anerkanntes Zertifikat** — nützlich bei der Beantrag
     icon: '💼',
     tags: ['jahresbudget', 'verhinderungspflege', 'kurzzeitpflege', 'kombination', 'budget', '§42a'],
     meta: {
-      title: 'Gemeinsames Entlastungsbudget 2025: 3.539 EUR | PflegePilot',
+      title: 'Gemeinsames Entlastungsbudget 2026: 3.539 EUR | PflegePilot',
       description: 'Ab 01.07.2025: Gemeinsames Budget für VHP + KZP nach § 42a SGB XI. 3.539 EUR frei aufteilbar. Vollständige Erklärung.',
       keywords: 'Verhinderungspflege, Kurzzeitpflege, Entlastungsbudget, §42a SGB XI, 3539 Euro',
     },
@@ -768,7 +768,7 @@ Das Budget verfällt am **31. Dezember** des Jahres. Eine Übertragung ist nicht
     icon: '☀️',
     tags: ['tagespflege', 'teilstationär', 'betreuung', '§41', 'entlastung'],
     meta: {
-      title: 'Tagespflege 2025: Kosten & Beantragung | PflegePilot',
+      title: 'Tagespflege 2026: Kosten & Beantragung | PflegePilot',
       description: 'Tagespflege nach § 41 SGB XI: Anspruch, Höhe, Beantragung. Bis zu 2.299 EUR/Monat für Pflegegrad 5. So funktioniert es.',
       keywords: 'Tagespflege, § 41 SGB XI, teilstationär, Pflegekasse, Betreuung, Pflegegrad',
     },
@@ -824,7 +824,7 @@ Die Pflegekasse übernimmt den **pflegebedingten Anteil**. Kosten für Unterkunf
     icon: '🛡️',
     tags: ['pflegezusatzversicherung', 'eigenanteil', 'pflegeheim', 'absicherung', 'vorsorge'],
     meta: {
-      title: 'Pflegezusatzversicherung 2025: Sinnvoll? Vergleich | PflegePilot',
+      title: 'Pflegezusatzversicherung 2026: Sinnvoll? Vergleich | PflegePilot',
       description: 'Pflegezusatzversicherung: Wann sinnvoll? Welche Typen gibt es? Was kostet sie? Alles zur privaten Pflegeabsicherung 2025.',
       keywords: 'Pflegezusatzversicherung, Pflegetagegeld, Pflegekostenversicherung, Eigenanteil, Pflegeheim',
     },
@@ -881,7 +881,7 @@ Unabhängige Beratung bei einem **Verbraucherzentrale-Versicherungsberater** hol
     icon: '🏦',
     tags: ['rentenversicherung', 'pflegende angehörige', 'rentenpunkte', 'kostenlos', 'altersvorsorge'],
     meta: {
-      title: 'Rentenversicherung pflegende Angehörige 2025 | PflegePilot',
+      title: 'Rentenversicherung pflegende Angehörige 2026 | PflegePilot',
       description: 'Pflegende Angehörige erhalten Rentenversicherungsbeiträge von der Pflegekasse. Wie viel? Ab wann? Was sind die Voraussetzungen?',
       keywords: 'Rentenversicherung, pflegende Angehörige, Rentenpunkte, Pflegekasse, kostenlos',
     },
@@ -933,7 +933,7 @@ Auch wenn Kinder ihre Eltern pflegen (z.B. Wochenend-Pflege), kann dieser Anspru
     icon: '⬆️',
     tags: ['höherstufung', 'pflegegrad', 'verschlechterung', 'antrag', 'rückwirkend'],
     meta: {
-      title: 'Pflegegrad Höherstufung 2025: So beantragen | PflegePilot',
+      title: 'Pflegegrad Höherstufung 2026: So beantragen | PflegePilot',
       description: 'Pflegegrad erhöhen lassen: Wann ist eine Höherstufung möglich? Wie beantragen? Was gilt rückwirkend? Alle Infos.',
       keywords: 'Höherstufung, Pflegegrad erhöhen, Verschlechterung, Antrag, rückwirkend, Pflegekasse',
     },
@@ -986,7 +986,7 @@ Du kannst gleichzeitig mit dem Höherstufungsantrag auch Widerspruch gegen den a
     icon: '🏥',
     tags: ['pflegeheim', 'eigenanteil', 'vollstationär', '§43', 'kosten', 'heimkosten'],
     meta: {
-      title: 'Pflegeheim Kosten 2025: Eigenanteil & Pflegekasse | PflegePilot',
+      title: 'Pflegeheim Kosten 2026: Eigenanteil & Pflegekasse | PflegePilot',
       description: 'Pflegeheim-Kosten 2025: Was zahlt die Pflegekasse? Wie hoch ist der Eigenanteil? Gibt es Sozialhilfe? Alle Infos zu § 43 SGB XI.',
       keywords: 'Pflegeheim Kosten, Eigenanteil, § 43 SGB XI, vollstationär, Sozialhilfe, Pflegekasse',
     },
@@ -1044,7 +1044,7 @@ Wenn das Geld nicht reicht, beim zuständigen **Sozialamt** Hilfe zur Pflege bea
     icon: '🧠',
     tags: ['demenz', 'pflegegrad', 'kognition', 'nba', 'alzheimer', 'höherstufung'],
     meta: {
-      title: 'Demenz Pflegegrad 2025: Richtig einstufen lassen | PflegePilot',
+      title: 'Demenz Pflegegrad 2026: Richtig einstufen lassen | PflegePilot',
       description: 'Demenz und Pflegegrad: Warum Demenzkranke oft zu niedrig eingestuft werden. NBA-System, kognitive Einschränkungen, Dokumentation.',
       keywords: 'Demenz, Pflegegrad, Alzheimer, NBA, kognitive Einschränkungen, Höherstufung',
     },

@@ -89,7 +89,7 @@ export default function LeistungenPage() {
               {/* Betrags-Tabelle PG 2–5 */}
               <div className="mt-auto">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
-                  Jahresbetrag nach Pflegegrad
+                  {l.frequency === 'once' ? 'Betrag je Maßnahme' : 'Jahresbetrag nach Pflegegrad'}
                 </p>
                 <div className="grid grid-cols-4 gap-1">
                   {PFLEGEGRADE.map((pg) => {

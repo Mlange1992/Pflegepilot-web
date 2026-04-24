@@ -134,6 +134,21 @@ export default async function LeistungDetailPage({ params }: Props) {
           </div>
         )}
 
+        {/* ─── Warn-Box ──────────────────────────────────────── */}
+        {l.warning && (
+          <div className="bg-red-50 border border-red-200 rounded-2xl p-5 mb-6">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl shrink-0">⚠️</span>
+              <div>
+                <p className="font-semibold text-red-700 mb-1">Wichtiger Hinweis</p>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  {l.warning.replace(/^⚠️\s*/, '')}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* ─── Fristen-Box ───────────────────────────────────── */}
         {l.deadline_rule && (
           <div className="bg-orange-50 border border-orange-200 rounded-2xl p-5 mb-6">
