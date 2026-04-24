@@ -6,11 +6,11 @@ export default function ImpressumPage() {
       <h1 className="text-3xl font-extrabold text-gray-900">Impressum</h1>
 
       <section className="space-y-2">
-        <h2 className="text-lg font-bold text-gray-800">Angaben gemäß § 5 TMG</h2>
+        <h2 className="text-lg font-bold text-gray-800">Angaben gemäß § 5 DDG</h2>
         <p className="text-gray-600 text-sm leading-relaxed">
-          [Dein Vor- und Nachname]<br />
-          [Straße Hausnummer]<br />
-          [PLZ Ort]<br />
+          Markus Lange<br />
+          Seestraße 17<br />
+          73116 Wäschenbeuren<br />
           Deutschland
         </p>
       </section>
@@ -18,7 +18,16 @@ export default function ImpressumPage() {
       <section className="space-y-2">
         <h2 className="text-lg font-bold text-gray-800">Kontakt</h2>
         <p className="text-gray-600 text-sm leading-relaxed">
-          E-Mail: <a href="mailto:hallo@pflegepilot.de" className="text-primary-600 underline">hallo@pflegepilot.de</a>
+          E-Mail: <a href="mailto:info@pflege-pilot.com" className="text-primary-600 underline">info@pflege-pilot.com</a>
+        </p>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="text-lg font-bold text-gray-800">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+        <p className="text-gray-600 text-sm leading-relaxed">
+          Markus Lange<br />
+          Seestraße 17<br />
+          73116 Wäschenbeuren
         </p>
       </section>
 
@@ -44,10 +53,6 @@ export default function ImpressumPage() {
           Verbraucherschlichtungsstelle teilzunehmen.
         </p>
       </section>
-
-      <p className="text-xs text-gray-400 pt-4 border-t">
-        Bitte ersetze die Platzhalter [in eckigen Klammern] mit deinen echten Angaben vor dem Launch.
-      </p>
     </div>
   )
 }
