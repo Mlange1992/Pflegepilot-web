@@ -144,21 +144,21 @@ struct OnboardingScreen1: View {
                     Text("💶")
                         .font(.system(size: 90))
 
-                    Text("Kein Budget mehr\nverfallen lassen")
+                    Text("Pflegeleistungen\nvollständig nutzen")
                         .font(.system(size: 32, weight: .black))
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
 
                     VStack(spacing: 4) {
-                        Text("3.539 EUR Jahresbudget")
+                        Text("Bis zu 3.539 € Jahresbudget")
                             .font(.system(size: 22, weight: .bold))
                             .foregroundColor(Color(hex: "FDE68A"))
-                        Text("Nutzt du deins?")
+                        Text("Behalten Sie den Überblick")
                             .font(.subheadline)
                             .foregroundColor(.white.opacity(0.85))
                     }
 
-                    Text("80% der Pflegefamilien verschenken Geld, weil sie nicht wissen, was ihnen zusteht.")
+                    Text("Viele Pflegefamilien nutzen ihre Ansprüche nicht vollständig — oft aus Unkenntnis der Fristen und Leistungen.")
                         .font(.body)
                         .foregroundColor(.white.opacity(0.85))
                         .multilineTextAlignment(.center)
@@ -169,11 +169,11 @@ struct OnboardingScreen1: View {
 
                 VStack(spacing: 12) {
                     HStack(spacing: 0) {
-                        statBubble(value: "80%", label: "nutzen Entlastungs-\nbetrag nicht")
+                        statBubble(value: "3.539 €", label: "Jahresbudget\n§ 42a SGB XI")
                         Divider().frame(height: 44).background(Color.white.opacity(0.3))
-                        statBubble(value: "70%", label: "nutzen Verhinderungs-\npflege nicht")
+                        statBubble(value: "131 €", label: "Entlastungs-\nbetrag/Monat")
                         Divider().frame(height: 44).background(Color.white.opacity(0.3))
-                        statBubble(value: "3.500 €", label: "verschenken\nFamilien Ø/Jahr")
+                        statBubble(value: "100%", label: "kostenlos\nkein Abo")
                     }
                     .background(Color.white.opacity(0.15))
                     .cornerRadius(14)
@@ -190,7 +190,7 @@ struct OnboardingScreen1: View {
                     }
                     .padding(.horizontal)
 
-                    Text("Kostenlos · Kein Abo · Kein Risiko")
+                    Text("Kostenlos · Kein Abo · Beträge laut SGB XI 2026")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.7))
                         .padding(.bottom, 32)
@@ -257,9 +257,9 @@ struct OnboardingScreen2: View {
 
                 VStack(alignment: .leading, spacing: 10) {
                     checkRow("PDF-Anträge: Erstantrag, Widerspruch & mehr")
-                    checkRow("MD-Termin-Checkliste personalisiert")
+                    checkRow("Checkliste zur MD-Begutachtung")
                     checkRow("Mehrere Personen verwalten")
-                    checkRow("15 Ratgeber-Artikel zu Pflegeleistungen")
+                    checkRow("Ratgeber zu Pflegeleistungen und SGB XI")
                 }
                 .padding()
                 .background(Color(.systemBackground))
