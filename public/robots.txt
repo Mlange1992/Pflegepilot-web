@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /auth/
+Allow: /
+
+Sitemap: https://www.pflege-pilot.com/sitemap.xml
