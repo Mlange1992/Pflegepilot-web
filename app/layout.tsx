@@ -45,8 +45,27 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'PflegePilot',
+    applicationCategory: 'HealthApplication',
+    operatingSystem: 'Web, iOS',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    author: { '@type': 'Person', name: 'Markus Lange' },
+    description:
+      'PflegePilot hilft Pflegefamilien, ihre gesetzlichen Pflegeleistungen vollständig zu nutzen und Fristen im Blick zu behalten.',
+    url: 'https://www.pflege-pilot.com',
+  }
+
   return (
     <html lang="de" className={inter.variable}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body>
         <PostHogProvider>
           <Suspense fallback={null}>
