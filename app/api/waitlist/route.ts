@@ -16,7 +16,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Ungültige E-Mail-Adresse' }, { status: 400 })
   }
 
-  const supabase = createServiceClient()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabase = createServiceClient() as any
   const { error } = await supabase
     .from('waitlist_signups')
     .insert({ email: email.toLowerCase().trim(), source: 'homepage' })
