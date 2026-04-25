@@ -36,9 +36,9 @@ struct LegalTexts {
     // MARK: - Affiliate-Kennzeichnung (Pflicht nach UWG)
     static let affiliateHinweis = "Anzeige"
 
-    // MARK: - Impressum (§ 5 TMG)
+    // MARK: - Impressum (§ 5 DDG)
     static let impressum = """
-    Angaben gemäß § 5 TMG:
+    Angaben gemäß § 5 DDG:
 
     Markus Lange
     Seestraße 17
@@ -48,7 +48,7 @@ struct LegalTexts {
     Kontakt:
     E-Mail: info@pflege-pilot.com
 
-    Verantwortlich für den Inhalt nach § 55 Abs. 2 MStV:
+    Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:
     Markus Lange (Anschrift wie oben)
 
     Hinweis zur Berufsbezeichnung:

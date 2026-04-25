@@ -5,7 +5,7 @@ import { DISCLAIMER } from '@/lib/utils/constants'
 export const metadata: Metadata = {
   title: 'Kostenlos – PflegePilot',
   description:
-    'PflegePilot ist 100% kostenlos. Kein Abo, kein In-App-Kauf, keine Werbung. Alle Features für alle Nutzer kostenlos verfügbar.',
+    'PflegePilot ist aktuell kostenlos — kein Abo, kein In-App-Kauf. Alle Features stehen jedem Nutzer offen.',
 }
 
 const FEATURES = [
@@ -23,7 +23,7 @@ const FAQ = [
   {
     frage: 'Wie verdient PflegePilot Geld?',
     antwort:
-      'PflegePilot zeigt relevante Produkt-Empfehlungen (z.B. Pflegebox, Hausnotruf), die als "Anzeige" gekennzeichnet sind. Für Vermittlungen erhält der Betreiber eine Provision — für Sie entstehen keine Mehrkosten.',
+      'PflegePilot plant, relevante Produkt-Empfehlungen (z.B. Pflegebox, Hausnotruf) zu zeigen, die klar als „Anzeige" gekennzeichnet sind. Aktuell sind keine Affiliate-Partner aktiv. Bei künftigen Vermittlungen erhält der Betreiber eine Provision — für Sie ohne Mehrkosten.',
   },
   {
     frage: 'Werden meine Daten gespeichert?',
@@ -38,7 +38,7 @@ const FAQ = [
   {
     frage: 'Bleibt PflegePilot kostenlos?',
     antwort:
-      'Ja. Der Dienst finanziert sich über klar gekennzeichnete Affiliate-Empfehlungen. Es gibt kein Abo, keinen In-App-Kauf und keine Premium-Version.',
+      'Wir planen, den Dienst dauerhaft kostenlos anzubieten — finanziert über klar als „Anzeige" gekennzeichnete Affiliate-Empfehlungen. Aktuell sind keine Affiliate-Partner aktiv. Es gibt kein Abo und keinen In-App-Kauf.',
   },
   {
     frage: 'Wie werden meine Gesundheitsdaten geschützt?',
@@ -55,13 +55,13 @@ export default function PreisePage() {
         {/* Header */}
         <div className="text-center mb-12">
           <span className="inline-block bg-green-100 text-green-700 font-bold text-sm px-4 py-2 rounded-full mb-4">
-            100% KOSTENLOS
+            AKTUELL KOSTENLOS
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3">
-            Kein Abo. Kein In-App-Kauf. Keine Werbung.
+            Kein Abo. Kein In-App-Kauf. Keine Tracking-Werbung.
           </h1>
           <p className="text-gray-500 text-lg max-w-xl mx-auto">
-            Alle Features sind für jeden Nutzer sofort und dauerhaft kostenlos verfügbar.
+            Alle Features stehen jedem Nutzer sofort zur Verfügung.
           </p>
         </div>
 
@@ -75,7 +75,7 @@ export default function PreisePage() {
               <span className="text-6xl font-extrabold text-green-600">0 €</span>
               <span className="text-gray-400 text-lg mb-2">/Monat</span>
             </div>
-            <p className="text-gray-500 mt-2">Dauerhaft kostenlos. Kein Haken.</p>
+            <p className="text-gray-500 mt-2">Aktuell kostenlos. Kein Abo, kein In-App-Kauf.</p>
           </div>
           <ul className="space-y-3 mb-8">
             {FEATURES.map((f) => (
@@ -92,7 +92,7 @@ export default function PreisePage() {
             Jetzt kostenlos starten →
           </Link>
           <p className="text-center text-xs text-gray-400 mt-3">
-            Keine Registrierung nötig. Kein Abo. Keine Werbung.
+            Keine Registrierung nötig. Kein Abo. Keine Tracking-Werbung.
           </p>
         </div>
 
@@ -103,10 +103,10 @@ export default function PreisePage() {
             <div>
               <p className="font-semibold text-gray-900 mb-1">Wie finanziert sich PflegePilot?</p>
               <p className="text-sm text-gray-600">
-                Wir zeigen relevante Produkt-Empfehlungen (z.B. kostenlose Pflegebox, Hausnotruf), die
-                klar als <strong>„Anzeige"</strong> gekennzeichnet sind. Klicken Sie auf eine Empfehlung
-                und bestellen etwas, erhalten wir eine kleine Provision — für Sie ohne Mehrkosten.
-                So bleibt die App komplett kostenlos.
+                Wir planen, relevante Produkt-Empfehlungen (z.B. Pflegebox, Hausnotruf) zu zeigen,
+                die klar als <strong>„Anzeige"</strong> gekennzeichnet sein werden. Aktuell sind keine
+                Partner aktiv. Bei künftigen Vermittlungen erhalten wir eine kleine Provision —
+                für Sie ohne Mehrkosten.
               </p>
             </div>
           </div>

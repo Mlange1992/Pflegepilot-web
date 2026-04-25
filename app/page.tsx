@@ -51,7 +51,7 @@ export default function HomePage() {
             <p className="mt-1 text-gray-600">nutzen den Entlastungsbetrag nicht</p>
           </div>
           <div>
-            <p className="text-4xl font-extrabold text-warning-500">70%</p>
+            <p className="text-4xl font-extrabold text-warning-500">Viele</p>
             <p className="mt-1 text-gray-600">rufen die Verhinderungspflege nicht ab</p>
           </div>
         </div>

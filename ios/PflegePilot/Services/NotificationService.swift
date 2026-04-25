@@ -23,6 +23,13 @@ class NotificationService: ObservableObject {
         isAuthorized = settings.authorizationStatus == .authorized
     }
 
+    /// Slugs, die Jahres-Verfallfristen haben und Frist-Notifications bekommen sollen.
+    /// Explizite Whitelist schützt vor unbeabsichtigten Notifications bei künftigen Slugs.
+    private static let fristNotificationSlugs: Set<String> = [
+        "entlastungsbetrag",
+        "entlastungsbudget",
+    ]
+
     /// Fristen-Erinnerungen (90/30/7 Tage vor Ablauf) + monatliche Hilfsmittel-Erinnerung
     func scheduleReminders(for budgets: [BudgetItem]) async {
         let center = UNUserNotificationCenter.current()
@@ -31,7 +38,8 @@ class NotificationService: ObservableObject {
         )
 
         for budget in budgets {
-            guard let expiresAt = budget.expiresAt,
+            guard Self.fristNotificationSlugs.contains(budget.benefitType.slug),
+                  let expiresAt = budget.expiresAt,
                   budget.remainingCents > 0 else { continue }
 
             for days in [90, 30, 7] {

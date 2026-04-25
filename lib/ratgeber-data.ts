@@ -16,7 +16,7 @@ export const ratgeberArtikel: RatgeberArtikel[] = [
   {
     slug: 'entlastungsbetrag',
     titel: 'Entlastungsbetrag: 131 EUR/Monat die viele verschenken',
-    kurztext: 'Jeder mit Pflegegrad hat Anspruch — aber über 80% nutzen ihn nicht.',
+    kurztext: 'Jeder mit Pflegegrad hat Anspruch — aber viele nutzen ihn nicht vollständig.',
     icon: '💶',
     tags: ['entlastungsbetrag', 'budget', 'frist', '131 euro', 'pflegeleistungen'],
     meta: {
@@ -46,6 +46,8 @@ Der Entlastungsbetrag muss nicht formell beantragt werden. Er steht dir automati
 3. Oder: Der Anbieter rechnet direkt mit der Pflegekasse ab
 
 Dein Pflegestützpunkt kennt anerkannte Anbieter in deiner Nähe.
+
+> **Wichtig (BSG B 3 P 2/17 R):** Die Pflegekasse erstattet den Entlastungsbetrag nur für Leistungen von **landesrechtlich anerkannten Anbietern**. Nicht-anerkannte Anbieter (z.B. informelle Nachbarschaftshilfe ohne Zulassung) werden nicht erstattet. Lass dir vorab die Anerkennungsnummer des Anbieters bestätigen.
 
 ## Achtung: Verfall-Frist 30. Juni!
 
@@ -981,7 +983,7 @@ Du kannst gleichzeitig mit dem Höherstufungsantrag auch Widerspruch gegen den a
 
   {
     slug: 'pflegeheim-kosten',
-    titel: 'Pflegeheim-Kosten 2025: Was zahlt die Pflegekasse, was zahle ich selbst?',
+    titel: 'Pflegeheim-Kosten 2026: Was zahlt die Pflegekasse, was zahle ich selbst?',
     kurztext: 'Die Pflegekasse übernimmt einen Festbetrag — den Rest zahlt die Familie. So hoch ist der Eigenanteil.',
     icon: '🏥',
     tags: ['pflegeheim', 'eigenanteil', 'vollstationär', '§43', 'kosten', 'heimkosten'],

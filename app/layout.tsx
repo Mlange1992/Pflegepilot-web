@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: '%s | PflegePilot',
   },
   description:
-    'PflegePilot hilft Familien, alle Pflegeleistungen vollständig abzurufen. 12 Mrd.€ verfallen jährlich — nicht Ihr Geld.',
+    'PflegePilot hilft Familien, alle Pflegeleistungen vollständig abzurufen. Schätzungen zufolge verfallen jährlich Milliarden Euro — nicht Ihr Geld.',
   keywords: [
     'Pflegegrad',
     'Pflegeleistungen',

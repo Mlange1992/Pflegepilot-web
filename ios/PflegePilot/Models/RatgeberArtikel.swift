@@ -89,7 +89,7 @@ struct RatgeberConfig {
             """,
             icon: "person.2.fill",
             affiliatePartner: nil,
-            tags: ["verhinderungspflege", "urlaub", "budget", "1612eur"]
+            tags: ["verhinderungspflege", "urlaub", "budget", "3539eur"]
         ),
 
         // MARK: 3 - Kurzzeitpflege
@@ -128,7 +128,7 @@ struct RatgeberConfig {
             """,
             icon: "building.2.fill",
             affiliatePartner: nil,
-            tags: ["kurzzeitpflege", "stationär", "budget", "1774eur"]
+            tags: ["kurzzeitpflege", "stationär", "budget", "3539eur"]
         ),
 
         // MARK: 4 - Gemeinsames Entlastungsbudget §42a
