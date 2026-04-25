@@ -127,32 +127,19 @@ class SupabaseService: ObservableObject {
         return items
     }
 
-    // Budgets für eine Person anlegen – bei Pflegegrad-Änderung neu berechnen
+    // Budgets für eine Person anlegen – nur wenn noch keine existieren.
     // Beträge kommen aus BenefitEngine (lokal, korrekt pflegegradabhängig),
     // benefit_type_id wird per Slug-Lookup aus der DB geholt.
+    // Nicht-destruktiv: existierende Budgets werden NIE gelöscht (Schutz vor
+    // Slug-Mismatches zwischen iOS-BenefitEngine und DB benefit_types).
     func createBudgetsIfNeeded(userId: String, personId: UUID, pflegegrad: Int, year: Int) async throws {
         guard let pgEnum = Pflegegrad(rawValue: pflegegrad) else { return }
 
         let existing: [BudgetItem] = try await loadBudgets(userId: userId, personId: personId, year: year)
+        if !existing.isEmpty { return }
 
         // Lokale Leistungen als Quelle der Wahrheit für Beträge
         let activeLeistungen = BenefitEngine.shared.leistungen.filter { $0.isCurrentlyActive }
-
-        if !existing.isEmpty {
-            // Slug-genaue Prüfung: Anzahl und jeder einzelne Betrag müssen stimmen
-            let slugToExpected: [String: Int] = Dictionary(
-                uniqueKeysWithValues: activeLeistungen
-                    .filter { $0.jahrBetragCents(pflegegrad: pgEnum) > 0 }
-                    .map { ($0.slug, $0.jahrBetragCents(pflegegrad: pgEnum)) }
-            )
-            let allMatch = existing.count == slugToExpected.count &&
-                existing.allSatisfy { slugToExpected[$0.benefitType.slug] == $0.totalCents }
-            if allMatch { return }
-
-            for budget in existing {
-                try await client.from("budgets").delete().eq("id", value: budget.id.uuidString).execute()
-            }
-        }
 
         // benefit_type_id per Slug aus DB holen
         let benefitTypes: [BenefitTypeRecord] = try await client
@@ -295,11 +282,39 @@ class SupabaseService: ObservableObject {
             .execute()
     }
 
-    // Alle Nutzerdaten löschen (DSGVO Art. 17) – Budgets/Transaktionen kaskadieren via FK
+    // Alle Nutzerdaten löschen (DSGVO Art. 17) – ruft den Web-Endpoint auf,
+    // der serverseitig per Service-Role den Auth-User löscht. profiles
+    // kaskadiert via FK ON DELETE CASCADE durch alle abhängigen Tabellen.
     func deleteAllUserData(userId: String) async throws {
-        try await client.from("pflegebeduerftiger").delete().eq("user_id", value: userId).execute()
-        try await client.from("antraege").delete().eq("user_id", value: userId).execute()
-        try await client.from("profiles").delete().eq("id", value: userId).execute()
+        guard let url = URL(string: "https://www.pflege-pilot.com/api/account/delete") else {
+            throw NSError(domain: "PflegePilot", code: -1,
+                          userInfo: [NSLocalizedDescriptionKey: "Ungültige URL"])
+        }
+
+        // Aktuellen Access-Token holen, damit der Endpoint den User identifizieren kann.
+        let session = try await client.auth.session
+        let accessToken = session.accessToken
+
+        var req = URLRequest(url: url)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+
+        let (data, response) = try await URLSession.shared.data(for: req)
+        guard let http = response as? HTTPURLResponse else {
+            throw NSError(domain: "PflegePilot", code: -2,
+                          userInfo: [NSLocalizedDescriptionKey: "Ungültige Antwort"])
+        }
+        if http.statusCode < 200 || http.statusCode >= 300 {
+            struct ErrResp: Decodable { let error: String? }
+            let msg = (try? JSONDecoder().decode(ErrResp.self, from: data))?.error
+                ?? "Account konnte nicht gelöscht werden (HTTP \(http.statusCode))."
+            throw NSError(domain: "PflegePilot", code: http.statusCode,
+                          userInfo: [NSLocalizedDescriptionKey: msg])
+        }
+
+        // Lokale Session beenden.
+        try? await client.auth.signOut()
     }
 
     // Transaktionen für ein Budget laden

@@ -20,6 +20,7 @@ export default function ProfilPage() {
   const [loading, setLoading] = useState(true)
   const [deleteConfirm, setDeleteConfirm] = useState(false)
   const [deleting, setDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
   const [signingOut, setSigningOut] = useState(false)
 
   useEffect(() => {
@@ -49,16 +50,26 @@ export default function ProfilPage() {
 
   const handleDeleteAccount = async () => {
     setDeleting(true)
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const db = supabase as any
-    await db.from('pflegebeduerftiger').delete().eq('user_id', user.id)
-    await db.from('antraege').delete().eq('user_id', user.id)
-    await db.from('profiles').delete().eq('id', user.id)
-    await supabase.auth.signOut()
-    router.push('/auth')
+    setDeleteError(null)
+    try {
+      const res = await fetch('/api/account/delete', {
+        method: 'POST',
+        credentials: 'same-origin',
+      })
+      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string }
+      if (!res.ok || !data.ok) {
+        setDeleteError(data.error || `Löschen fehlgeschlagen (HTTP ${res.status}).`)
+        setDeleting(false)
+        return
+      }
+      // Auth-Cookie wird serverseitig invalidiert — lokal Session-Cache leeren.
+      await supabase.auth.signOut()
+      router.push('/auth')
+    } catch (err) {
+      console.error('handleDeleteAccount failed', err)
+      setDeleteError('Netzwerk-Fehler. Bitte erneut versuchen.')
+      setDeleting(false)
+    }
   }
 
   if (loading) {
@@ -163,16 +174,22 @@ export default function ProfilPage() {
         ) : (
           <div className="space-y-2">
             <p className="text-sm font-semibold text-red-700">Wirklich alle Daten löschen?</p>
+            {deleteError && (
+              <p className="text-xs text-red-700 bg-red-50 ring-1 ring-red-100 rounded-lg px-3 py-2">
+                {deleteError}
+              </p>
+            )}
             <div className="flex gap-2">
               <button
                 onClick={handleDeleteAccount}
                 disabled={deleting}
-                className="flex-1 bg-red-600 text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-red-700 transition-colors"
+                className="flex-1 bg-red-600 text-white text-sm font-semibold py-2.5 rounded-xl hover:bg-red-700 transition-colors disabled:opacity-60"
               >
                 {deleting ? 'Löschen…' : 'Ja, löschen'}
               </button>
               <button
-                onClick={() => setDeleteConfirm(false)}
+                onClick={() => { setDeleteConfirm(false); setDeleteError(null) }}
+                disabled={deleting}
                 className="flex-1 bg-gray-100 text-gray-700 text-sm font-semibold py-2.5 rounded-xl hover:bg-gray-200 transition-colors"
               >
                 Abbrechen
