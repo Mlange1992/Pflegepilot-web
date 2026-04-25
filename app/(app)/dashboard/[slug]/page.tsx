@@ -1,12 +1,11 @@
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
-import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { formatEuro, formatDate, formatDaysUntil, daysUntil } from '@/lib/utils/format'
 import { DISCLAIMER } from '@/lib/utils/constants'
 import type { Budget, BenefitType, Transaction } from '@/lib/supabase/types'
-import { AddTransactionForm, type AddTransactionState } from './AddTransactionForm'
+import { AddTransactionForm } from './AddTransactionForm'
 
 type BudgetWithBenefitType = Budget & {
   benefit_types: BenefitType
@@ -14,101 +13,6 @@ type BudgetWithBenefitType = Budget & {
 
 type Props = {
   params: Promise<{ slug: string }>
-}
-
-// ─── Server Action ─────────────────────────────────────────────────────────────
-
-async function addTransaction(
-  _prev: AddTransactionState,
-  formData: FormData
-): Promise<AddTransactionState> {
-  'use server'
-
-  const budgetId = (formData.get('budget_id') as string | null)?.trim() ?? ''
-  const amountRaw = (formData.get('amount') as string | null)?.trim() ?? ''
-  const description = (formData.get('description') as string | null)?.trim() ?? ''
-  const provider = (formData.get('provider') as string | null)?.trim() ?? ''
-  const date = (formData.get('date') as string | null)?.trim() ?? ''
-
-  const fields = { amount: amountRaw, date, description, provider }
-
-  if (!budgetId) return { ok: false, error: 'Budget-ID fehlt.', fields }
-  if (!amountRaw) return { ok: false, error: 'Bitte einen Betrag eingeben.', fields }
-  if (!description) return { ok: false, error: 'Bitte eine Beschreibung eingeben.', fields }
-  if (!date) return { ok: false, error: 'Bitte ein Datum auswählen.', fields }
-
-  const normalized = amountRaw.replace(',', '.')
-  const amountEuros = parseFloat(normalized)
-  if (isNaN(amountEuros) || amountEuros <= 0) {
-    return { ok: false, error: 'Betrag ungültig — bitte eine Zahl größer 0 eingeben.', fields }
-  }
-  const amountCents = Math.round(amountEuros * 100)
-
-  const supabase = await createClient()
-  const {
-    data: { user },
-    error: userErr,
-  } = await supabase.auth.getUser()
-
-  if (userErr || !user) {
-    console.error('addTransaction: not authenticated', userErr)
-    return { ok: false, error: 'Sitzung abgelaufen. Bitte neu anmelden.', fields }
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const db = supabase as unknown as { from: (table: string) => any }
-
-  // Transaktion einfügen
-  const { error: txError } = await db.from('transactions').insert({
-    budget_id: budgetId,
-    amount_cents: amountCents,
-    description,
-    provider_name: provider || null,
-    date,
-  })
-
-  if (txError) {
-    console.error('addTransaction: insert failed', {
-      message: txError.message,
-      code: txError.code,
-      details: txError.details,
-      hint: txError.hint,
-      budgetId,
-      userId: user.id,
-    })
-    return {
-      ok: false,
-      error: txError.message || 'Datenbank-Fehler beim Speichern.',
-      fields,
-    }
-  }
-
-  // used_cents aus Summe aller Transaktionen neu berechnen (atomar, kein Read-Modify-Write)
-  const { data: txRows, error: sumErr } = await db
-    .from('transactions')
-    .select('amount_cents')
-    .eq('budget_id', budgetId)
-
-  if (!sumErr && Array.isArray(txRows)) {
-    const newTotal = txRows.reduce(
-      (sum: number, r: { amount_cents: number }) => sum + (r.amount_cents ?? 0),
-      0
-    )
-    const { error: updErr } = await db
-      .from('budgets')
-      .update({ used_cents: newTotal })
-      .eq('id', budgetId)
-    if (updErr) {
-      console.error('addTransaction: budget update failed', updErr)
-    }
-  } else if (sumErr) {
-    console.error('addTransaction: could not recompute used_cents', sumErr)
-  }
-
-  revalidatePath('/dashboard/[slug]', 'page')
-  revalidatePath('/dashboard')
-
-  return { ok: true }
 }
 
 // ─── Seite ─────────────────────────────────────────────────────────────────────
@@ -280,11 +184,7 @@ export default async function BudgetDetailPage({ params }: Props) {
       {/* ─── Ausgabe eintragen ────────────────────────────────── */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
         <h2 className="font-bold text-gray-900 mb-4">Ausgabe eintragen</h2>
-        <AddTransactionForm
-          budgetId={budget.id}
-          todayStr={todayStr}
-          action={addTransaction}
-        />
+        <AddTransactionForm budgetId={budget.id} todayStr={todayStr} />
       </div>
 
       {/* ─── Disclaimer ───────────────────────────────────────── */}

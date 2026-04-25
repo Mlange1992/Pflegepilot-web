@@ -1,45 +1,75 @@
 'use client'
 
-import { useActionState, useEffect, useRef } from 'react'
-
-export type AddTransactionState = {
-  ok: boolean
-  error?: string
-  fields?: { amount?: string; date?: string; description?: string; provider?: string }
-}
-
-const INITIAL: AddTransactionState = { ok: false }
+import { useRouter } from 'next/navigation'
+import { useRef, useState } from 'react'
 
 export function AddTransactionForm({
   budgetId,
   todayStr,
-  action,
 }: {
   budgetId: string
   todayStr: string
-  action: (prev: AddTransactionState, formData: FormData) => Promise<AddTransactionState>
 }) {
-  const [state, formAction, pending] = useActionState(action, INITIAL)
+  const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
+  const [pending, setPending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
 
-  useEffect(() => {
-    if (state.ok && formRef.current) {
-      formRef.current.reset()
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    if (pending) return
+
+    setError(null)
+    setSuccess(false)
+    setPending(true)
+
+    const fd = new FormData(e.currentTarget)
+    const payload = {
+      budget_id: budgetId,
+      amount_euros: String(fd.get('amount') ?? ''),
+      description: String(fd.get('description') ?? ''),
+      provider: String(fd.get('provider') ?? ''),
+      date: String(fd.get('date') ?? ''),
     }
-  }, [state])
+
+    try {
+      const res = await fetch('/api/transactions', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload),
+        credentials: 'same-origin',
+      })
+
+      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string }
+
+      if (!res.ok || !data.ok) {
+        setError(data.error || `Speichern fehlgeschlagen (HTTP ${res.status}).`)
+        setPending(false)
+        return
+      }
+
+      setSuccess(true)
+      formRef.current?.reset()
+      router.refresh()
+    } catch (err) {
+      console.error('AddTransactionForm submit failed', err)
+      setError('Netzwerk-Fehler. Bitte erneut versuchen.')
+    } finally {
+      setPending(false)
+    }
+  }
 
   return (
-    <form ref={formRef} action={formAction} className="space-y-4">
-      <input type="hidden" name="budget_id" value={budgetId} />
-
-      {state.error && (
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+      {error && (
         <div className="rounded-xl bg-danger-50 ring-1 ring-danger-100 px-4 py-3 text-sm text-danger-700">
           <p className="font-semibold mb-0.5">Speichern fehlgeschlagen</p>
-          <p className="text-danger-700/90">{state.error}</p>
+          <p className="text-danger-700/90">{error}</p>
         </div>
       )}
 
-      {state.ok && (
+      {success && (
         <div className="rounded-xl bg-success-50 ring-1 ring-success-100 px-4 py-3 text-sm text-success-700 font-medium">
           ✓ Ausgabe gespeichert
         </div>
@@ -57,7 +87,6 @@ export function AddTransactionForm({
             inputMode="decimal"
             placeholder="z.B. 124,50"
             required
-            defaultValue={state.fields?.amount}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600 min-h-[48px]"
           />
         </div>
@@ -71,7 +100,7 @@ export function AddTransactionForm({
             name="date"
             type="date"
             required
-            defaultValue={state.fields?.date ?? todayStr}
+            defaultValue={todayStr}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600 min-h-[48px]"
           />
         </div>
@@ -86,7 +115,6 @@ export function AddTransactionForm({
             type="text"
             placeholder="z.B. Haushaltshilfe Frau Müller"
             required
-            defaultValue={state.fields?.description}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600 min-h-[48px]"
           />
         </div>
@@ -100,7 +128,6 @@ export function AddTransactionForm({
             name="provider"
             type="text"
             placeholder="z.B. Pflegedienst Sonnenschein GmbH"
-            defaultValue={state.fields?.provider}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600 min-h-[48px]"
           />
         </div>
