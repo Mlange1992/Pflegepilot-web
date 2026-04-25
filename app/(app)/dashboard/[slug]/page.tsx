@@ -13,12 +13,14 @@ type BudgetWithBenefitType = Budget & {
 
 type Props = {
   params: Promise<{ slug: string }>
+  searchParams: Promise<{ personId?: string }>
 }
 
 // ─── Seite ─────────────────────────────────────────────────────────────────────
 
-export default async function BudgetDetailPage({ params }: Props) {
+export default async function BudgetDetailPage({ params, searchParams }: Props) {
   const { slug } = await params
+  const { personId } = await searchParams
   const supabase = await createClient()
 
   const {
@@ -26,17 +28,27 @@ export default async function BudgetDetailPage({ params }: Props) {
   } = await supabase.auth.getUser()
   if (!user) redirect('/auth')
 
-  // Alle Budgets des Users, dann nach Slug filtern
+  // Alle Budgets des Users im aktuellen Jahr, dann nach Slug + Person filtern
   const { data: allBudgetsRaw } = await supabase
     .from('budgets')
     .select('*, benefit_types(*)')
     .eq('user_id', user.id)
     .eq('year', new Date().getFullYear())
 
-  const allBudgets = (allBudgetsRaw ?? []) as BudgetWithBenefitType[]
-  const budget = allBudgets.find((b) => b.benefit_types.slug === slug)
+  const allBudgets = (allBudgetsRaw ?? []) as (BudgetWithBenefitType & {
+    person_id?: string | null
+  })[]
+
+  // Match-Strategie:
+  //  1) wenn personId in URL: exakt diese Person + Slug
+  //  2) sonst: erstes Budget mit passendem Slug
+  const budget = personId
+    ? allBudgets.find((b) => b.benefit_types.slug === slug && b.person_id === personId)
+    : allBudgets.find((b) => b.benefit_types.slug === slug)
 
   if (!budget) notFound()
+
+  const backHref = personId ? `/dashboard?personId=${personId}` : '/dashboard'
 
   // Transaktionen laden
   const { data: transactionsRaw } = await supabase
@@ -70,7 +82,7 @@ export default async function BudgetDetailPage({ params }: Props) {
     <div className="space-y-6 pb-10">
       {/* ─── Back-Link ────────────────────────────────────────── */}
       <Link
-        href="/dashboard"
+        href={backHref}
         className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-primary-700 transition-colors min-h-[48px]"
       >
         ← Zurück zum Dashboard

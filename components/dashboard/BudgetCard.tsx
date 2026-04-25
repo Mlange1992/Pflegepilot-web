@@ -10,6 +10,7 @@ export interface BudgetCardProps {
   usedCents: number
   expiresAt: Date | null
   deadlineRule: string | null
+  personId?: string | null
 }
 
 function getDaysUntilExpiry(expiresAt: Date): number {
@@ -25,7 +26,9 @@ export function BudgetCard({
   usedCents,
   expiresAt,
   deadlineRule,
+  personId,
 }: BudgetCardProps) {
+  const href = personId ? `/dashboard/${slug}?personId=${personId}` : `/dashboard/${slug}`
   const remainingCents = Math.max(0, totalCents - usedCents)
   const percentUsed =
     totalCents > 0 ? Math.min(100, (usedCents / totalCents) * 100) : 0
@@ -38,7 +41,7 @@ export function BudgetCard({
 
   return (
     <Link
-      href={`/dashboard/${slug}`}
+      href={href}
       className="block rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-4"
     >
       {/* Header */}

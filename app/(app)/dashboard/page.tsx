@@ -334,6 +334,7 @@ export default async function DashboardPage({
                 usedCents={b.used_cents}
                 expiresAt={b.expires_at ? new Date(b.expires_at) : null}
                 deadlineRule={b.benefit_types.deadline_rule}
+                personId={activePerson?.id ?? null}
               />
             ))}
           </div>
