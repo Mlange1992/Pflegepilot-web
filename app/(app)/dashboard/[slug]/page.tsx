@@ -6,6 +6,7 @@ import { ProgressBar } from '@/components/ui/ProgressBar'
 import { formatEuro, formatDate, formatDaysUntil, daysUntil } from '@/lib/utils/format'
 import { DISCLAIMER } from '@/lib/utils/constants'
 import type { Budget, BenefitType, Transaction } from '@/lib/supabase/types'
+import { AddTransactionForm, type AddTransactionState } from './AddTransactionForm'
 
 type BudgetWithBenefitType = Budget & {
   benefit_types: BenefitType
@@ -17,28 +18,42 @@ type Props = {
 
 // ─── Server Action ─────────────────────────────────────────────────────────────
 
-async function addTransaction(formData: FormData) {
+async function addTransaction(
+  _prev: AddTransactionState,
+  formData: FormData
+): Promise<AddTransactionState> {
   'use server'
 
-  const budgetId = formData.get('budget_id') as string
-  const amountRaw = formData.get('amount') as string
-  const description = formData.get('description') as string
-  const provider = formData.get('provider') as string
-  const date = formData.get('date') as string
+  const budgetId = (formData.get('budget_id') as string | null)?.trim() ?? ''
+  const amountRaw = (formData.get('amount') as string | null)?.trim() ?? ''
+  const description = (formData.get('description') as string | null)?.trim() ?? ''
+  const provider = (formData.get('provider') as string | null)?.trim() ?? ''
+  const date = (formData.get('date') as string | null)?.trim() ?? ''
 
-  if (!budgetId || !amountRaw || !description || !date) return
+  const fields = { amount: amountRaw, date, description, provider }
 
-  // Betrag aus "123,45" oder "123.45" in Cent umrechnen
+  if (!budgetId) return { ok: false, error: 'Budget-ID fehlt.', fields }
+  if (!amountRaw) return { ok: false, error: 'Bitte einen Betrag eingeben.', fields }
+  if (!description) return { ok: false, error: 'Bitte eine Beschreibung eingeben.', fields }
+  if (!date) return { ok: false, error: 'Bitte ein Datum auswählen.', fields }
+
   const normalized = amountRaw.replace(',', '.')
   const amountEuros = parseFloat(normalized)
-  if (isNaN(amountEuros) || amountEuros <= 0) return
+  if (isNaN(amountEuros) || amountEuros <= 0) {
+    return { ok: false, error: 'Betrag ungültig — bitte eine Zahl größer 0 eingeben.', fields }
+  }
   const amountCents = Math.round(amountEuros * 100)
 
   const supabase = await createClient()
   const {
     data: { user },
+    error: userErr,
   } = await supabase.auth.getUser()
-  if (!user) redirect('/auth')
+
+  if (userErr || !user) {
+    console.error('addTransaction: not authenticated', userErr)
+    return { ok: false, error: 'Sitzung abgelaufen. Bitte neu anmelden.', fields }
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = supabase as unknown as { from: (table: string) => any }
@@ -47,29 +62,53 @@ async function addTransaction(formData: FormData) {
   const { error: txError } = await db.from('transactions').insert({
     budget_id: budgetId,
     amount_cents: amountCents,
-    description: description.trim(),
-    provider_name: provider?.trim() || null,
-    receipt_url: null,
+    description,
+    provider_name: provider || null,
     date,
   })
 
-  if (txError) return
-
-  // Budget used_cents aktualisieren
-  const { data: budgetData } = await db
-    .from('budgets')
-    .select('used_cents')
-    .eq('id', budgetId)
-    .single()
-
-  if (budgetData) {
-    await db
-      .from('budgets')
-      .update({ used_cents: (budgetData.used_cents as number) + amountCents })
-      .eq('id', budgetId)
+  if (txError) {
+    console.error('addTransaction: insert failed', {
+      message: txError.message,
+      code: txError.code,
+      details: txError.details,
+      hint: txError.hint,
+      budgetId,
+      userId: user.id,
+    })
+    return {
+      ok: false,
+      error: txError.message || 'Datenbank-Fehler beim Speichern.',
+      fields,
+    }
   }
 
-  revalidatePath(`/dashboard/[slug]`, 'page')
+  // used_cents aus Summe aller Transaktionen neu berechnen (atomar, kein Read-Modify-Write)
+  const { data: txRows, error: sumErr } = await db
+    .from('transactions')
+    .select('amount_cents')
+    .eq('budget_id', budgetId)
+
+  if (!sumErr && Array.isArray(txRows)) {
+    const newTotal = txRows.reduce(
+      (sum: number, r: { amount_cents: number }) => sum + (r.amount_cents ?? 0),
+      0
+    )
+    const { error: updErr } = await db
+      .from('budgets')
+      .update({ used_cents: newTotal })
+      .eq('id', budgetId)
+    if (updErr) {
+      console.error('addTransaction: budget update failed', updErr)
+    }
+  } else if (sumErr) {
+    console.error('addTransaction: could not recompute used_cents', sumErr)
+  }
+
+  revalidatePath('/dashboard/[slug]', 'page')
+  revalidatePath('/dashboard')
+
+  return { ok: true }
 }
 
 // ─── Seite ─────────────────────────────────────────────────────────────────────
@@ -241,91 +280,11 @@ export default async function BudgetDetailPage({ params }: Props) {
       {/* ─── Ausgabe eintragen ────────────────────────────────── */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
         <h2 className="font-bold text-gray-900 mb-4">Ausgabe eintragen</h2>
-
-        <form action={addTransaction} className="space-y-4">
-          <input type="hidden" name="budget_id" value={budget.id} />
-
-          <div className="grid grid-cols-2 gap-3">
-            {/* Betrag */}
-            <div className="col-span-2 sm:col-span-1">
-              <label
-                htmlFor="amount"
-                className="block text-xs font-medium text-gray-600 mb-1"
-              >
-                Betrag (€) *
-              </label>
-              <input
-                id="amount"
-                name="amount"
-                type="text"
-                inputMode="decimal"
-                placeholder="z.B. 124,50"
-                required
-                className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600 min-h-[48px]"
-              />
-            </div>
-
-            {/* Datum */}
-            <div className="col-span-2 sm:col-span-1">
-              <label
-                htmlFor="date"
-                className="block text-xs font-medium text-gray-600 mb-1"
-              >
-                Datum *
-              </label>
-              <input
-                id="date"
-                name="date"
-                type="date"
-                required
-                defaultValue={todayStr}
-                className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600 min-h-[48px]"
-              />
-            </div>
-
-            {/* Beschreibung */}
-            <div className="col-span-2">
-              <label
-                htmlFor="description"
-                className="block text-xs font-medium text-gray-600 mb-1"
-              >
-                Beschreibung *
-              </label>
-              <input
-                id="description"
-                name="description"
-                type="text"
-                placeholder="z.B. Haushaltshilfe Frau Müller"
-                required
-                className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600 min-h-[48px]"
-              />
-            </div>
-
-            {/* Anbieter */}
-            <div className="col-span-2">
-              <label
-                htmlFor="provider"
-                className="block text-xs font-medium text-gray-600 mb-1"
-              >
-                Anbieter (optional)
-              </label>
-              <input
-                id="provider"
-                name="provider"
-                type="text"
-                placeholder="z.B. Pflegedienst Sonnenschein GmbH"
-                className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-600 min-h-[48px]"
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-primary-600 text-white font-semibold py-3 px-6 rounded-xl min-h-[48px] hover:bg-primary-700 transition-colors text-sm"
-          >
-            Ausgabe speichern
-          </button>
-        </form>
+        <AddTransactionForm
+          budgetId={budget.id}
+          todayStr={todayStr}
+          action={addTransaction}
+        />
       </div>
 
       {/* ─── Disclaimer ───────────────────────────────────────── */}
