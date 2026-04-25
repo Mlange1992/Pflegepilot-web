@@ -49,11 +49,11 @@ export default function PflegegradEinschaetzenPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
-      <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between sticky top-0 z-10">
+      <header className="glass border-b border-gray-200/60 px-4 py-3 flex items-center justify-between sticky top-0 z-10">
         <button
           type="button"
           onClick={currentModuleIndex > 0 ? handleZurueck : undefined}
-          className="text-sm text-gray-500 hover:text-gray-700"
+          className="text-sm text-gray-500 hover:text-primary-700 font-medium transition-colors"
         >
           {currentModuleIndex > 0 ? (
             <span className="flex items-center gap-1">
@@ -63,43 +63,42 @@ export default function PflegegradEinschaetzenPage() {
               Zurück
             </span>
           ) : (
-            <Link href="/check">← Zurück</Link>
+            <Link href="/check" className="hover:text-primary-700 transition-colors">← Zurück</Link>
           )}
         </button>
-        <span className="text-xs text-gray-400">{Math.round(overallProgress * 100)}% abgeschlossen</span>
+        <span className="text-xs font-semibold text-primary-700">{Math.round(overallProgress * 100)}% abgeschlossen</span>
       </header>
 
       {/* Gesamt-Fortschritt */}
-      <div className="bg-white border-b border-gray-100 px-4 pb-3">
+      <div className="glass border-b border-gray-200/60 px-4 pb-3">
         <div className="max-w-lg mx-auto">
-          <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-1.5 bg-gray-200/60 rounded-full overflow-hidden">
             <div
-              className="h-full bg-primary-600 rounded-full transition-all duration-500"
+              className="h-full bg-gradient-to-r from-primary-500 to-primary-700 rounded-full transition-all duration-500 shadow-glow-primary"
               style={{ width: `${overallProgress * 100}%` }}
             />
           </div>
         </div>
       </div>
 
-      <main className="flex-1 max-w-lg mx-auto w-full px-4 py-6">
+      <main className="flex-1 max-w-lg mx-auto w-full px-4 py-7">
         {/* Modul-Header */}
-        <div className="mb-6">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-semibold text-primary-600 uppercase tracking-wide">
-              Modul {currentModuleIndex + 1} von {NBA_MODULES.length}
+        <div className="mb-7">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-[11px] font-bold text-primary-700 uppercase tracking-[0.15em] bg-primary-50 ring-1 ring-primary-100 px-2.5 py-1 rounded-full">
+              Modul {currentModuleIndex + 1} / {NBA_MODULES.length}
             </span>
             <span className="text-xs text-gray-400">
-              · {questionsAnsweredInModule}/{currentModule.questions.length} beantwortet
+              {questionsAnsweredInModule}/{currentModule.questions.length} beantwortet
             </span>
           </div>
-          <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+          <h2 className="text-2xl font-extrabold text-gray-900 tracking-tight flex items-center gap-2">
             <span>{currentModule.icon}</span>
             {currentModule.title}
           </h2>
-          <p className="text-sm text-gray-500 mt-1">{currentModule.description}</p>
+          <p className="text-[15px] text-gray-500 mt-2 leading-relaxed">{currentModule.description}</p>
 
-          {/* Modul-Fortschritt */}
-          <div className="mt-3 h-1 bg-gray-100 rounded-full overflow-hidden">
+          <div className="mt-4 h-1 bg-gray-100 rounded-full overflow-hidden">
             <div
               className="h-full bg-primary-400 rounded-full transition-all duration-300"
               style={{ width: `${moduleProgress * 100}%` }}
@@ -108,15 +107,15 @@ export default function PflegegradEinschaetzenPage() {
         </div>
 
         {/* Fragen */}
-        <div className="space-y-5">
+        <div className="space-y-4">
           {currentModule.questions.map((q: NBAQuestion) => {
             const options = SCALE_OPTIONS[q.scale]
             const selected = answers[q.id]
             return (
-              <div key={q.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
-                <p className="text-sm font-semibold text-gray-800 mb-1">{q.text}</p>
+              <div key={q.id} className="card p-5">
+                <p className="text-[15px] font-semibold text-gray-900 mb-1 leading-snug">{q.text}</p>
                 {q.hint && (
-                  <p className="text-xs text-gray-400 mb-3">{q.hint}</p>
+                  <p className="text-xs text-gray-400 mb-3 leading-relaxed">{q.hint}</p>
                 )}
                 <div className="grid grid-cols-2 gap-2">
                   {options.map(opt => (
@@ -124,10 +123,10 @@ export default function PflegegradEinschaetzenPage() {
                       key={opt.value}
                       type="button"
                       onClick={() => setAnswer(q.id, opt.value)}
-                      className={`px-3 py-2.5 rounded-xl text-xs font-medium border-2 transition-colors text-left leading-tight ${
+                      className={`px-3 py-2.5 rounded-xl text-xs font-medium border-2 transition-all text-left leading-tight ${
                         selected === opt.value
-                          ? 'border-primary-600 bg-primary-50 text-primary-700'
-                          : 'border-gray-200 text-gray-600 hover:border-primary-300'
+                          ? 'border-primary-600 bg-primary-50 text-primary-700 shadow-soft'
+                          : 'border-gray-200 text-gray-600 hover:border-primary-300 hover:bg-primary-50/30'
                       }`}
                     >
                       {opt.label}
@@ -140,7 +139,7 @@ export default function PflegegradEinschaetzenPage() {
         </div>
 
         {/* Modul-Navigation Chips */}
-        <div className="mt-6 flex flex-wrap gap-2 justify-center">
+        <div className="mt-8 flex flex-wrap gap-2 justify-center">
           {NBA_MODULES.map((mod, idx) => {
             const done = mod.questions.every(q => answers[q.id] !== undefined)
             const active = idx === currentModuleIndex
@@ -152,12 +151,12 @@ export default function PflegegradEinschaetzenPage() {
                   setCurrentModuleIndex(idx)
                   window.scrollTo({ top: 0, behavior: 'smooth' })
                 }}
-                className={`w-8 h-8 rounded-full text-xs font-bold transition-colors ${
+                className={`w-9 h-9 rounded-full text-xs font-bold transition-all ${
                   active
-                    ? 'bg-primary-600 text-white'
+                    ? 'bg-primary-600 text-white shadow-glow-primary scale-110'
                     : done
-                    ? 'bg-primary-100 text-primary-700'
-                    : 'bg-gray-100 text-gray-400'
+                    ? 'bg-primary-100 text-primary-700 hover:bg-primary-200'
+                    : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
                 }`}
               >
                 {idx + 1}
@@ -168,7 +167,7 @@ export default function PflegegradEinschaetzenPage() {
       </main>
 
       {/* Sticky Footer */}
-      <div className="sticky bottom-0 bg-white border-t border-gray-100 px-4 py-4">
+      <div className="sticky bottom-0 glass border-t border-gray-200/60 px-4 py-4">
         <div className="max-w-lg mx-auto space-y-2">
           {!moduleAnswered && (
             <p className="text-xs text-gray-400 text-center">
@@ -179,9 +178,9 @@ export default function PflegegradEinschaetzenPage() {
             type="button"
             disabled={!moduleAnswered}
             onClick={handleWeiter}
-            className={`w-full font-semibold py-4 rounded-2xl transition-colors ${
+            className={`w-full font-semibold py-4 rounded-2xl transition-all ${
               moduleAnswered
-                ? 'bg-primary-600 text-white hover:bg-primary-700'
+                ? 'bg-primary-600 text-white hover:bg-primary-700 shadow-glow-primary active:scale-[0.98]'
                 : 'bg-gray-100 text-gray-400 cursor-not-allowed'
             }`}
           >

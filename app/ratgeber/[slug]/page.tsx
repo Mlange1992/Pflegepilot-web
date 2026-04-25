@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getArtikelBySlug, getAllSlugs, ratgeberArtikel } from '@/lib/ratgeber-data'
-import { DISCLAIMER } from '@/lib/utils/constants'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -42,42 +41,48 @@ function renderMarkdown(text: string) {
 
     if (line.startsWith('## ')) {
       elements.push(
-        <h2 key={i} className="text-xl font-extrabold text-gray-900 mt-8 mb-3">
+        <h2 key={i} className="text-2xl font-extrabold text-gray-900 mt-10 mb-4 tracking-tight">
           {line.slice(3)}
         </h2>
       )
     } else if (line.startsWith('### ')) {
       elements.push(
-        <h3 key={i} className="text-base font-bold text-gray-800 mt-5 mb-2">
+        <h3 key={i} className="text-lg font-bold text-gray-800 mt-6 mb-2 tracking-tight">
           {line.slice(4)}
         </h3>
       )
     } else if (line.startsWith('- ')) {
-      // collect consecutive list items
       const items: string[] = []
       while (i < lines.length && lines[i].startsWith('- ')) {
         items.push(lines[i].slice(2))
         i++
       }
       elements.push(
-        <ul key={`ul-${i}`} className="list-disc list-inside space-y-1 mb-3 text-gray-700 text-sm leading-relaxed">
+        <ul key={`ul-${i}`} className="space-y-2 mb-4 text-gray-700 text-[15px] leading-relaxed">
           {items.map((item, idx) => (
-            <li key={idx} dangerouslySetInnerHTML={{ __html: boldify(item) }} />
+            <li key={idx} className="flex items-start gap-3">
+              <span className="shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-primary-400" />
+              <span dangerouslySetInnerHTML={{ __html: boldify(item) }} />
+            </li>
           ))}
         </ul>
       )
       continue
     } else if (/^\d+\. /.test(line)) {
-      // numbered list
       const items: string[] = []
       while (i < lines.length && /^\d+\. /.test(lines[i])) {
         items.push(lines[i].replace(/^\d+\. /, ''))
         i++
       }
       elements.push(
-        <ol key={`ol-${i}`} className="list-decimal list-inside space-y-1 mb-3 text-gray-700 text-sm leading-relaxed">
+        <ol key={`ol-${i}`} className="space-y-2 mb-4 text-gray-700 text-[15px] leading-relaxed counter-reset-list">
           {items.map((item, idx) => (
-            <li key={idx} dangerouslySetInnerHTML={{ __html: boldify(item) }} />
+            <li key={idx} className="flex items-start gap-3">
+              <span className="shrink-0 mt-0.5 w-6 h-6 rounded-lg bg-primary-100 text-primary-700 text-xs font-bold flex items-center justify-center">
+                {idx + 1}
+              </span>
+              <span className="pt-0.5" dangerouslySetInnerHTML={{ __html: boldify(item) }} />
+            </li>
           ))}
         </ol>
       )
@@ -88,7 +93,7 @@ function renderMarkdown(text: string) {
       elements.push(
         <p
           key={i}
-          className="text-gray-700 text-sm leading-relaxed mb-3"
+          className="text-gray-700 text-[15px] leading-relaxed mb-4"
           dangerouslySetInnerHTML={{ __html: boldify(line) }}
         />
       )
@@ -115,7 +120,7 @@ export default async function RatgeberDetailPage({ params }: Props) {
     .slice(0, 3)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <main className="bg-gray-50 min-h-screen">
       <div className="max-w-3xl mx-auto px-4 py-10">
 
         {/* Breadcrumb */}
@@ -128,25 +133,24 @@ export default async function RatgeberDetailPage({ params }: Props) {
         </nav>
 
         {/* Header */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
-          <div className="flex items-start gap-4 mb-4">
-            <span className="text-5xl shrink-0" role="img" aria-label={artikel.titel}>
+        <div className="card p-7 md:p-8 mb-6">
+          <div className="flex items-start gap-5 mb-5">
+            <div className="shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100/40 ring-1 ring-primary-100 flex items-center justify-center text-4xl shadow-soft">
               {artikel.icon}
-            </span>
-            <div>
-              <h1 className="text-2xl font-extrabold text-gray-900 leading-tight mb-1">
+            </div>
+            <div className="flex-1 pt-0.5">
+              <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight tracking-tight mb-2">
                 {artikel.titel}
               </h1>
-              <p className="text-gray-500 text-sm leading-relaxed">{artikel.kurztext}</p>
+              <p className="text-gray-500 leading-relaxed">{artikel.kurztext}</p>
             </div>
           </div>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5 pt-4 border-t border-gray-100">
             {artikel.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium"
+                className="text-[11px] bg-gray-100 text-gray-600 px-2.5 py-0.5 rounded-full font-semibold"
               >
                 {tag}
               </span>
@@ -155,56 +159,62 @@ export default async function RatgeberDetailPage({ params }: Props) {
         </div>
 
         {/* Inhalt */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+        <article className="card p-7 md:p-10 mb-8">
           {renderMarkdown(artikel.inhalt)}
-        </div>
+        </article>
 
         {/* CTA */}
-        <div className="bg-primary-600 text-white rounded-2xl p-6 text-center mb-8">
-          <p className="font-extrabold text-lg mb-1">Welche Leistungen stehen Ihnen zu?</p>
-          <p className="text-primary-100 text-sm mb-4">
-            PflegePilot berechnet Ihren Pflegegrad und zeigt alle Budgets — kostenlos.
-          </p>
-          <Link
-            href="/check"
-            className="inline-flex items-center gap-2 bg-white text-primary-700 font-semibold py-3 px-6 rounded-xl min-h-[48px] hover:bg-primary-50 transition-colors text-sm"
-          >
-            Jetzt Pflegegrad prüfen →
-          </Link>
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 px-6 py-10 md:px-10 md:py-12 text-center mb-10 shadow-glow-primary">
+          <div className="pointer-events-none absolute -top-24 -right-24 w-64 h-64 bg-primary-400/30 rounded-full blur-3xl" aria-hidden="true" />
+          <div className="relative">
+            <p className="font-extrabold text-2xl text-white mb-2 tracking-tight">Welche Leistungen stehen Ihnen zu?</p>
+            <p className="text-primary-50 mb-6 leading-relaxed">
+              PflegePilot berechnet Ihren Pflegegrad und zeigt alle Budgets — kostenlos.
+            </p>
+            <Link
+              href="/check"
+              className="inline-flex items-center gap-2 bg-white text-primary-700 font-semibold py-3.5 px-7 rounded-2xl min-h-[52px] hover:bg-primary-50 hover:scale-[1.02] transition-all shadow-soft-lg active:scale-[0.98]"
+            >
+              Jetzt Pflegegrad prüfen →
+            </Link>
+          </div>
         </div>
 
         {/* Weitere Artikel */}
         {weitereArtikel.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-lg font-extrabold text-gray-900 mb-4">Weitere Ratgeber-Artikel</h2>
+          <div className="mb-4">
+            <h2 className="text-xl font-extrabold text-gray-900 mb-5 tracking-tight">Weitere Ratgeber-Artikel</h2>
             <div className="space-y-3">
               {weitereArtikel.map((a) => (
                 <Link
                   key={a.slug}
                   href={`/ratgeber/${a.slug}`}
-                  className="flex items-center gap-3 bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md transition-shadow group"
+                  className="card card-hover p-5 flex items-center gap-4 group"
                 >
-                  <span className="text-2xl shrink-0">{a.icon}</span>
+                  <div className="shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100/40 ring-1 ring-primary-100 flex items-center justify-center text-2xl">
+                    {a.icon}
+                  </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-900 text-sm group-hover:text-primary-700 transition-colors leading-tight">
+                    <p className="font-semibold text-gray-900 group-hover:text-primary-700 transition-colors leading-snug">
                       {a.titel}
                     </p>
-                    <p className="text-xs text-gray-400 mt-0.5 line-clamp-1">{a.kurztext}</p>
+                    <p className="text-sm text-gray-400 mt-0.5 line-clamp-1">{a.kurztext}</p>
                   </div>
-                  <span className="text-primary-600 text-sm shrink-0">→</span>
+                  <span className="text-primary-600 shrink-0 text-lg group-hover:translate-x-1 transition-transform">→</span>
                 </Link>
               ))}
             </div>
-            <div className="text-center mt-4">
-              <Link href="/ratgeber" className="text-sm text-primary-600 font-semibold hover:underline">
-                Alle {ratgeberArtikel.length} Artikel ansehen →
+            <div className="text-center mt-6">
+              <Link
+                href="/ratgeber"
+                className="inline-flex items-center gap-2 text-primary-700 font-semibold text-sm hover:gap-3 transition-all hover:text-primary-800"
+              >
+                Alle {ratgeberArtikel.length} Artikel ansehen <span>→</span>
               </Link>
             </div>
           </div>
         )}
-
-        <p className="text-xs text-gray-400 text-center">{DISCLAIMER}</p>
       </div>
-    </div>
+    </main>
   )
 }

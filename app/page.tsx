@@ -1,198 +1,207 @@
 import Link from 'next/link'
-import { DISCLAIMER } from '@/lib/utils/constants'
 import WaitlistForm from '@/components/WaitlistForm'
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-white">
-      {/* Hero */}
-      <section className="bg-gradient-to-b from-primary-50 to-white px-4 py-16 text-center md:py-24">
-        <div className="mx-auto max-w-3xl">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-primary-600">
+    <main className="bg-white">
+      {/* ─── Hero ─────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-mesh-primary px-4 pt-20 pb-24 md:pt-28 md:pb-32 text-center">
+        {/* dekorative Blobs */}
+        <div className="pointer-events-none absolute -top-24 -left-24 w-96 h-96 bg-primary-300/30 rounded-full blur-3xl animate-blob" aria-hidden="true" />
+        <div className="pointer-events-none absolute -bottom-24 -right-24 w-96 h-96 bg-primary-200/40 rounded-full blur-3xl animate-blob [animation-delay:4s]" aria-hidden="true" />
+
+        <div className="relative mx-auto max-w-3xl">
+          <span className="badge bg-white/80 ring-1 ring-primary-200 text-primary-700 backdrop-blur-sm mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse" />
             Der digitale Pflege-Finanzmanager
-          </p>
-          <h1 className="mb-6 text-balance text-4xl font-extrabold leading-tight text-gray-900 md:text-6xl">
-            Milliarden Euro an Pflegeleistungen
-            <br className="hidden md:block" />
-            verfallen jedes Jahr
+          </span>
+          <h1 className="mb-6 text-balance text-4xl font-extrabold leading-[1.05] tracking-tight text-gray-900 md:text-6xl lg:text-7xl">
+            Milliarden Euro an Pflegeleistungen{' '}
+            <span className="bg-gradient-to-br from-primary-600 to-primary-800 bg-clip-text text-transparent">
+              verfallen
+            </span>{' '}
+            jedes Jahr
           </h1>
-          <p className="mb-8 text-xl text-gray-600">
+          <p className="mb-10 text-lg md:text-xl text-gray-600 text-pretty max-w-2xl mx-auto leading-relaxed">
             Schätzungen zufolge über 10 Milliarden Euro — weil Familien nicht wissen, was ihnen
             zusteht. PflegePilot zeigt Ihre Ansprüche, warnt vor Fristen und verhindert, dass
             Ihr Geld verfällt.
           </p>
-          <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Link
-              href="/check"
-              className="inline-flex min-h-[52px] items-center justify-center rounded-xl bg-primary-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition hover:bg-primary-700 active:scale-95"
-            >
+          <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
+            <Link href="/check" className="btn-primary text-lg">
               Kostenlos prüfen — 60 Sekunden →
             </Link>
-            <Link
-              href="/ratgeber"
-              className="inline-flex min-h-[52px] items-center justify-center rounded-xl border-2 border-gray-200 px-8 py-3 text-lg font-semibold text-gray-700 transition hover:border-primary-300 hover:text-primary-600"
-            >
+            <Link href="/ratgeber" className="btn-secondary text-lg">
               Pflege-Ratgeber
             </Link>
           </div>
-          <p className="mt-4 text-sm text-gray-400">Kein Login nötig · Kostenlos · 60 Sekunden</p>
+          <p className="mt-5 text-sm text-gray-500 flex items-center justify-center gap-4 flex-wrap">
+            <span className="inline-flex items-center gap-1.5"><span className="text-success-500">✓</span> Kein Login nötig</span>
+            <span className="inline-flex items-center gap-1.5"><span className="text-success-500">✓</span> Kostenlos</span>
+            <span className="inline-flex items-center gap-1.5"><span className="text-success-500">✓</span> 60 Sekunden</span>
+          </p>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="border-y border-gray-100 bg-gray-50 px-4 py-12">
-        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-8 text-center sm:grid-cols-3">
-          <div>
-            <p className="text-4xl font-extrabold text-danger-600">Mrd. €</p>
-            <p className="mt-1 text-gray-600">verfallen jährlich (Schätzung)</p>
-          </div>
-          <div>
-            <p className="text-4xl font-extrabold text-warning-500">Viele</p>
-            <p className="mt-1 text-gray-600">nutzen den Entlastungsbetrag nicht</p>
-          </div>
-          <div>
-            <p className="text-4xl font-extrabold text-warning-500">Viele</p>
-            <p className="mt-1 text-gray-600">rufen die Verhinderungspflege nicht ab</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="px-4 py-16">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">
-            Was PflegePilot für Sie tut
-          </h2>
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="rounded-2xl border border-gray-100 p-6 shadow-sm">
-              <div className="mb-4 text-4xl">💰</div>
-              <h3 className="mb-2 text-xl font-bold">Budget-Dashboard</h3>
-              <p className="text-gray-600">
-                Alle Pflegeleistungen auf einen Blick — mit Fortschrittsbalken, Verfall-Countdown
-                und dem Euro-Betrag, den Sie noch abholen können.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-gray-100 p-6 shadow-sm">
-              <div className="mb-4 text-4xl">⏰</div>
-              <h3 className="mb-2 text-xl font-bold">Fristen-Autopilot</h3>
-              <p className="text-gray-600">
-                Push und E-Mail 90, 30 und 7 Tage vor Verfall. Damit kein Geld mehr
-                unbemerkt verfällt.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-gray-100 p-6 shadow-sm">
-              <div className="mb-4 text-4xl">📄</div>
-              <h3 className="mb-2 text-xl font-bold">Antrags-Helfer</h3>
-              <p className="text-gray-600">
-                Fertige Antragsvorlagen pro Leistung — vorausgefüllt mit Ihren Daten,
-                zum Ausdrucken und Einreichen.
-              </p>
-            </div>
+      {/* ─── Stats ────────────────────────────────────────────── */}
+      <section className="relative -mt-12 md:-mt-16 px-4 z-10">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+            {[
+              { value: 'Mrd. €', label: 'verfallen jährlich (Schätzung)', accent: 'text-danger-600', ring: 'ring-danger-100' },
+              { value: 'Viele', label: 'nutzen den Entlastungsbetrag nicht', accent: 'text-warning-500', ring: 'ring-warning-100' },
+              { value: 'Viele', label: 'rufen die Verhinderungspflege nicht ab', accent: 'text-warning-500', ring: 'ring-warning-100' },
+            ].map((s) => (
+              <div
+                key={s.label}
+                className={`bg-white rounded-2xl ring-1 ${s.ring} shadow-soft-lg p-6 text-center`}
+              >
+                <p className={`text-4xl md:text-5xl font-extrabold tracking-tight ${s.accent}`}>{s.value}</p>
+                <p className="mt-2 text-sm text-gray-600 leading-snug">{s.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* iOS App Waitlist */}
-      <section className="px-4 py-16 bg-gradient-to-br from-gray-900 to-primary-900">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-block bg-primary-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-wide">
+      {/* ─── Features ─────────────────────────────────────────── */}
+      <section className="px-4 py-20 md:py-28">
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center mb-12 md:mb-16">
+            <span className="section-eyebrow">Funktionen</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight text-balance">
+              Was PflegePilot für Sie tut
+            </h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              {
+                icon: '💰',
+                title: 'Budget-Dashboard',
+                desc: 'Alle Pflegeleistungen auf einen Blick — mit Fortschrittsbalken, Verfall-Countdown und dem Euro-Betrag, den Sie noch abholen können.',
+                tone: 'from-primary-50 to-primary-100/40',
+              },
+              {
+                icon: '⏰',
+                title: 'Fristen-Autopilot',
+                desc: 'Push und E-Mail 90, 30 und 7 Tage vor Verfall. Damit kein Geld mehr unbemerkt verfällt.',
+                tone: 'from-warning-50 to-warning-100/40',
+              },
+              {
+                icon: '📄',
+                title: 'Antrags-Helfer',
+                desc: 'Fertige Antragsvorlagen pro Leistung — vorausgefüllt mit Ihren Daten, zum Ausdrucken und Einreichen.',
+                tone: 'from-success-50 to-success-100/40',
+              },
+            ].map((f) => (
+              <div
+                key={f.title}
+                className="card card-hover p-7 group"
+              >
+                <div className={`mb-5 inline-flex w-14 h-14 items-center justify-center rounded-2xl bg-gradient-to-br ${f.tone} text-3xl ring-1 ring-white shadow-soft`}>
+                  {f.icon}
+                </div>
+                <h3 className="mb-2 text-xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors">{f.title}</h3>
+                <p className="text-gray-600 leading-relaxed text-[15px]">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── iOS App Waitlist ─────────────────────────────────── */}
+      <section className="relative overflow-hidden px-4 py-20 md:py-24 bg-gradient-to-br from-gray-900 via-primary-900 to-gray-900">
+        <div className="pointer-events-none absolute inset-0 bg-mesh-dark" aria-hidden="true" />
+        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-3xl" aria-hidden="true" />
+
+        <div className="relative mx-auto max-w-3xl text-center">
+          <span className="badge bg-primary-500/20 text-primary-100 ring-1 ring-primary-400/30 backdrop-blur-sm mb-5">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary-300 animate-pulse" />
             iOS App — In Entwicklung
           </span>
-          <h2 className="text-3xl font-extrabold text-white mb-4 leading-tight">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight tracking-tight text-balance">
             Nie wieder eine Frist verpassen
           </h2>
-          <p className="text-gray-300 mb-6 text-lg">
+          <p className="text-gray-300 mb-8 text-lg text-pretty max-w-xl mx-auto">
             Die PflegePilot iOS-App mit Push-Benachrichtigungen, Budgetübersicht und
             Antrags-Helfer ist in Entwicklung. Trag dich ein — wir melden uns, wenn sie live geht.
           </p>
           <div className="flex justify-center">
             <WaitlistForm />
           </div>
-          <p className="text-gray-500 text-xs mt-4">Kein Spam · Nur eine E-Mail wenn die App live geht</p>
+          <p className="text-gray-400 text-xs mt-4">Kein Spam · Nur eine E-Mail wenn die App live geht</p>
         </div>
       </section>
 
-      {/* Ratgeber Teaser */}
-      <section className="bg-gray-50 border-y border-gray-100 px-4 py-16">
-        <div className="mx-auto max-w-4xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Pflege-Ratgeber</h2>
-            <p className="text-gray-500">Alles was Sie wissen müssen — verständlich erklärt.</p>
+      {/* ─── Ratgeber Teaser ──────────────────────────────────── */}
+      <section className="px-4 py-20 md:py-24">
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center mb-12">
+            <span className="section-eyebrow">Wissen</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3 tracking-tight">Pflege-Ratgeber</h2>
+            <p className="text-gray-500 text-lg">Alles was Sie wissen müssen — verständlich erklärt.</p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-8">
             {[
-              { icon: '💶', titel: 'Entlastungsbetrag: 131 EUR/Monat die viele verschenken', slug: 'entlastungsbetrag' },
-              { icon: '🔄', titel: 'Verhinderungspflege: bis 3.539 EUR/Jahr beantragen', slug: 'verhinderungspflege' },
-              { icon: '⚖️', titel: 'Widerspruch gegen Pflegegrad-Bescheid einlegen', slug: 'widerspruch' },
+              { icon: '💶', titel: 'Entlastungsbetrag: 131 EUR/Monat die viele verschenken', slug: 'entlastungsbetrag', tone: 'from-success-50 to-success-100/30', ring: 'ring-success-100' },
+              { icon: '🔄', titel: 'Verhinderungspflege: bis 3.539 EUR/Jahr beantragen', slug: 'verhinderungspflege', tone: 'from-primary-50 to-primary-100/30', ring: 'ring-primary-100' },
+              { icon: '⚖️', titel: 'Widerspruch gegen Pflegegrad-Bescheid einlegen', slug: 'widerspruch', tone: 'from-warning-50 to-warning-100/30', ring: 'ring-warning-100' },
             ].map((a) => (
               <Link
                 key={a.slug}
                 href={`/ratgeber/${a.slug}`}
-                className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-5 flex items-start gap-3 group"
+                className="card card-hover p-6 flex items-start gap-4 group"
               >
-                <span className="text-2xl shrink-0">{a.icon}</span>
-                <p className="font-semibold text-gray-900 text-sm leading-tight group-hover:text-primary-700 transition-colors">
-                  {a.titel}
-                </p>
+                <div className={`shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br ${a.tone} ring-1 ${a.ring} flex items-center justify-center text-2xl shadow-soft`}>
+                  {a.icon}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-gray-900 text-[15px] leading-snug group-hover:text-primary-700 transition-colors mb-2">
+                    {a.titel}
+                  </p>
+                  <span className="text-xs text-primary-600 font-semibold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                    Artikel lesen <span>→</span>
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
           <div className="text-center">
-            <Link href="/ratgeber" className="text-primary-600 font-semibold text-sm hover:underline">
-              Alle 21 Ratgeber-Artikel ansehen →
+            <Link
+              href="/ratgeber"
+              className="inline-flex items-center gap-2 text-primary-700 font-semibold text-sm hover:gap-3 transition-all hover:text-primary-800"
+            >
+              Alle 21 Ratgeber-Artikel ansehen <span>→</span>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* CTA Banner */}
-      <section className="bg-primary-600 px-4 py-12 text-center">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="mb-4 text-3xl font-bold text-white">
-            Wieviel Geld verlieren Sie gerade?
-          </h2>
-          <p className="mb-8 text-primary-100">
-            Beantworten Sie 5 Fragen — wir zeigen Ihnen in 60 Sekunden, wieviel Ihnen zusteht
-            und wieviel davon Sie gerade verfallen lassen.
-          </p>
-          <Link
-            href="/check"
-            className="inline-flex min-h-[52px] items-center justify-center rounded-xl bg-white px-8 py-3 text-lg font-bold text-primary-600 shadow transition hover:bg-primary-50 active:scale-95"
-          >
-            Jetzt kostenlos prüfen →
-          </Link>
+      {/* ─── CTA Banner ──────────────────────────────────────── */}
+      <section className="px-4 pb-20 md:pb-28">
+        <div className="mx-auto max-w-5xl">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 px-6 py-14 md:px-12 md:py-20 text-center shadow-glow-primary">
+            <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 bg-primary-400/30 rounded-full blur-3xl" aria-hidden="true" />
+            <div className="pointer-events-none absolute -bottom-32 -right-32 w-96 h-96 bg-primary-300/20 rounded-full blur-3xl" aria-hidden="true" />
+
+            <div className="relative mx-auto max-w-2xl">
+              <h2 className="mb-5 text-3xl md:text-4xl font-extrabold text-white tracking-tight text-balance">
+                Wieviel Geld verlieren Sie gerade?
+              </h2>
+              <p className="mb-8 text-primary-50 text-lg text-pretty leading-relaxed">
+                Beantworten Sie 5 Fragen — wir zeigen Ihnen in 60 Sekunden, wieviel Ihnen zusteht
+                und wieviel davon Sie gerade verfallen lassen.
+              </p>
+              <Link
+                href="/check"
+                className="inline-flex min-h-[56px] items-center justify-center rounded-2xl bg-white px-8 py-4 text-lg font-bold text-primary-700 shadow-soft-xl transition-all hover:bg-primary-50 hover:scale-[1.02] active:scale-[0.98]"
+              >
+                Jetzt kostenlos prüfen →
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
-
-      {/* Footer Disclaimer */}
-      <footer className="border-t border-gray-100 px-4 py-6 text-center text-sm text-gray-400">
-        <p>{DISCLAIMER}</p>
-        <p className="mt-2">
-          <Link href="/ratgeber" className="hover:text-gray-600 underline">
-            Ratgeber
-          </Link>
-          {' · '}
-          <Link href="/leistungen" className="hover:text-gray-600 underline">
-            Leistungen
-          </Link>
-          {' · '}
-          <Link href="/fristen" className="hover:text-gray-600 underline">
-            Fristen
-          </Link>
-          {' · '}
-          <Link href="/preise" className="hover:text-gray-600 underline">
-            Kostenlos
-          </Link>
-          {' · '}
-          <Link href="/datenschutz" className="hover:text-gray-600 underline">
-            Datenschutz
-          </Link>
-          {' · '}
-          <Link href="/impressum" className="hover:text-gray-600 underline">
-            Impressum
-          </Link>
-        </p>
-      </footer>
     </main>
   )
 }

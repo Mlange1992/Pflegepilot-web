@@ -26,14 +26,14 @@ const TOTAL_STEPS = 5
 
 function ProgressBar({ step }: { step: number }) {
   return (
-    <div className="w-full mb-6">
-      <div className="flex justify-between text-xs text-gray-500 mb-1">
-        <span>Schritt {step} von {TOTAL_STEPS}</span>
-        <span>{Math.round((step / TOTAL_STEPS) * 100)} %</span>
+    <div className="w-full mb-7">
+      <div className="flex justify-between text-xs text-gray-500 mb-2">
+        <span className="font-medium">Schritt {step} von {TOTAL_STEPS}</span>
+        <span className="font-semibold text-primary-700">{Math.round((step / TOTAL_STEPS) * 100)} %</span>
       </div>
       <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
         <div
-          className="h-full bg-primary-600 rounded-full transition-all duration-300"
+          className="h-full bg-gradient-to-r from-primary-500 to-primary-700 rounded-full transition-all duration-300 shadow-glow-primary"
           style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
         />
       </div>
@@ -54,10 +54,10 @@ function ChoiceButton({
     <button
       type="button"
       onClick={onClick}
-      className={`w-full text-left px-5 py-4 rounded-2xl border-2 font-medium transition-colors min-h-[52px] ${
+      className={`w-full text-left px-5 py-4 rounded-2xl border-2 font-medium transition-all min-h-[56px] ${
         selected
-          ? 'border-primary-600 bg-primary-50 text-primary-700'
-          : 'border-gray-200 bg-white text-gray-700 hover:border-primary-300'
+          ? 'border-primary-600 bg-primary-50 text-primary-700 shadow-soft'
+          : 'border-gray-200 bg-white text-gray-700 hover:border-primary-300 hover:bg-primary-50/30'
       }`}
     >
       {children}
@@ -76,7 +76,7 @@ function Step1({
 }) {
   return (
     <div className="space-y-3">
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      <h2 className="text-2xl font-extrabold text-gray-900 tracking-tight mb-5">
         Hat die Person bereits einen Pflegegrad?
       </h2>
 
@@ -148,7 +148,7 @@ function Step2({
 
   return (
     <div className="space-y-3">
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      <h2 className="text-2xl font-extrabold text-gray-900 tracking-tight mb-5">
         Wird die Person zu Hause versorgt?
       </h2>
       {options.map((o) => (
@@ -175,7 +175,7 @@ function Step3({
 }) {
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      <h2 className="text-2xl font-extrabold text-gray-900 tracking-tight mb-5">
         In welchem Bundesland?
       </h2>
       <select
@@ -214,7 +214,7 @@ function Step4({
 
   return (
     <div className="space-y-3">
-      <h2 className="text-2xl font-bold text-gray-900 mb-1">
+      <h2 className="text-2xl font-extrabold text-gray-900 tracking-tight mb-1">
         Welche Leistungen nutzen Sie bereits?
       </h2>
       <p className="text-sm text-gray-500 mb-4">Mehrfachauswahl möglich.</p>
@@ -280,7 +280,7 @@ function Step5({
 }) {
   return (
     <div className="space-y-3">
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">
+      <h2 className="text-2xl font-extrabold text-gray-900 tracking-tight mb-5">
         Nutzen Sie einen ambulanten Pflegedienst?
       </h2>
       <ChoiceButton
@@ -355,12 +355,12 @@ export default function CheckPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Top Bar */}
-      <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between">
+      <header className="glass border-b border-gray-200/60 px-4 py-3 flex items-center justify-between sticky top-0 z-10">
         {step > 1 ? (
           <button
             type="button"
             onClick={() => setStep((s) => s - 1)}
-            className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700"
+            className="flex items-center gap-1 text-sm text-gray-500 hover:text-primary-700 font-medium transition-colors"
           >
             <svg
               className="w-4 h-4"
@@ -378,11 +378,11 @@ export default function CheckPage() {
             Zurück
           </button>
         ) : (
-          <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
-            PflegePilot
+          <Link href="/" className="text-sm font-semibold text-primary-700 hover:text-primary-800 transition-colors flex items-center gap-1.5">
+            <span>🧭</span> PflegePilot
           </Link>
         )}
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-gray-400 font-medium">
           Schritt {step}/{TOTAL_STEPS}
         </span>
       </header>
@@ -403,16 +403,16 @@ export default function CheckPage() {
       </main>
 
       {/* Sticky Footer Button */}
-      <div className="sticky bottom-0 bg-white border-t border-gray-100 px-4 py-4 safe-bottom">
+      <div className="sticky bottom-0 glass border-t border-gray-200/60 px-4 py-4 safe-bottom">
         <div className="max-w-lg mx-auto">
           <Button
             variant="primary"
             size="lg"
-            className="w-full"
+            className="w-full shadow-glow-primary"
             disabled={!canProceed()}
             onClick={handleWeiter}
           >
-            {step === TOTAL_STEPS ? 'Ergebnis anzeigen' : 'Weiter'}
+            {step === TOTAL_STEPS ? 'Ergebnis anzeigen →' : 'Weiter →'}
           </Button>
         </div>
       </div>

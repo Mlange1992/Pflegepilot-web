@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import leistungen from '@/lib/pflegerecht/leistungen-2026.json'
 import { formatEuro } from '@/lib/utils/format'
-import { DISCLAIMER } from '@/lib/utils/constants'
 import type { LeistungConfig } from '@/lib/pflegerecht/engine'
 
 type Props = {
@@ -47,9 +46,9 @@ export default async function LeistungDetailPage({ params }: Props) {
   if (!l) notFound()
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <main className="bg-gray-50 min-h-screen">
       <div className="max-w-3xl mx-auto px-4 py-10">
-        {/* ─── Breadcrumb ────────────────────────────────────── */}
+        {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-gray-400 mb-6">
           <Link href="/leistungen" className="hover:text-primary-700 transition-colors">
             Leistungen
@@ -58,58 +57,58 @@ export default async function LeistungDetailPage({ params }: Props) {
           <span className="text-gray-700 font-medium">{l.name}</span>
         </nav>
 
-        {/* ─── Header ────────────────────────────────────────── */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
-          <div className="flex items-center gap-4 mb-3">
-            <span className="text-5xl" role="img" aria-label={l.name}>
+        {/* Header */}
+        <div className="card p-7 md:p-8 mb-6">
+          <div className="flex items-center gap-5 mb-4">
+            <div className="shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100/40 ring-1 ring-primary-100 flex items-center justify-center text-4xl shadow-soft">
               {l.icon}
-            </span>
+            </div>
             <div>
-              <h1 className="text-2xl font-extrabold text-gray-900 leading-tight">
+              <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight tracking-tight">
                 {l.name}
               </h1>
-              <p className="text-sm text-gray-400">{l.paragraph}</p>
+              <p className="text-sm text-primary-700 font-semibold mt-1">{l.paragraph}</p>
             </div>
           </div>
           <p className="text-gray-600 leading-relaxed">{l.description}</p>
         </div>
 
-        {/* ─── Betrags-Tabelle ───────────────────────────────── */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-6">
-          <div className="px-5 py-4 border-b border-gray-100">
-            <h2 className="font-bold text-gray-900">Leistungsbeträge nach Pflegegrad</h2>
+        {/* Betrags-Tabelle */}
+        <div className="card overflow-hidden mb-6">
+          <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+            <h2 className="font-bold text-gray-900 tracking-tight">Leistungsbeträge nach Pflegegrad</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wide">
-                  <th className="text-left px-5 py-3 font-semibold">Pflegegrad</th>
-                  <th className="text-right px-5 py-3 font-semibold">
+                <tr className="text-gray-500 text-[10px] uppercase tracking-[0.1em]">
+                  <th className="text-left px-6 py-3 font-bold">Pflegegrad</th>
+                  <th className="text-right px-6 py-3 font-bold">
                     {l.frequency === 'monthly' ? 'Monatsbetrag' : 'Betrag'}
                   </th>
                   {l.frequency === 'monthly' && (
-                    <th className="text-right px-5 py-3 font-semibold">Jahresbetrag</th>
+                    <th className="text-right px-6 py-3 font-bold">Jahresbetrag</th>
                   )}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-50">
+              <tbody className="divide-y divide-gray-100">
                 {ALLE_PFLEGEGRADE.map((pg) => {
                   const monthly = getMonthlyCents(l, pg)
                   const yearly = getYearlyCents(l, pg)
                   const hasAmount = monthly > 0 || yearly > 0
                   return (
-                    <tr key={pg} className={hasAmount ? '' : 'opacity-40'}>
-                      <td className="px-5 py-3 font-medium text-gray-800">
+                    <tr key={pg} className={hasAmount ? 'hover:bg-primary-50/30 transition-colors' : 'opacity-40'}>
+                      <td className="px-6 py-4 font-medium text-gray-800">
                         Pflegegrad {pg}
                         {pg === 1 && (
                           <span className="ml-2 text-xs text-gray-400">(erhebliche Beeinträchtigung)</span>
                         )}
                       </td>
-                      <td className="px-5 py-3 text-right font-semibold text-gray-700">
+                      <td className="px-6 py-4 text-right font-semibold text-gray-700">
                         {monthly > 0 ? formatEuro(monthly) : yearly > 0 ? formatEuro(yearly) : '—'}
                       </td>
                       {l.frequency === 'monthly' && (
-                        <td className="px-5 py-3 text-right font-semibold text-primary-700">
+                        <td className="px-6 py-4 text-right font-bold text-primary-700">
                           {yearly > 0 ? formatEuro(yearly) : '—'}
                         </td>
                       )}
@@ -121,27 +120,27 @@ export default async function LeistungDetailPage({ params }: Props) {
           </div>
         </div>
 
-        {/* ─── Tipp-Box ──────────────────────────────────────── */}
+        {/* Tipp-Box */}
         {l.tip && (
-          <div className="bg-warning-50 border border-warning-200 rounded-2xl p-5 mb-6">
-            <div className="flex items-start gap-3">
-              <span className="text-2xl shrink-0">💡</span>
+          <div className="bg-gradient-to-br from-warning-50 to-warning-100/30 ring-1 ring-warning-100 rounded-2xl p-6 mb-6 shadow-soft">
+            <div className="flex items-start gap-4">
+              <div className="shrink-0 w-12 h-12 rounded-2xl bg-white ring-1 ring-warning-200 flex items-center justify-center text-2xl shadow-soft">💡</div>
               <div>
-                <p className="font-semibold text-warning-600 mb-1">Tipp</p>
-                <p className="text-sm text-gray-700 leading-relaxed">{l.tip}</p>
+                <p className="font-bold text-warning-700 mb-1.5">Tipp</p>
+                <p className="text-[15px] text-gray-700 leading-relaxed">{l.tip}</p>
               </div>
             </div>
           </div>
         )}
 
-        {/* ─── Warn-Box ──────────────────────────────────────── */}
+        {/* Warn-Box */}
         {l.warning && (
-          <div className="bg-red-50 border border-red-200 rounded-2xl p-5 mb-6">
-            <div className="flex items-start gap-3">
-              <span className="text-2xl shrink-0">⚠️</span>
+          <div className="bg-gradient-to-br from-danger-50 to-danger-100/30 ring-1 ring-danger-100 rounded-2xl p-6 mb-6 shadow-soft">
+            <div className="flex items-start gap-4">
+              <div className="shrink-0 w-12 h-12 rounded-2xl bg-white ring-1 ring-danger-200 flex items-center justify-center text-2xl shadow-soft">⚠️</div>
               <div>
-                <p className="font-semibold text-red-700 mb-1">Wichtiger Hinweis</p>
-                <p className="text-sm text-gray-700 leading-relaxed">
+                <p className="font-bold text-danger-700 mb-1.5">Wichtiger Hinweis</p>
+                <p className="text-[15px] text-gray-700 leading-relaxed">
                   {l.warning.replace(/^⚠️\s*/, '')}
                 </p>
               </div>
@@ -149,14 +148,14 @@ export default async function LeistungDetailPage({ params }: Props) {
           </div>
         )}
 
-        {/* ─── Fristen-Box ───────────────────────────────────── */}
+        {/* Fristen-Box */}
         {l.deadline_rule && (
-          <div className="bg-orange-50 border border-orange-200 rounded-2xl p-5 mb-6">
-            <div className="flex items-start gap-3">
-              <span className="text-2xl shrink-0">⏰</span>
+          <div className="bg-gradient-to-br from-warning-50 to-amber-50 ring-1 ring-amber-100 rounded-2xl p-6 mb-6 shadow-soft">
+            <div className="flex items-start gap-4">
+              <div className="shrink-0 w-12 h-12 rounded-2xl bg-white ring-1 ring-amber-200 flex items-center justify-center text-2xl shadow-soft">⏰</div>
               <div>
-                <p className="font-semibold text-orange-700 mb-1">Wichtige Frist</p>
-                <p className="text-sm text-gray-700 leading-relaxed">
+                <p className="font-bold text-warning-700 mb-1.5">Wichtige Frist</p>
+                <p className="text-[15px] text-gray-700 leading-relaxed">
                   {l.deadline_rule === 'verfaellt_30_juni_folgejahr' ? (
                     <>
                       Nicht genutzte Beträge können bis zum{' '}
@@ -182,14 +181,14 @@ export default async function LeistungDetailPage({ params }: Props) {
           </div>
         )}
 
-        {/* ─── Antrags-Hinweis ────────────────────────────────── */}
+        {/* Antrags-Hinweis */}
         {l.requires_antrag && (
-          <div className="bg-primary-50 border border-primary-100 rounded-2xl p-5 mb-6">
-            <div className="flex items-start gap-3">
-              <span className="text-2xl shrink-0">📝</span>
+          <div className="bg-gradient-to-br from-primary-50 to-primary-100/30 ring-1 ring-primary-100 rounded-2xl p-6 mb-6 shadow-soft">
+            <div className="flex items-start gap-4">
+              <div className="shrink-0 w-12 h-12 rounded-2xl bg-white ring-1 ring-primary-200 flex items-center justify-center text-2xl shadow-soft">📝</div>
               <div>
-                <p className="font-semibold text-primary-700 mb-1">Antrag erforderlich</p>
-                <p className="text-sm text-gray-700 leading-relaxed">
+                <p className="font-bold text-primary-700 mb-1.5">Antrag erforderlich</p>
+                <p className="text-[15px] text-gray-700 leading-relaxed">
                   Diese Leistung muss bei Ihrer Pflegekasse beantragt werden. Wir
                   helfen Ihnen dabei — melden Sie sich an und nutzen Sie unsere
                   Antrags-Vorlagen.
@@ -199,20 +198,24 @@ export default async function LeistungDetailPage({ params }: Props) {
           </div>
         )}
 
-        {/* ─── Gesetzestext ───────────────────────────────────── */}
+        {/* Gesetzestext */}
         {l.gesetzestext && (
-          <details className="bg-white rounded-2xl border border-gray-100 shadow-sm mb-6 group">
-            <summary className="flex items-center justify-between px-5 py-4 cursor-pointer select-none list-none">
+          <details className="card mb-6 group">
+            <summary className="flex items-center justify-between px-6 py-4 cursor-pointer select-none list-none">
               <div className="flex items-center gap-3">
-                <span className="text-lg shrink-0">⚖️</span>
+                <div className="shrink-0 w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-lg">⚖️</div>
                 <div>
-                  <p className="font-semibold text-gray-900">Gesetzestext</p>
+                  <p className="font-bold text-gray-900">Gesetzestext</p>
                   <p className="text-xs text-gray-400">{l.paragraph}</p>
                 </div>
               </div>
-              <span className="text-gray-400 transition-transform group-open:rotate-180">▾</span>
+              <span className="shrink-0 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 transition-transform group-open:rotate-180 group-open:bg-primary-100 group-open:text-primary-700">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </span>
             </summary>
-            <div className="px-5 pb-5 border-t border-gray-100 pt-4">
+            <div className="px-6 pb-6 border-t border-gray-100 pt-5">
               <pre className="whitespace-pre-wrap font-sans text-sm text-gray-700 leading-relaxed">
                 {l.gesetzestext}
               </pre>
@@ -220,32 +223,32 @@ export default async function LeistungDetailPage({ params }: Props) {
           </details>
         )}
 
-        {/* ─── CTA-Box ────────────────────────────────────────── */}
-        <div className="bg-gray-900 text-white rounded-2xl p-6 text-center space-y-4 mb-6">
-          <p className="font-bold text-lg">Nutzen Sie diese Leistung bereits?</p>
-          <p className="text-gray-300 text-sm">
-            Tracken Sie Ihre Ausgaben und behalten Sie den Überblick — oder prüfen
-            Sie jetzt, welche Leistungen Ihrer Familie insgesamt zustehen.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href="/auth"
-              className="inline-flex items-center justify-center bg-primary-600 text-white font-semibold py-3 px-6 rounded-xl min-h-[48px] hover:bg-primary-700 transition-colors text-sm"
-            >
-              Ja, tracken →
-            </Link>
-            <Link
-              href="/check"
-              className="inline-flex items-center justify-center border-2 border-gray-600 text-gray-200 font-semibold py-3 px-6 rounded-xl min-h-[48px] hover:border-gray-400 hover:text-white transition-colors text-sm"
-            >
-              Zum Quick-Check
-            </Link>
+        {/* CTA-Box */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-primary-900 to-gray-900 px-6 py-10 md:px-10 md:py-12 text-center shadow-soft-xl">
+          <div className="pointer-events-none absolute inset-0 bg-mesh-dark" aria-hidden="true" />
+          <div className="relative">
+            <p className="font-extrabold text-2xl text-white mb-2 tracking-tight">Nutzen Sie diese Leistung bereits?</p>
+            <p className="text-gray-300 mb-6 leading-relaxed max-w-md mx-auto">
+              Tracken Sie Ihre Ausgaben und behalten Sie den Überblick — oder prüfen
+              Sie jetzt, welche Leistungen Ihrer Familie insgesamt zustehen.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                href="/auth"
+                className="inline-flex items-center justify-center bg-primary-600 text-white font-semibold py-3.5 px-7 rounded-2xl min-h-[52px] hover:bg-primary-500 transition-colors shadow-glow-primary text-sm"
+              >
+                Ja, tracken →
+              </Link>
+              <Link
+                href="/check"
+                className="inline-flex items-center justify-center border-2 border-white/20 text-gray-100 font-semibold py-3.5 px-7 rounded-2xl min-h-[52px] hover:border-white/40 hover:bg-white/5 transition-all text-sm"
+              >
+                Zum Quick-Check
+              </Link>
+            </div>
           </div>
         </div>
-
-        {/* ─── Disclaimer ────────────────────────────────────── */}
-        <p className="text-xs text-gray-400 text-center">{DISCLAIMER}</p>
       </div>
-    </div>
+    </main>
   )
 }

@@ -7,19 +7,74 @@
     --font-inter: 'Inter', system-ui, sans-serif;
   }
 
-  body {
-    @apply bg-white text-gray-900;
-    font-feature-settings: "rlig" 1, "calt" 1;
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Große Touch-Targets für Mobile First */
-  button, a, input, select, textarea {
+  body {
+    @apply bg-white text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+
+  /* Große Touch-Targets nur für interaktive UI-Elemente, nicht inline */
+  button, input, select, textarea {
     @apply min-h-[44px];
+  }
+}
+
+@layer components {
+  /* Kart in primärem Stil — leicht angehoben, sanfter Schatten, Hover-Lift */
+  .card {
+    @apply bg-white rounded-2xl ring-1 ring-gray-100 shadow-soft transition-all duration-200;
+  }
+  .card-hover {
+    @apply hover:shadow-soft-lg hover:-translate-y-0.5 hover:ring-primary-100;
+  }
+
+  /* Container für Marketing-Content */
+  .container-prose {
+    @apply max-w-3xl mx-auto px-4;
+  }
+  .container-wide {
+    @apply max-w-5xl mx-auto px-4;
+  }
+
+  /* CTA-Button (Primary) */
+  .btn-primary {
+    @apply inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-primary-600 px-7 py-3.5 text-base font-semibold text-white shadow-glow-primary transition-all hover:bg-primary-700 hover:shadow-soft-xl active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2;
+  }
+  .btn-secondary {
+    @apply inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border-2 border-gray-200 bg-white px-7 py-3.5 text-base font-semibold text-gray-700 transition-all hover:border-primary-300 hover:bg-primary-50/50 hover:text-primary-700 active:scale-[0.98];
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide;
+  }
+
+  /* Sektion-Heading */
+  .section-eyebrow {
+    @apply inline-block text-xs font-bold uppercase tracking-[0.18em] text-primary-700 mb-3;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Subtle dotted background pattern */
+  .bg-dots {
+    background-image: radial-gradient(rgb(8 145 178 / 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Glasmorphismus-Hintergrund */
+  .glass {
+    @apply bg-white/70 backdrop-blur-md backdrop-saturate-150;
   }
 }

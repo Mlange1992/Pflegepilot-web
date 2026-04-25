@@ -2,11 +2,15 @@ export const metadata = { title: 'Datenschutz – PflegePilot' }
 
 export default function DatenschutzPage() {
   return (
-    <div className="max-w-2xl mx-auto px-4 py-12 space-y-8 text-sm text-gray-600">
-      <h1 className="text-3xl font-extrabold text-gray-900">Datenschutzerklärung</h1>
+    <main className="bg-gray-50 min-h-screen">
+    <div className="max-w-2xl mx-auto px-4 py-16 space-y-8 text-[15px] text-gray-600 leading-relaxed">
+      <header className="pb-6 border-b border-gray-200">
+        <span className="section-eyebrow">Rechtliches</span>
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">Datenschutzerklärung</h1>
+      </header>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-800">1. Verantwortlicher</h2>
+        <h2 className="text-xl font-bold text-gray-900 tracking-tight">1. Verantwortlicher</h2>
         <p>
           Verantwortlich für die Datenverarbeitung im Sinne der DSGVO ist:<br />
           <strong>Markus Lange</strong><br />
@@ -16,7 +20,7 @@ export default function DatenschutzPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-800">2. Welche Daten wir erheben</h2>
+        <h2 className="text-xl font-bold text-gray-900 tracking-tight">2. Welche Daten wir erheben</h2>
         <ul className="list-disc pl-5 space-y-1">
           <li>E-Mail-Adresse (bei Registrierung / Anmeldung)</li>
           <li>Pflegegrad, Bundesland, Wohnsituation (Profil-Setup)</li>
@@ -26,7 +30,7 @@ export default function DatenschutzPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-800">3. Besondere Kategorien personenbezogener Daten (Art. 9 DSGVO)</h2>
+        <h2 className="text-xl font-bold text-gray-900 tracking-tight">3. Besondere Kategorien personenbezogener Daten (Art. 9 DSGVO)</h2>
         <p>
           Angaben zum Pflegegrad, zur Wohnsituation sowie ggf. zu Diagnosen oder Gesundheitszustand
           stellen besondere Kategorien personenbezogener Daten im Sinne von Art. 9 DSGVO dar.
@@ -38,7 +42,7 @@ export default function DatenschutzPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-800">4. Zweck der Datenverarbeitung</h2>
+        <h2 className="text-xl font-bold text-gray-900 tracking-tight">4. Zweck der Datenverarbeitung</h2>
         <ul className="list-disc pl-5 space-y-1">
           <li>Bereitstellung des Dienstes (Budgetübersicht, Fristenmanagement)</li>
           <li>Authentifizierung und Kontoverwaltung</li>
@@ -52,7 +56,7 @@ export default function DatenschutzPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-800">5. Hosting</h2>
+        <h2 className="text-xl font-bold text-gray-900 tracking-tight">5. Hosting</h2>
         <p>
           Diese Website wird gehostet von <strong>Cloudflare, Inc.</strong>, 101 Townsend St,
           San Francisco, CA 94107, USA (Cloudflare Pages). Cloudflare verarbeitet dabei
@@ -64,7 +68,7 @@ export default function DatenschutzPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-800">6. Weitergabe an Dritte</h2>
+        <h2 className="text-xl font-bold text-gray-900 tracking-tight">6. Weitergabe an Dritte</h2>
         <p>
           Wir geben Ihre Daten nur an Dritte weiter, soweit dies zur Vertragserfüllung notwendig ist:
         </p>
@@ -89,17 +93,11 @@ export default function DatenschutzPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-800">7. Authentifizierung über Drittanbieter</h2>
+        <h2 className="text-xl font-bold text-gray-900 tracking-tight">7. Authentifizierung über Drittanbieter</h2>
         <p>
-          Neben der E-Mail/Passwort-Anmeldung bieten wir folgende OAuth-Optionen an:
+          Neben der E-Mail/Passwort-Anmeldung bieten wir folgende OAuth-Option an:
         </p>
         <ul className="list-disc pl-5 space-y-2">
-          <li>
-            <strong>Sign in with Apple</strong> — Anbieter: Apple Inc., One Apple Park Way,
-            Cupertino, CA 95014, USA. Bei der Anmeldung übermittelt Apple eine Nutzer-ID sowie
-            — nach Ihrer Wahl — Ihre E-Mail-Adresse oder eine Apple-interne Relay-Adresse
-            (Hide My Email). Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).
-          </li>
           <li>
             <strong>Sign in with Google</strong> — Anbieter: Google Ireland Limited, Gordon House,
             Barrow Street, Dublin 4, Irland. Bei der Anmeldung übermittelt Google Ihre
@@ -108,13 +106,13 @@ export default function DatenschutzPage() {
           </li>
         </ul>
         <p>
-          Die Nutzung dieser Dienste unterliegt zusätzlich den Datenschutzrichtlinien von Apple
-          bzw. Google. Wir empfangen und speichern nur die für die Kontoanmeldung notwendigen Daten.
+          Die Nutzung dieses Dienstes unterliegt zusätzlich den Datenschutzrichtlinien von Google.
+          Wir empfangen und speichern nur die für die Kontoanmeldung notwendigen Daten.
         </p>
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-800">8. Affiliate-Partnerprogramme (geplant)</h2>
+        <h2 className="text-xl font-bold text-gray-900 tracking-tight">8. Affiliate-Partnerprogramme (geplant)</h2>
         <p>
           PflegePilot plant, künftig Empfehlungen zu Partnerprodukten (z.B. Pflegehilfsmittel-Anbieter,
           anerkannte Pflegedienste) als Affiliate-Links einzubinden. Bei Klick auf einen solchen Link
@@ -126,7 +124,7 @@ export default function DatenschutzPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-800">9. Cookies</h2>
+        <h2 className="text-xl font-bold text-gray-900 tracking-tight">9. Cookies</h2>
         <p>
           Wir verwenden ausschließlich technisch notwendige Cookies für die Authentifizierung
           (Session-Cookies von Supabase). Es werden keine Tracking- oder Werbe-Cookies eingesetzt.
@@ -134,7 +132,7 @@ export default function DatenschutzPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-800">10. Speicherdauer</h2>
+        <h2 className="text-xl font-bold text-gray-900 tracking-tight">10. Speicherdauer</h2>
         <p>
           Personenbezogene Daten werden gelöscht, sobald der Zweck der Verarbeitung entfällt oder
           Sie Ihr Konto löschen. Server-Logs werden nach 7–14 Tagen automatisch gelöscht.
@@ -143,7 +141,7 @@ export default function DatenschutzPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-800">11. Ihre Rechte</h2>
+        <h2 className="text-xl font-bold text-gray-900 tracking-tight">11. Ihre Rechte</h2>
         <p>Sie haben das Recht auf:</p>
         <ul className="list-disc pl-5 space-y-1">
           <li>Auskunft über Ihre gespeicherten Daten (Art. 15 DSGVO)</li>
@@ -163,7 +161,7 @@ export default function DatenschutzPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-800">12. Beschwerderecht</h2>
+        <h2 className="text-xl font-bold text-gray-900 tracking-tight">12. Beschwerderecht</h2>
         <p>
           Sie haben das Recht, sich bei der zuständigen Datenschutzaufsichtsbehörde zu beschweren.
           Zuständig ist der <strong>Landesbeauftragte für den Datenschutz und die Informationsfreiheit
@@ -179,5 +177,6 @@ export default function DatenschutzPage() {
         Stand: April 2026
       </p>
     </div>
+    </main>
   )
 }

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { NavbarWrapper } from '@/components/marketing/NavbarWrapper'
-import { Footer } from '@/components/marketing/Footer'
+import { FooterWrapper } from '@/components/marketing/FooterWrapper'
 import { PostHogProvider } from '@/components/analytics/PostHogProvider'
 import { PageViewTracker } from '@/components/analytics/PageViewTracker'
 import { Suspense } from 'react'
@@ -73,7 +73,7 @@ export default function RootLayout({
           </Suspense>
           <NavbarWrapper />
           {children}
-          <Footer />
+          <FooterWrapper />
         </PostHogProvider>
       </body>
     </html>

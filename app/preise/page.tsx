@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { DISCLAIMER } from '@/lib/utils/constants'
 
 export const metadata: Metadata = {
   title: 'Kostenlos – PflegePilot',
@@ -49,60 +48,81 @@ const FAQ = [
 
 export default function PreisePage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-3xl mx-auto px-4 py-12">
+    <main className="bg-gray-50 min-h-screen">
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-mesh-primary px-4 pt-16 pb-12 md:pt-20 md:pb-16">
+        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-success-200/30 rounded-full blur-3xl" aria-hidden="true" />
 
-        {/* Header */}
-        <div className="text-center mb-12">
-          <span className="inline-block bg-green-100 text-green-700 font-bold text-sm px-4 py-2 rounded-full mb-4">
-            AKTUELL KOSTENLOS
+        <div className="relative max-w-3xl mx-auto text-center">
+          <span className="badge bg-success-50 text-success-700 ring-1 ring-success-200 mb-5">
+            <span className="w-1.5 h-1.5 rounded-full bg-success-500 animate-pulse" />
+            Aktuell kostenlos
           </span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3">
-            Kein Abo. Kein In-App-Kauf. Keine Tracking-Werbung.
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight text-balance leading-[1.1]">
+            Kein Abo. Kein In-App-Kauf.{' '}
+            <span className="bg-gradient-to-br from-success-600 to-primary-700 bg-clip-text text-transparent">
+              Keine Tracking-Werbung.
+            </span>
           </h1>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto">
+          <p className="text-gray-600 text-lg max-w-xl mx-auto text-pretty leading-relaxed">
             Alle Features stehen jedem Nutzer sofort zur Verfügung.
           </p>
         </div>
+      </section>
 
-        {/* Einzige Pricing Card */}
-        <div className="bg-white rounded-2xl border-2 border-green-200 shadow-lg p-8 mb-10">
-          <div className="text-center mb-6">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-              PflegePilot
-            </p>
-            <div className="flex items-end justify-center gap-1">
-              <span className="text-6xl font-extrabold text-green-600">0 €</span>
-              <span className="text-gray-400 text-lg mb-2">/Monat</span>
+      <div className="max-w-3xl mx-auto px-4 pb-20">
+        {/* Pricing Card */}
+        <div className="relative bg-white rounded-3xl ring-2 ring-success-200 shadow-soft-xl p-8 md:p-10 mb-10 overflow-hidden">
+          <div className="pointer-events-none absolute -top-24 -right-24 w-64 h-64 bg-success-100/40 rounded-full blur-3xl" aria-hidden="true" />
+
+          <div className="relative">
+            <div className="text-center mb-7">
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-3">
+                PflegePilot
+              </p>
+              <div className="flex items-end justify-center gap-1">
+                <span className="text-7xl md:text-8xl font-extrabold bg-gradient-to-br from-success-600 to-success-700 bg-clip-text text-transparent tracking-tight">
+                  0 €
+                </span>
+                <span className="text-gray-400 text-lg mb-3">/Monat</span>
+              </div>
+              <p className="text-gray-500 mt-2 text-sm">Aktuell kostenlos. Kein Abo, kein In-App-Kauf.</p>
             </div>
-            <p className="text-gray-500 mt-2">Aktuell kostenlos. Kein Abo, kein In-App-Kauf.</p>
+
+            <ul className="space-y-3 mb-8">
+              {FEATURES.map((f) => (
+                <li key={f} className="flex items-start gap-3 text-sm text-gray-700">
+                  <span className="shrink-0 mt-0.5 w-5 h-5 rounded-full bg-success-100 flex items-center justify-center">
+                    <svg className="w-3 h-3 text-success-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <span className="leading-relaxed">{f}</span>
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              href="/check"
+              className="block text-center py-4 px-6 rounded-2xl bg-gradient-to-br from-success-600 to-success-700 text-white text-base font-semibold hover:from-success-500 hover:to-success-600 transition-all min-h-[56px] flex items-center justify-center shadow-soft-lg active:scale-[0.98]"
+            >
+              Jetzt kostenlos starten →
+            </Link>
+            <p className="text-center text-xs text-gray-400 mt-3">
+              Keine Registrierung nötig. Kein Abo. Keine Tracking-Werbung.
+            </p>
           </div>
-          <ul className="space-y-3 mb-8">
-            {FEATURES.map((f) => (
-              <li key={f} className="flex items-start gap-3 text-sm text-gray-700">
-                <span className="text-green-500 shrink-0 mt-0.5 text-lg">✓</span>
-                {f}
-              </li>
-            ))}
-          </ul>
-          <Link
-            href="/check"
-            className="block text-center py-4 px-5 rounded-xl bg-green-600 text-white text-base font-semibold hover:bg-green-700 transition-colors min-h-[52px] flex items-center justify-center"
-          >
-            Jetzt kostenlos starten →
-          </Link>
-          <p className="text-center text-xs text-gray-400 mt-3">
-            Keine Registrierung nötig. Kein Abo. Keine Tracking-Werbung.
-          </p>
         </div>
 
         {/* Wie wir uns finanzieren */}
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-10">
-          <div className="flex gap-3">
-            <span className="text-2xl shrink-0">💡</span>
+        <div className="bg-amber-50 border border-amber-100 ring-1 ring-amber-200/50 rounded-2xl p-6 mb-12 shadow-soft">
+          <div className="flex gap-4">
+            <span className="shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-200/60 ring-1 ring-amber-200 flex items-center justify-center text-2xl shadow-soft">
+              💡
+            </span>
             <div>
-              <p className="font-semibold text-gray-900 mb-1">Wie finanziert sich PflegePilot?</p>
-              <p className="text-sm text-gray-600">
+              <p className="font-bold text-gray-900 mb-1.5">Wie finanziert sich PflegePilot?</p>
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Wir planen, relevante Produkt-Empfehlungen (z.B. Pflegebox, Hausnotruf) zu zeigen,
                 die klar als <strong>„Anzeige"</strong> gekennzeichnet sein werden. Aktuell sind keine
                 Partner aktiv. Bei künftigen Vermittlungen erhalten wir eine kleine Provision —
@@ -113,38 +133,45 @@ export default function PreisePage() {
         </div>
 
         {/* FAQ */}
-        <div className="mb-10">
-          <h2 className="text-2xl font-extrabold text-gray-900 mb-6 text-center">
-            Häufige Fragen
-          </h2>
-          <div className="space-y-4">
+        <div className="mb-12">
+          <div className="text-center mb-8">
+            <span className="section-eyebrow">Häufige Fragen</span>
+            <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+              Antworten auf einen Blick
+            </h2>
+          </div>
+          <div className="space-y-3">
             {FAQ.map(({ frage, antwort }) => (
-              <div
+              <details
                 key={frage}
-                className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5"
+                className="card group p-0 overflow-hidden"
               >
-                <p className="font-semibold text-gray-900 mb-2">{frage}</p>
-                <p className="text-sm text-gray-500 leading-relaxed">{antwort}</p>
-              </div>
+                <summary className="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer select-none list-none">
+                  <p className="font-semibold text-gray-900 text-[15px]">{frage}</p>
+                  <span className="shrink-0 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 transition-transform group-open:rotate-180 group-open:bg-primary-100 group-open:text-primary-700">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </summary>
+                <div className="px-5 pb-5">
+                  <p className="text-sm text-gray-600 leading-relaxed">{antwort}</p>
+                </div>
+              </details>
             ))}
           </div>
         </div>
 
         {/* CTA */}
-        <div className="text-center mb-6">
-          <Link
-            href="/check"
-            className="inline-flex items-center gap-2 bg-primary-600 text-white font-semibold py-4 px-8 rounded-2xl min-h-[56px] hover:bg-primary-700 transition-colors text-base"
-          >
+        <div className="text-center">
+          <Link href="/check" className="btn-primary">
             Jetzt kostenlos starten →
           </Link>
-          <p className="text-xs text-gray-400 mt-3">
+          <p className="text-xs text-gray-400 mt-4">
             Keine Registrierung nötig · Keine Kreditkarte · Kein Abo
           </p>
         </div>
-
-        <p className="text-xs text-gray-400 text-center">{DISCLAIMER}</p>
       </div>
-    </div>
+    </main>
   )
 }
