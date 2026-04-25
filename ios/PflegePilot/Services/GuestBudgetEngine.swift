@@ -32,6 +32,26 @@ enum GuestTransactionStore {
         }
     }
 
+    static func update(_ tx: GuestTransaction, personId: UUID, slug: String, year: Int) {
+        let k = key(personId: personId, slug: slug, year: year)
+        var items = load(personId: personId, slug: slug, year: year)
+        if let idx = items.firstIndex(where: { $0.id == tx.id }) {
+            items[idx] = tx
+            if let data = try? JSONEncoder().encode(items) {
+                UserDefaults.standard.set(data, forKey: k)
+            }
+        }
+    }
+
+    static func delete(id: UUID, personId: UUID, slug: String, year: Int) {
+        let k = key(personId: personId, slug: slug, year: year)
+        let items = load(personId: personId, slug: slug, year: year)
+            .filter { $0.id != id }
+        if let data = try? JSONEncoder().encode(items) {
+            UserDefaults.standard.set(data, forKey: k)
+        }
+    }
+
     static func totalUsed(personId: UUID, slug: String, year: Int) -> Int {
         load(personId: personId, slug: slug, year: year).reduce(0) { $0 + $1.amountCents }
     }

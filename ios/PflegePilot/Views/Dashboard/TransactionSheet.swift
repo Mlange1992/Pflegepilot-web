@@ -61,6 +61,7 @@ struct TransactionSheet: View {
     @State private var transactions: [TransactionItem] = []
     @State private var isLoadingHistory = false
     @State private var selectedTemplate: String? = nil
+    @State private var editingTx: TransactionItem? = nil
 
     private var templates: [ExpenseTemplate] {
         expenseTemplates[budget.benefitType.slug] ?? []
@@ -208,18 +209,39 @@ struct TransactionSheet: View {
                 if !transactions.isEmpty {
                     Section("Bisherige Buchungen") {
                         ForEach(transactions) { tx in
-                            HStack {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(tx.description ?? tx.providerName ?? "Ausgabe")
-                                        .font(.subheadline)
-                                    Text(tx.date)
-                                        .font(.caption)
+                            Button {
+                                editingTx = tx
+                            } label: {
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(tx.description ?? tx.providerName ?? "Ausgabe")
+                                            .font(.subheadline)
+                                            .foregroundColor(.primary)
+                                        Text(tx.date)
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    Spacer()
+                                    Text("–\(tx.amountCents.formatEuro)")
+                                        .font(.subheadline.bold())
+                                        .foregroundColor(.red)
+                                    Image(systemName: "chevron.right")
+                                        .font(.caption2)
                                         .foregroundColor(.secondary)
                                 }
-                                Spacer()
-                                Text("–\(tx.amountCents.formatEuro)")
-                                    .font(.subheadline.bold())
-                                    .foregroundColor(.red)
+                            }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    Task { await deleteTransaction(tx) }
+                                } label: {
+                                    Label("Löschen", systemImage: "trash")
+                                }
+                                Button {
+                                    editingTx = tx
+                                } label: {
+                                    Label("Bearbeiten", systemImage: "pencil")
+                                }
+                                .tint(.blue)
                             }
                         }
                     }
@@ -233,6 +255,40 @@ struct TransactionSheet: View {
                 }
             }
             .task { await loadHistory() }
+            .sheet(item: $editingTx) { tx in
+                EditTransactionSheet(
+                    tx: tx,
+                    isGuest: isGuest,
+                    budgetId: budget.id,
+                    personId: guestPersonId,
+                    slug: guestSlug,
+                    year: budget.year
+                ) {
+                    Task {
+                        await loadHistory()
+                        onAdded()
+                    }
+                }
+            }
+        }
+    }
+
+    func deleteTransaction(_ tx: TransactionItem) async {
+        if isGuest {
+            GuestTransactionStore.delete(id: tx.id, personId: guestPersonId, slug: guestSlug, year: budget.year)
+            await loadHistory()
+            onAdded()
+        } else {
+            do {
+                try await SupabaseService.shared.deleteTransaction(
+                    transactionId: tx.id,
+                    budgetId: budget.id
+                )
+                await loadHistory()
+                onAdded()
+            } catch {
+                errorMessage = "Löschen fehlgeschlagen: \(error.localizedDescription)"
+            }
         }
     }
 

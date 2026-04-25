@@ -317,6 +317,60 @@ class SupabaseService: ObservableObject {
         try? await client.auth.signOut()
     }
 
+    // Buchung aktualisieren — anschließend used_cents neu berechnen
+    func updateTransaction(transactionId: UUID, budgetId: UUID,
+                           amountCents: Int, description: String?,
+                           providerName: String?, date: Date) async throws {
+        struct TransactionUpdate: Encodable {
+            let amount_cents: Int
+            let description: String?
+            let provider_name: String?
+            let date: String
+        }
+        let df = DateFormatter(); df.dateFormat = "yyyy-MM-dd"
+        try await client
+            .from("transactions")
+            .update(TransactionUpdate(
+                amount_cents: amountCents,
+                description: description,
+                provider_name: providerName,
+                date: df.string(from: date)
+            ))
+            .eq("id", value: transactionId.uuidString)
+            .execute()
+
+        try await recomputeUsedCents(budgetId: budgetId)
+    }
+
+    // Buchung löschen — anschließend used_cents neu berechnen
+    func deleteTransaction(transactionId: UUID, budgetId: UUID) async throws {
+        try await client
+            .from("transactions")
+            .delete()
+            .eq("id", value: transactionId.uuidString)
+            .execute()
+
+        try await recomputeUsedCents(budgetId: budgetId)
+    }
+
+    // used_cents aus Summe aller Transaktionen neu berechnen
+    private func recomputeUsedCents(budgetId: UUID) async throws {
+        struct UsedCentsRow: Decodable { let amount_cents: Int }
+        let txRows: [UsedCentsRow] = try await client
+            .from("transactions")
+            .select("amount_cents")
+            .eq("budget_id", value: budgetId.uuidString)
+            .execute()
+            .value
+        let newTotal = txRows.reduce(0) { $0 + $1.amount_cents }
+        struct UsedUpdate: Encodable { let used_cents: Int }
+        try await client
+            .from("budgets")
+            .update(UsedUpdate(used_cents: newTotal))
+            .eq("id", value: budgetId.uuidString)
+            .execute()
+    }
+
     // Transaktionen für ein Budget laden
     func loadTransactions(budgetId: UUID) async throws -> [TransactionItem] {
         let items: [TransactionItem] = try await client

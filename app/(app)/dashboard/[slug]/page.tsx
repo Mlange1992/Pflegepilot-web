@@ -6,6 +6,7 @@ import { formatEuro, formatDate, formatDaysUntil, daysUntil } from '@/lib/utils/
 import { DISCLAIMER } from '@/lib/utils/constants'
 import type { Budget, BenefitType, Transaction } from '@/lib/supabase/types'
 import { AddTransactionForm } from './AddTransactionForm'
+import { TransactionRow } from './TransactionRow'
 
 type BudgetWithBenefitType = Budget & {
   benefit_types: BenefitType
@@ -171,23 +172,7 @@ export default async function BudgetDetailPage({ params, searchParams }: Props) 
         ) : (
           <div className="divide-y divide-gray-50">
             {transactions.map((tx) => (
-              <div
-                key={tx.id}
-                className="px-5 py-3 flex items-center justify-between gap-3"
-              >
-                <div className="min-w-0">
-                  <p className="text-sm font-medium text-gray-800 truncate">
-                    {tx.description ?? '—'}
-                  </p>
-                  <p className="text-xs text-gray-400">
-                    {formatDate(tx.date)}
-                    {tx.provider_name ? ` · ${tx.provider_name}` : ''}
-                  </p>
-                </div>
-                <span className="text-sm font-semibold text-danger-600 shrink-0">
-                  −{formatEuro(tx.amount_cents)}
-                </span>
-              </div>
+              <TransactionRow key={tx.id} tx={tx} />
             ))}
           </div>
         )}
