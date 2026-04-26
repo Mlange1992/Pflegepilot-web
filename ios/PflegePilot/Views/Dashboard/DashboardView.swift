@@ -633,6 +633,7 @@ struct BudgetCard: View {
     let budget: BudgetItem
 
     var color: Color {
+        if budget.isExceeded { return .red }
         if budget.isExpiringSoon { return .orange }
         if budget.percentUsed > 0.9 { return .red }
         return Color(hex: "0891B2")
@@ -643,23 +644,37 @@ struct BudgetCard: View {
             HStack {
                 Text(budget.benefitType.icon ?? "💶").font(.title2)
                 Spacer()
-                if budget.isExpiringSoon {
+                if budget.isExceeded {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .font(.caption).foregroundColor(.red)
+                } else if budget.isExpiringSoon {
                     Image(systemName: "clock.badge.exclamationmark")
                         .font(.caption).foregroundColor(.orange)
                 }
             }
             Text(budget.benefitType.name)
                 .font(.caption.bold()).lineLimit(2)
-            Text(budget.remainingCents.formatEuro)
-                .font(.subheadline.bold()).foregroundColor(color)
-            Text("von \(budget.totalCents.formatEuro)")
-                .font(.caption2).foregroundColor(.secondary)
-            ProgressView(value: budget.percentUsed).tint(color)
+            if budget.isExceeded {
+                Text("−\(budget.exceededCents.formatEuro)")
+                    .font(.subheadline.bold()).foregroundColor(.red)
+                Text("über Budget")
+                    .font(.caption2).foregroundColor(.red)
+            } else {
+                Text(budget.remainingCents.formatEuro)
+                    .font(.subheadline.bold()).foregroundColor(color)
+                Text("von \(budget.totalCents.formatEuro)")
+                    .font(.caption2).foregroundColor(.secondary)
+            }
+            ProgressView(value: min(budget.percentUsed, 1.0)).tint(color)
         }
         .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(.systemBackground))
         .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(budget.isExceeded ? Color.red.opacity(0.5) : Color.clear, lineWidth: 1.5)
+        )
         .shadow(color: .black.opacity(0.06), radius: 4, y: 2)
     }
 }

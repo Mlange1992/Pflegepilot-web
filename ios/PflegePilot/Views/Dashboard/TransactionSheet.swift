@@ -62,6 +62,8 @@ struct TransactionSheet: View {
     @State private var isLoadingHistory = false
     @State private var selectedTemplate: String? = nil
     @State private var editingTx: TransactionItem? = nil
+    @State private var showOverBudgetAlert = false
+    @State private var overBudgetByCents = 0
 
     private var templates: [ExpenseTemplate] {
         expenseTemplates[budget.benefitType.slug] ?? []
@@ -255,6 +257,11 @@ struct TransactionSheet: View {
                 }
             }
             .task { await loadHistory() }
+            .alert("Budget überschritten", isPresented: $showOverBudgetAlert) {
+                Button("OK") { dismiss() }
+            } message: {
+                Text("Die Buchung wurde gespeichert, aber das Jahresbudget für \(budget.benefitType.name) ist nun um \(overBudgetByCents.formatEuro) überschritten. In der Übersicht wird das markiert.")
+            }
             .sheet(item: $editingTx) { tx in
                 EditTransactionSheet(
                     tx: tx,
@@ -300,12 +307,11 @@ struct TransactionSheet: View {
 
     func save() async {
         guard let cents = amountCents else { return }
-        guard cents <= budget.remainingCents else {
-            errorMessage = "Betrag übersteigt verbleibendes Budget (\(budget.remainingCents.formatEuro))."
-            return
-        }
         isSaving = true
         errorMessage = nil
+        // Wird das Budget durch diese Buchung überschritten? Vor dem Speichern berechnen.
+        let willExceedBy = max(0, (budget.usedCents + cents) - budget.totalCents)
+
         if isGuest {
             let df = DateFormatter(); df.dateFormat = "yyyy-MM-dd"
             let tx = GuestTransaction(
@@ -317,23 +323,36 @@ struct TransactionSheet: View {
             )
             GuestTransactionStore.add(tx, personId: guestPersonId, slug: guestSlug, year: budget.year)
             onAdded()
-            dismiss()
-        } else {
-            do {
-                try await SupabaseService.shared.addTransaction(
-                    budgetId: budget.id,
-                    amountCents: cents,
-                    description: description.isEmpty ? nil : description,
-                    providerName: providerName.isEmpty ? nil : providerName,
-                    date: date
-                )
-                onAdded()
+            isSaving = false
+            if willExceedBy > 0 {
+                overBudgetByCents = willExceedBy
+                showOverBudgetAlert = true
+            } else {
                 dismiss()
-            } catch {
-                errorMessage = "Speichern fehlgeschlagen: \(error.localizedDescription)"
             }
+            return
         }
-        isSaving = false
+
+        do {
+            try await SupabaseService.shared.addTransaction(
+                budgetId: budget.id,
+                amountCents: cents,
+                description: description.isEmpty ? nil : description,
+                providerName: providerName.isEmpty ? nil : providerName,
+                date: date
+            )
+            onAdded()
+            isSaving = false
+            if willExceedBy > 0 {
+                overBudgetByCents = willExceedBy
+                showOverBudgetAlert = true
+            } else {
+                dismiss()
+            }
+        } catch {
+            errorMessage = "Speichern fehlgeschlagen: \(error.localizedDescription)"
+            isSaving = false
+        }
     }
 
     func loadHistory() async {

@@ -122,6 +122,8 @@ struct BudgetItem: Identifiable, Codable {
 
     var remainingCents: Int { totalCents - usedCents }
     var percentUsed: Double { totalCents > 0 ? Double(usedCents) / Double(totalCents) : 0 }
+    var isExceeded: Bool { usedCents > totalCents }
+    var exceededCents: Int { max(0, usedCents - totalCents) }
 
     var isExpiringSoon: Bool {
         guard let exp = expiresAt else { return false }
