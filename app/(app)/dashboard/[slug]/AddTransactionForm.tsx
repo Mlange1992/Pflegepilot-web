@@ -2,19 +2,27 @@
 
 import { useRouter } from 'next/navigation'
 import { useRef, useState } from 'react'
+import { formatEuro } from '@/lib/pflegerecht/engine'
 
 export function AddTransactionForm({
   budgetId,
   todayStr,
+  totalCents,
+  usedCents,
+  benefitName,
 }: {
   budgetId: string
   todayStr: string
+  totalCents: number
+  usedCents: number
+  benefitName: string
 }) {
   const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
   const [pending, setPending] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
+  const [overBudgetByCents, setOverBudgetByCents] = useState<number | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -25,9 +33,14 @@ export function AddTransactionForm({
     setPending(true)
 
     const fd = new FormData(e.currentTarget)
+    const amountRaw = String(fd.get('amount') ?? '').trim()
+    const amountEuros = parseFloat(amountRaw.replace(',', '.'))
+    const amountCents =
+      isFinite(amountEuros) && amountEuros > 0 ? Math.round(amountEuros * 100) : 0
+
     const payload = {
       budget_id: budgetId,
-      amount_euros: String(fd.get('amount') ?? ''),
+      amount_euros: amountRaw,
       description: String(fd.get('description') ?? ''),
       provider: String(fd.get('provider') ?? ''),
       date: String(fd.get('date') ?? ''),
@@ -49,9 +62,16 @@ export function AddTransactionForm({
         return
       }
 
+      // Wurde durch diese Buchung das Budget überschritten?
+      const willExceedBy = Math.max(0, usedCents + amountCents - totalCents)
+
       setSuccess(true)
       formRef.current?.reset()
       router.refresh()
+
+      if (willExceedBy > 0) {
+        setOverBudgetByCents(willExceedBy)
+      }
     } catch (err) {
       console.error('AddTransactionForm submit failed', err)
       setError('Netzwerk-Fehler. Bitte erneut versuchen.')
@@ -61,7 +81,44 @@ export function AddTransactionForm({
   }
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+    <>
+      {/* Über-Budget-Modal */}
+      {overBudgetByCents !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="over-budget-title"
+        >
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+            <div className="flex items-start gap-3 mb-3">
+              <span className="text-3xl" aria-hidden="true">⚠️</span>
+              <div>
+                <h3 id="over-budget-title" className="font-extrabold text-gray-900 text-lg leading-tight">
+                  Budget überschritten
+                </h3>
+                <p className="text-sm text-gray-500 mt-0.5">
+                  Buchung gespeichert
+                </p>
+              </div>
+            </div>
+            <p className="text-sm text-gray-700 leading-relaxed mb-5">
+              Das Jahresbudget für <strong>{benefitName}</strong> ist nun um{' '}
+              <strong className="text-danger-700">{formatEuro(overBudgetByCents)}</strong>{' '}
+              überschritten. Die Ausgabe wurde trotzdem gespeichert und wird in der Übersicht markiert.
+            </p>
+            <button
+              type="button"
+              onClick={() => setOverBudgetByCents(null)}
+              className="w-full bg-primary-600 text-white font-semibold py-3 rounded-xl min-h-[48px] hover:bg-primary-700 transition-colors text-sm"
+            >
+              Verstanden
+            </button>
+          </div>
+        </div>
+      )}
+
+      <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
       {error && (
         <div className="rounded-xl bg-danger-50 ring-1 ring-danger-100 px-4 py-3 text-sm text-danger-700">
           <p className="font-semibold mb-0.5">Speichern fehlgeschlagen</p>
@@ -140,6 +197,7 @@ export function AddTransactionForm({
       >
         {pending ? 'Wird gespeichert…' : 'Ausgabe speichern'}
       </button>
-    </form>
+      </form>
+    </>
   )
 }

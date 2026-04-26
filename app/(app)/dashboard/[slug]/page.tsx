@@ -113,7 +113,13 @@ export default async function BudgetDetailPage({ params, searchParams }: Props) 
       </div>
 
       {/* ─── Fortschrittsbalken ───────────────────────────────── */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-4">
+      <div
+        className={`bg-white rounded-2xl shadow-sm p-5 space-y-4 ${
+          budget.used_cents > budget.total_cents
+            ? 'border-2 border-danger-300 ring-1 ring-danger-100'
+            : 'border border-gray-100'
+        }`}
+      >
         <ProgressBar
           value={percentUsed}
           variant={progressVariant}
@@ -121,20 +127,31 @@ export default async function BudgetDetailPage({ params, searchParams }: Props) 
           showLabel
         />
 
-        <p className="text-sm text-gray-600 text-center">
-          <span className="font-semibold text-success-600">
-            {formatEuro(budget.used_cents)}
-          </span>{' '}
-          von{' '}
-          <span className="font-semibold text-gray-800">
-            {formatEuro(budget.total_cents)}
-          </span>{' '}
-          genutzt — noch{' '}
-          <span className="font-semibold text-primary-700">
-            {formatEuro(remainingCents)}
-          </span>{' '}
-          verfügbar
-        </p>
+        {budget.used_cents > budget.total_cents ? (
+          <div className="rounded-xl bg-danger-50 ring-1 ring-danger-100 px-4 py-3 text-sm text-danger-700 flex items-center gap-2">
+            <span>⚠️</span>
+            <span>
+              Budget überschritten um{' '}
+              <strong>{formatEuro(budget.used_cents - budget.total_cents)}</strong> — gebuchte
+              Ausgaben bleiben gespeichert.
+            </span>
+          </div>
+        ) : (
+          <p className="text-sm text-gray-600 text-center">
+            <span className="font-semibold text-success-600">
+              {formatEuro(budget.used_cents)}
+            </span>{' '}
+            von{' '}
+            <span className="font-semibold text-gray-800">
+              {formatEuro(budget.total_cents)}
+            </span>{' '}
+            genutzt — noch{' '}
+            <span className="font-semibold text-primary-700">
+              {formatEuro(remainingCents)}
+            </span>{' '}
+            verfügbar
+          </p>
+        )}
 
         {/* Verfall-Info */}
         {expiresAt && daysLeft !== null && (
@@ -181,7 +198,13 @@ export default async function BudgetDetailPage({ params, searchParams }: Props) 
       {/* ─── Ausgabe eintragen ────────────────────────────────── */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
         <h2 className="font-bold text-gray-900 mb-4">Ausgabe eintragen</h2>
-        <AddTransactionForm budgetId={budget.id} todayStr={todayStr} />
+        <AddTransactionForm
+          budgetId={budget.id}
+          todayStr={todayStr}
+          totalCents={budget.total_cents}
+          usedCents={budget.used_cents}
+          benefitName={bt.name}
+        />
       </div>
 
       {/* ─── Disclaimer ───────────────────────────────────────── */}

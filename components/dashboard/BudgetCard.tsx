@@ -29,6 +29,8 @@ export function BudgetCard({
   personId,
 }: BudgetCardProps) {
   const href = personId ? `/dashboard/${slug}?personId=${personId}` : `/dashboard/${slug}`
+  const isExceeded = usedCents > totalCents
+  const exceededCents = Math.max(0, usedCents - totalCents)
   const remainingCents = Math.max(0, totalCents - usedCents)
   const percentUsed =
     totalCents > 0 ? Math.min(100, (usedCents / totalCents) * 100) : 0
@@ -42,7 +44,11 @@ export function BudgetCard({
   return (
     <Link
       href={href}
-      className="block rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-4"
+      className={`block rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow p-4 ${
+        isExceeded
+          ? 'border-2 border-danger-300 ring-1 ring-danger-100'
+          : 'border border-gray-100'
+      }`}
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-2 mb-3">
@@ -60,13 +66,19 @@ export function BudgetCard({
 
         {/* Badges */}
         <div className="flex flex-col items-end gap-1 shrink-0">
-          {deadlineRule !== null && isCritical && (
+          {isExceeded && (
+            <span className="inline-flex items-center gap-1 text-xs font-bold bg-danger-100 text-danger-700 px-2 py-0.5 rounded-full">
+              <span>⚠️</span>
+              Überschritten
+            </span>
+          )}
+          {!isExceeded && deadlineRule !== null && isCritical && (
             <span className="inline-flex items-center gap-1 text-xs font-medium bg-danger-50 text-danger-700 px-2 py-0.5 rounded-full">
               <span>⚠️</span>
               Verfällt in {daysUntilExpiry}d
             </span>
           )}
-          {deadlineRule !== null && isExpiringSoon && !isCritical && (
+          {!isExceeded && deadlineRule !== null && isExpiringSoon && !isCritical && (
             <span className="inline-flex items-center gap-1 text-xs font-medium bg-warning-50 text-warning-600 px-2 py-0.5 rounded-full">
               <span>⏰</span>
               {daysUntilExpiry}d verbleibend
@@ -79,7 +91,9 @@ export function BudgetCard({
       <div className="mb-2">
         <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
           <div
-            className="h-full bg-success-500 rounded-full transition-all"
+            className={`h-full rounded-full transition-all ${
+              isExceeded ? 'bg-danger-500' : 'bg-success-500'
+            }`}
             style={{ width: `${percentUsed}%` }}
           />
         </div>
@@ -88,16 +102,27 @@ export function BudgetCard({
       {/* Amounts */}
       <div className="flex justify-between text-xs text-gray-500">
         <span>
-          <span className="font-semibold text-success-600">
+          <span className={`font-semibold ${isExceeded ? 'text-danger-700' : 'text-success-600'}`}>
             {formatEuro(usedCents)}
           </span>{' '}
           genutzt
         </span>
         <span>
-          <span className="font-semibold text-gray-700">
-            {formatEuro(remainingCents)}
-          </span>{' '}
-          übrig
+          {isExceeded ? (
+            <>
+              <span className="font-semibold text-danger-700">
+                −{formatEuro(exceededCents)}
+              </span>{' '}
+              über Budget
+            </>
+          ) : (
+            <>
+              <span className="font-semibold text-gray-700">
+                {formatEuro(remainingCents)}
+              </span>{' '}
+              übrig
+            </>
+          )}
         </span>
       </div>
 
