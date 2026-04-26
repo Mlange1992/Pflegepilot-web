@@ -48,19 +48,34 @@ export default function HomePage() {
         <div className="mx-auto max-w-5xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
             {[
-              { value: 'Mrd. €', label: 'verfallen jährlich (Schätzung)', accent: 'text-danger-600', ring: 'ring-danger-100' },
-              { value: 'Viele', label: 'nutzen den Entlastungsbetrag nicht', accent: 'text-warning-500', ring: 'ring-warning-100' },
-              { value: 'Viele', label: 'rufen die Verhinderungspflege nicht ab', accent: 'text-warning-500', ring: 'ring-warning-100' },
+              { value: '12 Mrd. €', label: 'verfallen jährlich', accent: 'text-danger-600', ring: 'ring-danger-100' },
+              { value: '80 %', label: 'nutzen den Entlastungsbetrag nicht', accent: 'text-warning-500', ring: 'ring-warning-100' },
+              { value: '70 %', label: 'rufen die Verhinderungspflege nicht ab', accent: 'text-warning-500', ring: 'ring-warning-100' },
             ].map((s) => (
               <div
                 key={s.label}
                 className={`bg-white rounded-2xl ring-1 ${s.ring} shadow-soft-lg p-6 text-center`}
               >
-                <p className={`text-4xl md:text-5xl font-extrabold tracking-tight ${s.accent}`}>{s.value}</p>
+                <p className={`text-4xl md:text-5xl font-extrabold tracking-tight ${s.accent}`}>
+                  {s.value}
+                  <span className="text-base align-top text-gray-400">*</span>
+                </p>
                 <p className="mt-2 text-sm text-gray-600 leading-snug">{s.label}</p>
               </div>
             ))}
           </div>
+          <p className="mt-4 text-xs text-gray-500 text-center max-w-2xl mx-auto leading-relaxed">
+            <span className="text-gray-400">*</span> Geschätzte Zahlen auf Basis der{' '}
+            <a
+              href="https://www.vdk.de/themen/pflege/vdk-pflegestudie/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-gray-700"
+            >
+              VdK-Pflegestudie 2022
+            </a>{' '}
+            (56.000 Befragte). Tatsächliche Werte können je nach Region und Pflegegrad abweichen.
+          </p>
         </div>
       </section>
 
