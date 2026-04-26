@@ -17,6 +17,7 @@ struct OnboardingView: View {
     @State private var pendingPersonName = ""
     @State private var pendingPflegegrad: Int?
     @State private var stepBeforeAuth: OnboardingStep = .choice
+    @State private var authStartWithLogin = false
 
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -30,6 +31,11 @@ struct OnboardingView: View {
             case .screen3:
                 OnboardingScreen3(
                     onStart: { step = .choice },
+                    onLogin: {
+                        authStartWithLogin = true
+                        stepBeforeAuth = .screen3
+                        step = .auth
+                    },
                     onGuest: { isGuestMode = true }
                 )
 
@@ -45,6 +51,7 @@ struct OnboardingView: View {
                     pendingPflegegrad = pg
                     savePending()
                     stepBeforeAuth = .personSetup
+                    authStartWithLogin = false
                     step = .auth
                 }
 
@@ -74,11 +81,12 @@ struct OnboardingView: View {
                     pendingPersonName = name
                     savePending()
                     stepBeforeAuth = .personName
+                    authStartWithLogin = false
                     step = .auth
                 }
 
             case .auth:
-                AuthView()
+                AuthView(startWithLogin: authStartWithLogin)
             }
 
             // Zurück-Button (ab Screen 2)
@@ -324,6 +332,7 @@ struct OnboardingScreen2: View {
 
 struct OnboardingScreen3: View {
     let onStart: () -> Void
+    let onLogin: () -> Void
     let onGuest: () -> Void
 
     var body: some View {
@@ -423,6 +432,21 @@ struct OnboardingScreen3: View {
                 }
                 .padding(.horizontal)
                 .padding(.top, 28)
+
+                // ── Login-Hinweis für bestehende Nutzer ──────────────
+                VStack(spacing: 6) {
+                    Text("Bereits einen Account?")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    Button(action: onLogin) {
+                        Text("Anmelden")
+                            .font(.subheadline.bold())
+                            .foregroundColor(Color(hex: "0891B2"))
+                            .underline()
+                    }
+                }
+                .padding(.top, 24)
+                .padding(.horizontal)
 
                 Text("Kein Abo · Kein In-App-Kauf · Keine versteckten Kosten")
                     .font(.caption2)

@@ -23,28 +23,32 @@ class NotificationService: ObservableObject {
         isAuthorized = settings.authorizationStatus == .authorized
     }
 
-    /// Slugs, die Jahres-Verfallfristen haben und Frist-Notifications bekommen sollen.
-    /// Explizite Whitelist schützt vor unbeabsichtigten Notifications bei künftigen Slugs.
-    private static let fristNotificationSlugs: Set<String> = [
-        "entlastungsbetrag",
-        "entlastungsbudget",
-    ]
-
-    /// Fristen-Erinnerungen (90/30/7 Tage vor Ablauf) + monatliche Hilfsmittel-Erinnerung
+    /// Fristen-Erinnerungen für Budgets mit Verfallsdatum:
+    /// - 90 / 30 / 7 Tage vor Ablauf um 09:00
+    /// - 1 Tag nach Ablauf um 09:00 (Verfallen-Hinweis), falls noch Restbudget
+    /// Plus monatliche Hilfsmittel-Erinnerung am 25.
     func scheduleReminders(for budgets: [BudgetItem]) async {
         let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers:
-            budgets.map { "frist_\($0.id)" }
-        )
+        let cal = Calendar.current
+
+        // Alte Budget-Reminders dieses Schemas wegräumen (Prefix-Match)
+        let pending = await center.pendingNotificationRequests()
+        let toRemove = pending
+            .map(\.identifier)
+            .filter { $0.hasPrefix("frist_") || $0.hasPrefix("verfallen_") }
+        if !toRemove.isEmpty {
+            center.removePendingNotificationRequests(withIdentifiers: toRemove)
+        }
 
         for budget in budgets {
-            guard Self.fristNotificationSlugs.contains(budget.benefitType.slug),
-                  let expiresAt = budget.expiresAt,
+            guard let expiresAt = budget.expiresAt,
                   budget.remainingCents > 0 else { continue }
 
+            // ── 90 / 30 / 7 Tage VOR Ablauf, jeweils um 09:00 ──
             for days in [90, 30, 7] {
-                guard let triggerDate = Calendar.current.date(byAdding: .day, value: -days, to: expiresAt),
-                      triggerDate > Date() else { continue }
+                guard let base = cal.date(byAdding: .day, value: -days, to: expiresAt),
+                      let trigger = cal.date(bySettingHour: 9, minute: 0, second: 0, of: base),
+                      trigger > Date() else { continue }
 
                 let content = UNMutableNotificationContent()
                 content.title = "Frist läuft ab: \(budget.benefitType.name)"
@@ -52,12 +56,31 @@ class NotificationService: ObservableObject {
                 content.sound = .default
                 content.badge = 1
 
-                let comps = Calendar.current.dateComponents([.year, .month, .day, .hour], from: triggerDate)
-                let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+                let comps = cal.dateComponents([.year, .month, .day, .hour, .minute], from: trigger)
                 let request = UNNotificationRequest(
                     identifier: "frist_\(budget.id)_\(days)d",
                     content: content,
-                    trigger: trigger
+                    trigger: UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+                )
+                try? await center.add(request)
+            }
+
+            // ── 1 Tag NACH Ablauf um 09:00: Verfallen-Hinweis ──
+            if let base = cal.date(byAdding: .day, value: 1, to: expiresAt),
+               let trigger = cal.date(bySettingHour: 9, minute: 0, second: 0, of: base),
+               trigger > Date() {
+
+                let content = UNMutableNotificationContent()
+                content.title = "Budget verfallen: \(budget.benefitType.name)"
+                content.body = "Etwa \(budget.remainingCents.formatEuro) wurden nicht genutzt. Tipp: nächstes Jahr früher planen oder Antrag auf Höherstufung prüfen."
+                content.sound = .default
+                content.badge = 1
+
+                let comps = cal.dateComponents([.year, .month, .day, .hour, .minute], from: trigger)
+                let request = UNNotificationRequest(
+                    identifier: "verfallen_\(budget.id)",
+                    content: content,
+                    trigger: UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
                 )
                 try? await center.add(request)
             }

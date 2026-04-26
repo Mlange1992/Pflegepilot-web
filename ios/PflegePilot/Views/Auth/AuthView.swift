@@ -1,6 +1,4 @@
 import SwiftUI
-import AuthenticationServices
-import CryptoKit
 
 struct AuthView: View {
     @EnvironmentObject var authService: AuthService
@@ -9,7 +7,6 @@ struct AuthView: View {
         _isRegister = State(initialValue: !startWithLogin)
     }
 
-    @State private var currentNonce: String?
     @State private var localError: String?
 
     @State private var email = ""
@@ -207,21 +204,6 @@ struct AuthView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 20)
 
-                // ── Sign in with Apple ────────────────────────────────
-                SignInWithAppleButton(.signIn) { request in
-                    let nonce = randomNonce()
-                    currentNonce = nonce
-                    request.requestedScopes = [.email, .fullName]
-                    request.nonce = sha256(nonce)
-                } onCompletion: { result in
-                    Task { await handleAppleResult(result) }
-                }
-                .signInWithAppleButtonStyle(.black)
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .cornerRadius(12)
-                .padding(.horizontal)
-
                 // ── Google ───────────────────────────────────────────
                 Button {
                     Task {
@@ -280,27 +262,6 @@ struct AuthView: View {
 
     // MARK: - Actions
 
-    func handleAppleResult(_ result: Result<ASAuthorization, Error>) async {
-        switch result {
-        case .success(let authorization):
-            guard let appleCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
-                  let tokenData = appleCredential.identityToken,
-                  let idToken = String(data: tokenData, encoding: .utf8),
-                  let nonce = currentNonce else {
-                localError = "Apple Anmeldung fehlgeschlagen."
-                return
-            }
-            do {
-                try await authService.signInWithApple(idToken: idToken, nonce: nonce)
-            } catch {
-                localError = "Apple Anmeldung fehlgeschlagen. Bitte erneut versuchen."
-            }
-        case .failure:
-            // Nutzer hat abgebrochen – kein Fehler anzeigen
-            break
-        }
-    }
-
     func submitEmailPassword() async {
         localError = nil
         do {
@@ -327,28 +288,6 @@ struct AuthView: View {
         } catch {
             localError = "Senden fehlgeschlagen."
         }
-    }
-
-    // MARK: - Nonce Helpers
-
-    private func randomNonce(length: Int = 32) -> String {
-        let charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._"
-        var result = ""
-        var remaining = length
-        while remaining > 0 {
-            let randoms = (0..<16).map { _ in UInt8.random(in: 0...255) }
-            randoms.forEach { random in
-                guard remaining > 0, random < charset.count else { return }
-                result.append(charset[charset.index(charset.startIndex, offsetBy: Int(random))])
-                remaining -= 1
-            }
-        }
-        return result
-    }
-
-    private func sha256(_ input: String) -> String {
-        let hashed = SHA256.hash(data: Data(input.utf8))
-        return hashed.compactMap { String(format: "%02x", $0) }.joined()
     }
 }
 

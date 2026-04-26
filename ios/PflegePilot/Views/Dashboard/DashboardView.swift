@@ -83,7 +83,6 @@ struct UebersichtView: View {
                     result.append(PersonSummary(id: person.id, person: person, budgets: []))
                     continue
                 }
-                _ = try? await SupabaseService.shared.createBudgetsIfNeeded(userId: userId, personId: person.id, pflegegrad: pg, year: year)
                 let budgets = try await SupabaseService.shared.loadBudgets(userId: userId, personId: person.id, year: year)
                 result.append(PersonSummary(id: person.id, person: person, budgets: budgets))
             }
@@ -416,6 +415,7 @@ struct PersonDashboard: View {
     @State private var selectedBudget: BudgetItem?
     @State private var showShareSheet = false
     @State private var shareText = ""
+    @State private var loadError: String?
 
     var pflegegrad: Pflegegrad? {
         guard let pg = person.pflegegrad else { return nil }
@@ -500,6 +500,16 @@ struct PersonDashboard: View {
 
                     if isLoadingBudgets {
                         ProgressView().padding()
+                    } else if let err = loadError {
+                        VStack(spacing: 8) {
+                            Image(systemName: "exclamationmark.triangle")
+                                .font(.title2).foregroundColor(.red)
+                            Text(err)
+                                .font(.footnote).foregroundColor(.red)
+                                .multilineTextAlignment(.center)
+                                .textSelection(.enabled)
+                        }
+                        .padding()
                     } else if budgets.isEmpty {
                         Text("Keine Budgets gefunden.")
                             .font(.subheadline).foregroundColor(.secondary).padding()
@@ -564,13 +574,38 @@ struct PersonDashboard: View {
             return
         }
         isLoadingBudgets = true
+        loadError = nil
         let year = Calendar.current.component(.year, from: Date())
         if let userId = authService.currentUserId {
+            // createBudgetsIfNeeded ist non-destruktiv (legt nur an wenn leer)
             do {
                 try await SupabaseService.shared.createBudgetsIfNeeded(userId: userId, personId: person.id, pflegegrad: pg, year: year)
+            } catch {
+                print("createBudgetsIfNeeded warn:", error)
+            }
+            do {
                 budgets = try await SupabaseService.shared.loadBudgets(userId: userId, personId: person.id, year: year)
                 await NotificationService.shared.scheduleReminders(for: budgets)
+            } catch let decErr as DecodingError {
+                switch decErr {
+                case .keyNotFound(let key, let ctx):
+                    let path = ctx.codingPath.map { $0.stringValue }.joined(separator: ".")
+                    loadError = "Decoding: Feld '\(key.stringValue)' fehlt (Pfad: \(path.isEmpty ? "<root>" : path))"
+                case .valueNotFound(let type, let ctx):
+                    let path = ctx.codingPath.map { $0.stringValue }.joined(separator: ".")
+                    loadError = "Decoding: '\(path)' ist null, erwartet \(type)"
+                case .typeMismatch(let type, let ctx):
+                    let path = ctx.codingPath.map { $0.stringValue }.joined(separator: ".")
+                    loadError = "Decoding: '\(path)' hat falschen Typ (erwartet \(type))"
+                case .dataCorrupted(let ctx):
+                    let path = ctx.codingPath.map { $0.stringValue }.joined(separator: ".")
+                    loadError = "Decoding: '\(path)' korrupt — \(ctx.debugDescription)"
+                @unknown default:
+                    loadError = "Decoding-Fehler: \(decErr.localizedDescription)"
+                }
+                print("Budget-Decoding-Fehler:", decErr)
             } catch {
+                loadError = "Budgets laden fehlgeschlagen: \(error.localizedDescription)"
                 print("Budget-Fehler:", error)
             }
         } else {
@@ -1022,7 +1057,6 @@ struct LeistungDetailView: View {
         "§ 40 SGB XI": "Pflegebedürftige haben Anspruch auf Versorgung mit Pflegehilfsmitteln, die zur Erleichterung der Pflege oder zur Linderung der Beschwerden des Pflegebedürftigen beitragen. Zum Verbrauch bestimmte Pflegehilfsmittel werden bis zu 42 Euro monatlich erstattet.",
         "§ 40 Abs. 4 SGB XI": "Maßnahmen zur Verbesserung des individuellen Wohnumfeldes des Pflegebedürftigen können gefördert werden, wenn dadurch die häusliche Pflege ermöglicht oder erheblich erleichtert oder eine möglichst selbständige Lebensführung wiederhergestellt wird. Der Zuschuss je Maßnahme beträgt bis zu 4.180 Euro (Stand 2026).",
         "§ 41 SGB XI": "Pflegebedürftige können anstelle der häuslichen Pflegehilfe teilstationäre Pflege in Einrichtungen der Tages- oder Nachtpflege in Anspruch nehmen. Die Leistung ist kombinierbar mit häuslicher Pflege und wird nicht auf Sachleistungen oder Pflegegeld angerechnet (§ 38 SGB XI).",
-        "§ 41 SGB XI": "Pflegebedürftige können anstelle der häuslichen Pflegehilfe teilstationäre Pflege in Einrichtungen der Tages- oder Nachtpflege in Anspruch nehmen. Kosten werden je nach Pflegegrad von der Pflegekasse übernommen.",
         "§ 38 SGB XI": "Pflegebedürftige können gleichzeitig teilstationäre Pflege und häusliche Pflege in Anspruch nehmen (Kombinationsleistung). Die Sachleistung vermindert sich dann entsprechend dem Umfang der in Anspruch genommenen Tages- oder Nachtpflege.",
         "§ 45a SGB XI": "Angebote zur Unterstützung im Alltag umfassen Betreuungsangebote, die dazu dienen, Pflegebedürftigen Erleichterungen im Alltag zu bieten, sowie Angebote, die pflegende Angehörige entlasten und die häusliche Pflege ergänzen.",
     ]

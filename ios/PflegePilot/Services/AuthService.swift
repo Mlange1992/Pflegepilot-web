@@ -61,20 +61,6 @@ class AuthService: ObservableObject {
         return true
     }
 
-    // MARK: - Sign in with Apple (nativ)
-
-    func signInWithApple(idToken: String, nonce: String) async throws {
-        isLoading = true
-        authError = nil
-        defer { isLoading = false }
-        let session = try await supabase.auth.signInWithIdToken(
-            credentials: .init(provider: .apple, idToken: idToken, nonce: nonce)
-        )
-        isAuthenticated = true
-        currentUserId = session.user.id.uuidString
-        userEmail = session.user.email
-    }
-
     // MARK: - Google OAuth (In-App-Browser via ASWebAuthenticationSession)
 
     func signInWithGoogle() async throws {
@@ -85,6 +71,12 @@ class AuthService: ObservableObject {
             provider: .google,
             redirectTo: URL(string: "pflegepilot://auth/callback")
         )
+        // SDK hat den OAuth-Callback intern (ASWebAuthenticationSession) verarbeitet
+        // und die Session gespeichert — Auth-State synchronisieren.
+        await checkSession()
+        if !isAuthenticated {
+            authError = "Login wurde abgebrochen oder Session konnte nicht geladen werden."
+        }
     }
 
     // MARK: - Magic Link (Fallback)
@@ -97,14 +89,17 @@ class AuthService: ObservableObject {
     }
 
     func handleMagicLink(url: URL) async {
+        print("Auth-Callback URL: \(url.absoluteString)")
         do {
             try await supabase.auth.session(from: url)
             let session = try await supabase.auth.session
             isAuthenticated = true
             currentUserId = session.user.id.uuidString
             userEmail = session.user.email
+            authError = nil
         } catch {
-            print("Magic Link Fehler: \(error)")
+            authError = "Login-Callback fehlgeschlagen: \(error.localizedDescription)"
+            print("Auth-Callback Fehler: \(error)")
         }
     }
 

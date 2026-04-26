@@ -138,11 +138,11 @@ struct BenefitTypeRecord: Codable {
     let slug: String
     let name: String
     let icon: String?
-    let frequency: String
+    let frequency: String?
     let deadlineRule: String?
     let activeFrom: String?
     let activeTo: String?
-    let perPflegegrad: [String: Int]
+    let perPflegegrad: [String: Int]?
 
     enum CodingKeys: String, CodingKey {
         case id, slug, name, icon, frequency
