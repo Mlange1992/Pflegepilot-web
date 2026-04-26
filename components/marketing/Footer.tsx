@@ -16,8 +16,8 @@ const COLUMNS = [
     links: [
       { href: '/check', label: 'Quick-Check' },
       { href: '/pflegegrad-einschaetzen', label: 'Pflegegrad einschätzen' },
+      { href: '/antrag', label: 'Antrag erstellen' },
       { href: '/checkliste', label: 'MD-Checkliste' },
-      { href: '/preise', label: 'Kostenlos' },
     ],
   },
   {

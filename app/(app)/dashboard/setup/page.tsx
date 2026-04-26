@@ -18,7 +18,6 @@ interface SetupFormState {
   bundesland: string
   wohnsituation: Wohnsituation | null
   nutztPflegedienst: boolean
-  pflegekasse: string
 }
 
 // ─── Hilfskomponenten ────────────────────────────────────────────────────────
@@ -59,7 +58,6 @@ export default function SetupPage() {
     bundesland: '',
     wohnsituation: null,
     nutztPflegedienst: false,
-    pflegekasse: '',
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -100,7 +98,6 @@ export default function SetupPage() {
           bundesland: form.bundesland,
           wohnsituation: form.wohnsituation!,
           nutzt_pflegedienst: form.nutztPflegedienst,
-          versicherung: form.pflegekasse || null,
         })
 
       if (profileError) throw profileError
@@ -351,27 +348,6 @@ export default function SetupPage() {
               />
             </button>
           </div>
-        </div>
-
-        {/* Pflegekasse (optional) */}
-        <div>
-          <label
-            htmlFor="pflegekasse"
-            className="block text-sm font-semibold text-gray-700 mb-2"
-          >
-            Pflegekasse{' '}
-            <span className="text-gray-400 font-normal">(optional)</span>
-          </label>
-          <input
-            id="pflegekasse"
-            type="text"
-            placeholder="z. B. AOK Bayern"
-            value={form.pflegekasse}
-            onChange={(e) =>
-              setForm((s) => ({ ...s, pflegekasse: e.target.value }))
-            }
-            className="w-full border-2 border-gray-200 rounded-2xl px-4 py-3 text-gray-900 text-base min-h-[52px] focus:outline-none focus:border-primary-500 placeholder:text-gray-400"
-          />
         </div>
 
         {/* Submit */}

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
 
 const NAV_LINKS = [
   { href: '/ratgeber', label: 'Ratgeber' },
@@ -15,6 +16,7 @@ export function Navbar() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [isAuthed, setIsAuthed] = useState<boolean | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4)
@@ -26,6 +28,21 @@ export function Navbar() {
   useEffect(() => {
     setMobileOpen(false)
   }, [pathname])
+
+  useEffect(() => {
+    const supabase = createClient()
+    let mounted = true
+    supabase.auth.getUser().then(({ data }) => {
+      if (mounted) setIsAuthed(!!data.user)
+    })
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAuthed(!!session?.user)
+    })
+    return () => {
+      mounted = false
+      sub.subscription.unsubscribe()
+    }
+  }, [])
 
   const isActive = (href: string) =>
     pathname === href || pathname?.startsWith(href + '/')
@@ -76,18 +93,37 @@ export function Navbar() {
 
           {/* Desktop-CTAs */}
           <div className="hidden md:flex items-center gap-2">
-            <Link
-              href="/auth"
-              className="text-sm font-semibold text-gray-600 hover:text-primary-700 transition-colors px-4 py-2 rounded-xl hover:bg-gray-50"
-            >
-              Anmelden
-            </Link>
-            <Link
-              href="/check"
-              className="inline-flex items-center justify-center font-semibold rounded-xl bg-primary-600 text-white shadow-glow-primary hover:bg-primary-700 hover:shadow-soft-lg transition-all py-2 px-4 text-sm active:scale-[0.97]"
-            >
-              Kostenlos prüfen →
-            </Link>
+            {isAuthed ? (
+              <>
+                <Link
+                  href="/profil"
+                  className="text-sm font-semibold text-gray-600 hover:text-primary-700 transition-colors px-4 py-2 rounded-xl hover:bg-gray-50"
+                >
+                  Profil
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className="inline-flex items-center justify-center font-semibold rounded-xl bg-primary-600 text-white shadow-glow-primary hover:bg-primary-700 hover:shadow-soft-lg transition-all py-2 px-4 text-sm active:scale-[0.97]"
+                >
+                  Dashboard →
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/auth"
+                  className="text-sm font-semibold text-gray-600 hover:text-primary-700 transition-colors px-4 py-2 rounded-xl hover:bg-gray-50"
+                >
+                  Anmelden
+                </Link>
+                <Link
+                  href="/check"
+                  className="inline-flex items-center justify-center font-semibold rounded-xl bg-primary-600 text-white shadow-glow-primary hover:bg-primary-700 hover:shadow-soft-lg transition-all py-2 px-4 text-sm active:scale-[0.97]"
+                >
+                  Kostenlos prüfen →
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Hamburger */}
@@ -134,20 +170,41 @@ export function Navbar() {
               })}
             </nav>
             <div className="pt-3 mt-3 border-t border-gray-100 grid grid-cols-2 gap-2 px-1">
-              <Link
-                href="/auth"
-                className="text-center py-3 text-sm font-semibold text-gray-700 border-2 border-gray-200 rounded-xl min-h-[48px] flex items-center justify-center hover:border-primary-300 hover:text-primary-700 transition-colors"
-                onClick={() => setMobileOpen(false)}
-              >
-                Anmelden
-              </Link>
-              <Link
-                href="/check"
-                className="text-center py-3 text-sm font-semibold bg-primary-600 text-white shadow-glow-primary rounded-xl min-h-[48px] flex items-center justify-center hover:bg-primary-700 transition-colors"
-                onClick={() => setMobileOpen(false)}
-              >
-                Kostenlos prüfen
-              </Link>
+              {isAuthed ? (
+                <>
+                  <Link
+                    href="/profil"
+                    className="text-center py-3 text-sm font-semibold text-gray-700 border-2 border-gray-200 rounded-xl min-h-[48px] flex items-center justify-center hover:border-primary-300 hover:text-primary-700 transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Profil
+                  </Link>
+                  <Link
+                    href="/dashboard"
+                    className="text-center py-3 text-sm font-semibold bg-primary-600 text-white shadow-glow-primary rounded-xl min-h-[48px] flex items-center justify-center hover:bg-primary-700 transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/auth"
+                    className="text-center py-3 text-sm font-semibold text-gray-700 border-2 border-gray-200 rounded-xl min-h-[48px] flex items-center justify-center hover:border-primary-300 hover:text-primary-700 transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Anmelden
+                  </Link>
+                  <Link
+                    href="/check"
+                    className="text-center py-3 text-sm font-semibold bg-primary-600 text-white shadow-glow-primary rounded-xl min-h-[48px] flex items-center justify-center hover:bg-primary-700 transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Kostenlos prüfen
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}

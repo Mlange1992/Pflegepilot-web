@@ -6,7 +6,7 @@ import {
   type Pflegegrad,
   type QuickCheckInput,
 } from '@/lib/pflegerecht/engine'
-import { DISCLAIMER, VERBRAUCHERZENTRALE_URL } from '@/lib/utils/constants'
+import { DISCLAIMER } from '@/lib/utils/constants'
 
 // ─── Hilfskomponenten ────────────────────────────────────────────────────────
 
@@ -138,14 +138,9 @@ function CtaBox() {
       </Link>
       <p className="mt-4 text-center text-primary-200 text-xs">
         Noch keinen Pflegegrad?{' '}
-        <a
-          href={VERBRAUCHERZENTRALE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline text-white"
-        >
-          Verbraucherzentrale-Rechner nutzen →
-        </a>
+        <Link href="/pflegegrad-einschaetzen" className="underline text-white">
+          Pflegegrad selbst einschätzen →
+        </Link>
       </p>
     </div>
   )

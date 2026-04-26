@@ -41,9 +41,6 @@ export const PRICES = {
 export const DISCLAIMER =
   'PflegePilot ersetzt keine Rechtsberatung. Alle Angaben ohne Gewähr.'
 
-export const VERBRAUCHERZENTRALE_URL =
-  'https://www.verbraucherzentrale.de/gesundheit-pflege/pflegegradrechner-lohnt-sich-ein-pflegeantrag-oder-ein-widerspruch-93979'
-
 // Leistungen die standardmäßig im Quick-Check als "genutzt" angeboten werden
 export const QUICK_CHECK_LEISTUNGEN = [
   { slug: 'pflegegeld', label: 'Pflegegeld' },

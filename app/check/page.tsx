@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
-import { BUNDESLAENDER, QUICK_CHECK_LEISTUNGEN, VERBRAUCHERZENTRALE_URL, DISCLAIMER } from '@/lib/utils/constants'
+import { BUNDESLAENDER, QUICK_CHECK_LEISTUNGEN, DISCLAIMER } from '@/lib/utils/constants'
 import type { Pflegegrad } from '@/lib/pflegerecht/engine'
 
 // ─── Typen ───────────────────────────────────────────────────────────────────
