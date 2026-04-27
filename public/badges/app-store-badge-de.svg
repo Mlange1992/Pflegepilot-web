@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168 56" width="168" height="56" role="img" aria-label="Im App Store laden">
+  <rect width="168" height="56" rx="10" fill="#000"/>
+  <g transform="translate(14 12)">
+    <path fill="#fff" d="M11.6 1.5c-.7.8-1.7 1.4-2.7 1.3-.1-1 .4-2.1 1-2.7.7-.8 1.7-1.4 2.6-1.4.1 1.1-.3 2.1-.9 2.8zm.9 1.5c-1.4-.1-2.7.8-3.4.8-.7 0-1.7-.8-2.9-.8-1.5 0-2.9.9-3.6 2.2-1.5 2.7-.4 6.7 1.1 8.9.7 1.1 1.6 2.3 2.7 2.3 1.1 0 1.5-.7 2.8-.7 1.3 0 1.6.7 2.8.7 1.2 0 1.9-1.1 2.7-2.2.8-1.2 1.1-2.4 1.1-2.4-2.7-1-2.8-3.7-.1-5.2-.8-1-2-1.6-3.2-1.6z"/>
+  </g>
+  <g transform="translate(46 0)" fill="#fff">
+    <text x="0" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif" font-size="9">Laden im</text>
+    <text x="0" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif" font-size="20" font-weight="600">App Store</text>
+  </g>
+</svg>

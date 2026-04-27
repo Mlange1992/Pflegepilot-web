@@ -38,7 +38,7 @@ export default function RatgeberPage() {
         <div className="relative max-w-3xl mx-auto text-center">
           <span className="badge bg-white/80 ring-1 ring-primary-200 text-primary-700 backdrop-blur-sm mb-5">
             <span className="text-base">📚</span>
-            21 Ratgeber-Artikel
+            {ratgeberArtikel.length} Ratgeber-Artikel
           </span>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight text-balance">
             Pflege-Ratgeber{' '}

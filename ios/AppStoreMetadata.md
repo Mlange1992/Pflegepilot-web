@@ -5,7 +5,7 @@ PflegePilot - Pflege Budget Tracker
 Pflegegrad ermitteln & kein Budget verschenken
 
 # Beschreibung
-PflegePilot hilft pflegenden Angehörigen, den Überblick über alle Pflege-Leistungen zu behalten — komplett kostenlos, ohne Abo, ohne Werbung.
+PflegePilot hilft pflegenden Angehörigen, den Überblick über alle Pflege-Leistungen zu behalten — komplett kostenlos, ohne Abo. Werbung kann eingeblendet werden — als „Anzeige" klar gekennzeichnet.
 
 **PFLEGEGRAD ERMITTELN**
 Selbsteinschätzung nach dem offiziellen NBA-System mit allen 6 Modulen und 64 Kriterien. Kostenlos, ohne Registrierung.
@@ -22,14 +22,14 @@ Erstantrag, Höherstufung, Widerspruch, Verhinderungspflege und Entlastungsbetra
 **MD-TERMIN CHECKLISTE**
 Personalisierte Checkliste zur Vorbereitung auf die Begutachtung durch den Medizinischen Dienst — basierend auf deinem Selbsttest.
 
-**15 RATGEBER-ARTIKEL**
+**23 RATGEBER-ARTIKEL**
 Von "Entlastungsbetrag richtig nutzen" bis "Widerspruch einlegen" — alle wichtigen Themen erklärt.
 
 **MEHRERE PERSONEN**
 Verwalte mehrere Pflegebedürftige in einem Account — ideal für Berufspflegende und engagierte Familien.
 
 **KOMPLETT KOSTENLOS**
-Kein Abo, kein In-App-Kauf, keine Werbung. Alle Funktionen frei verfügbar. Empfehlungen sind als "Anzeige" gekennzeichnet.
+Kein Abo, kein In-App-Kauf. Alle Funktionen frei verfügbar. Werbung und Empfehlungen sind als "Anzeige" gekennzeichnet.
 
 # Keywords
 Pflegegrad,Pflege,Pflegegeld,Entlastungsbetrag,Verhinderungspflege,Pflegehilfsmittel,Budget,Tracker,Antrag,Pflegekasse,NBA,Begutachtung,Widerspruch,Ratgeber
@@ -53,4 +53,4 @@ https://pflege-pilot.com/datenschutz
 4+
 
 # Copyright
-© 2025 Markus Lange
+© 2026 Markus Lange

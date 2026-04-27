@@ -23,6 +23,7 @@ const COLUMNS = [
   {
     title: 'Über',
     links: [
+      { href: '/support', label: 'Support' },
       { href: '/datenschutz', label: 'Datenschutz' },
       { href: '/impressum', label: 'Impressum' },
     ],

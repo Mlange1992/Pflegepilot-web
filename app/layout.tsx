@@ -3,9 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { NavbarWrapper } from '@/components/marketing/NavbarWrapper'
 import { FooterWrapper } from '@/components/marketing/FooterWrapper'
-import { PostHogProvider } from '@/components/analytics/PostHogProvider'
-import { PageViewTracker } from '@/components/analytics/PageViewTracker'
-import { Suspense } from 'react'
+import { APP_STORE_URL } from '@/lib/constants/app-store'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -47,15 +45,16 @@ export default function RootLayout({
 }) {
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'WebApplication',
+    '@type': 'MobileApplication',
     name: 'PflegePilot',
     applicationCategory: 'HealthApplication',
-    operatingSystem: 'Web, iOS',
+    operatingSystem: 'iOS',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
     author: { '@type': 'Person', name: 'Markus Lange' },
     description:
       'PflegePilot hilft Pflegefamilien, ihre gesetzlichen Pflegeleistungen vollständig zu nutzen und Fristen im Blick zu behalten.',
     url: 'https://www.pflege-pilot.com',
+    installUrl: APP_STORE_URL,
   }
 
   return (
@@ -67,14 +66,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <PostHogProvider>
-          <Suspense fallback={null}>
-            <PageViewTracker />
-          </Suspense>
-          <NavbarWrapper />
-          {children}
-          <FooterWrapper />
-        </PostHogProvider>
+        <NavbarWrapper />
+        {children}
+        <FooterWrapper />
       </body>
     </html>
   )

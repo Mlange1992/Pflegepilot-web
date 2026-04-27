@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ratgeberArtikel } from '@/lib/ratgeber-data'
 
 export const metadata: Metadata = {
   title: 'Kostenlos – PflegePilot',
@@ -13,7 +14,7 @@ const FEATURES = [
   'Fristen-Alarm: Benachrichtigung vor Budget-Verfall',
   'PDF-Anträge: Erstantrag, Höherstufung, Widerspruch, VHP, Entlastungsbetrag',
   'MD-Termin-Checkliste: personalisiert basierend auf Selbsttest',
-  '21 Ratgeber-Artikel zu allen Pflegeleistungen',
+  `${ratgeberArtikel.length} Ratgeber-Artikel zu allen Pflegeleistungen`,
   'Mehrere Pflegebedürftige in einem Account',
   'Keine Registrierung nötig für den Pflegegrad-Check',
 ]
@@ -27,12 +28,12 @@ const FAQ = [
   {
     frage: 'Werden meine Daten gespeichert?',
     antwort:
-      'Der Pflegegrad-Selbsttest läuft lokal auf Ihrem Gerät — ohne Registrierung, ohne Datenspeicherung. Für das Budget-Dashboard können Sie optional einen Account erstellen. Alle Daten werden verschlüsselt auf EU-Servern gespeichert (Supabase, Frankfurt).',
+      'Der Pflegegrad-Selbsttest läuft lokal auf Ihrem Gerät — ohne Registrierung, ohne Datenspeicherung. Für das Budget-Dashboard können Sie optional einen Account erstellen. Alle Daten werden verschlüsselt auf EU-Servern gespeichert (Supabase, Frankfurt am Main).',
   },
   {
     frage: 'Gibt es eine iOS-App?',
     antwort:
-      'Die iOS-App ist in Entwicklung. Tragen Sie sich auf unserer Warteliste ein — wir benachrichtigen Sie, sobald sie verfügbar ist.',
+      'Ja — die iOS-App ist im App Store verfügbar. Mit Push-Benachrichtigungen für Fristen, Budget-Tracking, Antrags-Helfer und Selbsttest. Komplett kostenlos.',
   },
   {
     frage: 'Bleibt PflegePilot kostenlos?',

@@ -13,6 +13,13 @@
 
 # production
 /build
+/.open-next/
+
+# audit / scratch
+/Documents-Audit/
+
+# misplaced ios next folder
+/ios/.next/
 
 # misc
 .DS_Store
@@ -26,6 +33,7 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+.env.production
 
 # vercel
 .vercel

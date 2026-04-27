@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { href: '/ratgeber', label: 'Ratgeber' },
   { href: '/leistungen', label: 'Leistungen' },
   { href: '/pflegegrad-info', label: 'Pflegegrad beantragen' },
-  { href: '/preise', label: 'Kostenlos' },
+  { href: '/preise', label: 'Preise' },
 ] as const
 
 export function Navbar() {
