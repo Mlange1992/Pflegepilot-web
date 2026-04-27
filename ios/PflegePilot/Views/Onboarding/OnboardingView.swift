@@ -131,8 +131,7 @@ struct OnboardingView: View {
     }
 
     func savePending() {
-        UserDefaults.standard.set(pendingPersonName, forKey: "pending_person_name")
-        UserDefaults.standard.set(pendingPflegegrad ?? 0, forKey: "pending_pflegegrad")
+        PendingOnboardingPerson.save(name: pendingPersonName, pflegegrad: pendingPflegegrad)
     }
 }
 

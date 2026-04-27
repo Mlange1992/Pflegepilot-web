@@ -94,19 +94,7 @@ struct UebersichtView: View {
     }
 
     func createPendingPersonIfNeeded(userId: String) async {
-        let pendingName = UserDefaults.standard.string(forKey: "pending_person_name") ?? ""
-        let pendingPG = UserDefaults.standard.integer(forKey: "pending_pflegegrad")
-        guard !pendingName.isEmpty || pendingPG > 0 else { return }
-
-        UserDefaults.standard.removeObject(forKey: "pending_person_name")
-        UserDefaults.standard.removeObject(forKey: "pending_pflegegrad")
-
-        let name = pendingName.isEmpty ? "Pflegebedürftige Person" : pendingName
-        let pg: Int? = pendingPG > 0 ? pendingPG : nil
-        _ = try? await SupabaseService.shared.createPerson(
-            userId: userId, name: name, pflegegrad: pg,
-            bundesland: "", nutztPflegedienst: false
-        )
+        await PendingOnboardingPerson.createIfNeeded(userId: userId)
     }
 }
 
@@ -292,19 +280,7 @@ struct DashboardView: View {
     }
 
     func createPendingPersonIfNeeded(userId: String) async {
-        let pendingName = UserDefaults.standard.string(forKey: "pending_person_name") ?? ""
-        let pendingPG = UserDefaults.standard.integer(forKey: "pending_pflegegrad")
-        guard !pendingName.isEmpty || pendingPG > 0 else { return }
-
-        UserDefaults.standard.removeObject(forKey: "pending_person_name")
-        UserDefaults.standard.removeObject(forKey: "pending_pflegegrad")
-
-        let name = pendingName.isEmpty ? "Pflegebedürftige Person" : pendingName
-        let pg: Int? = pendingPG > 0 ? pendingPG : nil
-        _ = try? await SupabaseService.shared.createPerson(
-            userId: userId, name: name, pflegegrad: pg,
-            bundesland: "", nutztPflegedienst: false
-        )
+        await PendingOnboardingPerson.createIfNeeded(userId: userId)
     }
 
     func migrateGuestData() async {

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,6 +37,7 @@
 		91424D9B1B687F0A4DFA0EC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C353BF0F6FA327006A9109B7 /* Assets.xcassets */; };
 		945DF7CD61D948174CF590A4 /* AdBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF64FCE06A5368868991C4D /* AdBannerView.swift */; };
 		992876E61ABDFEBC30DA16E1 /* QuickCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70264C3EEB50962F4E87A51D /* QuickCheckView.swift */; };
+		9B54D28F8BCE72767F8D9B59 /* PendingOnboardingPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87665F0DFC4356B380390045 /* PendingOnboardingPerson.swift */; };
 		ACBB6F05EE176333E848E0E4 /* NBAEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E865D33F06CAFD643232ACD /* NBAEngine.swift */; };
 		B97883EA70F52097D3B8E3D9 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF30D09A0297FE58C74E27 /* DashboardView.swift */; };
 		BAE3F54B5FEE784087B69D9D /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CF2A4B8313D01D4D483764 /* ProgressBar.swift */; };
@@ -63,7 +64,7 @@
 		0EF64FCE06A5368868991C4D /* AdBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBannerView.swift; sourceTree = "<group>"; };
 		0F6393F5A8D4E2F7FEEE97A9 /* NBATestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NBATestView.swift; sourceTree = "<group>"; };
 		0F716CA5490B3FDF1E92716D /* BudgetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCard.swift; sourceTree = "<group>"; };
-		119E2309077F3F7BB8238CC6 /* PflegePilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PflegePilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		119E2309077F3F7BB8238CC6 /* PflegePilot.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PflegePilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1425210ECB7B5CD76D149661 /* EuroText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuroText.swift; sourceTree = "<group>"; };
 		18909C7218428460FD1B3FA3 /* ChecklistGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistGenerator.swift; sourceTree = "<group>"; };
 		19D8D72694003A863EF3D913 /* PflegePilotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PflegePilotApp.swift; sourceTree = "<group>"; };
@@ -84,12 +85,13 @@
 		6AE3E59AAED2BD7CF1F8705F /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		70264C3EEB50962F4E87A51D /* QuickCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickCheckView.swift; sourceTree = "<group>"; };
 		75F9B1E9904152141DE917A1 /* Pflegegrad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pflegegrad.swift; sourceTree = "<group>"; };
+		87665F0DFC4356B380390045 /* PendingOnboardingPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingOnboardingPerson.swift; sourceTree = "<group>"; };
 		87CF2A4B8313D01D4D483764 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		A08F7B78C061820D5370A87D /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		A0E963A28881B15241B0EA50 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
 		A6DE9B41DFBD4789CE6FB284 /* AntragPDFService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntragPDFService.swift; sourceTree = "<group>"; };
 		A778A7A35CF40850C59CDF17 /* EditTransactionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTransactionSheet.swift; sourceTree = "<group>"; };
-		A9D9CDD1892C7A307F37595A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A9D9CDD1892C7A307F37595A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		AE064BB6455801047F0C1651 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		AF3E115757CA7A5C0BB5FEDB /* FristenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FristenView.swift; sourceTree = "<group>"; };
 		B19A6CA6E88AD5415CA38E72 /* LegalTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalTexts.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				42F27AE3D33AE97B6537C3CD /* GuestPersonStore.swift */,
 				4E865D33F06CAFD643232ACD /* NBAEngine.swift */,
 				30F66C2024A16A96454D2A20 /* NotificationService.swift */,
+				87665F0DFC4356B380390045 /* PendingOnboardingPerson.swift */,
 				2318E5DAE00C254DD378DDC0 /* StoreKitService.swift */,
 				A0E963A28881B15241B0EA50 /* SupabaseService.swift */,
 			);
@@ -327,6 +330,7 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					5950B46AC4B41EC254A30B3D = {
+						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -344,6 +348,7 @@
 			packageReferences = (
 				45BB08627E61D5B44EFDEF83 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 			);
+			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -396,6 +401,7 @@
 				C89C0B2230ACCDCB02680D6A /* NBATestView.swift in Sources */,
 				89818922BBD572D873933CC7 /* NotificationService.swift in Sources */,
 				E042BDD468D9DBC0380C4D2C /* OnboardingView.swift in Sources */,
+				9B54D28F8BCE72767F8D9B59 /* PendingOnboardingPerson.swift in Sources */,
 				74C29D64C28386225A3BEC11 /* PflegePilotApp.swift in Sources */,
 				16A32FE6393E1E77C9F96A87 /* Pflegegrad.swift in Sources */,
 				DC373DAFD024D91C670D2FDF /* PremiumPaywallView.swift in Sources */,
@@ -422,7 +428,7 @@
 				CODE_SIGN_ENTITLEMENTS = PflegePilot/PflegePilot.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 55SPG52ZTG;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PflegePilot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
