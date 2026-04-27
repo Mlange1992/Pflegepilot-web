@@ -34,10 +34,25 @@ function isActive(l: LeistungConfig): boolean {
 }
 
 function gesamtMaxCents(liste: LeistungConfig[]): number {
-  return liste.filter(isActive).reduce((sum, l) => {
-    const max = Math.max(...[2, 3, 4, 5].map((pg) => getYearlyCents(l, pg)))
-    return sum + max
-  }, 0)
+  const aktive = liste.filter(isActive)
+
+  // Kombinationsleistung § 38 SGB XI: Pflegegeld (§ 37) und Pflegesachleistungen (§ 36)
+  // sind Alternativen oder anteilig kombinierbar — nicht beides voll.
+  // Daher nur das Maximum beider in die Summe aufnehmen.
+  const kombinationsSlugs = ['pflegegeld', 'pflegesachleistungen']
+  const kombinationsMaxima = aktive
+    .filter((l) => kombinationsSlugs.includes(l.slug))
+    .map((l) => Math.max(...PFLEGEGRADE.map((pg) => getYearlyCents(l, pg))))
+  const kombinationsMax = kombinationsMaxima.length > 0 ? Math.max(...kombinationsMaxima) : 0
+
+  const sonstigeMax = aktive
+    .filter((l) => !kombinationsSlugs.includes(l.slug))
+    .reduce(
+      (sum, l) => sum + Math.max(...PFLEGEGRADE.map((pg) => getYearlyCents(l, pg))),
+      0,
+    )
+
+  return kombinationsMax + sonstigeMax
 }
 
 export default function LeistungenPage() {
@@ -59,10 +74,14 @@ export default function LeistungenPage() {
             Alle Pflegeleistungen{' '}
             <span className="bg-gradient-to-br from-primary-600 to-primary-800 bg-clip-text text-transparent">im Überblick</span>
           </h1>
-          <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto mb-8 text-pretty leading-relaxed">
+          <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto mb-3 text-pretty leading-relaxed">
             Insgesamt können Familien bis zu{' '}
             <span className="font-bold text-primary-700">{formatEuro(gesamtMax)}</span>{' '}
-            pro Jahr von der Pflegekasse erhalten.
+            pro Jahr von der Pflegekasse erhalten.<sup className="text-sm">*</sup>
+          </p>
+          <p className="text-xs text-gray-400 mb-8 max-w-xl mx-auto">
+            * Pflegegeld (§ 37) und Pflegesachleistungen (§ 36) können nicht gleichzeitig
+            voll bezogen werden — sie sind Alternativen oder anteilig kombinierbar (§ 38 SGB XI).
           </p>
           <Link href="/check" className="btn-primary">
             Wieviel steht Ihrer Familie zu? → Zum Quick-Check
