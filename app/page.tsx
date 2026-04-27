@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import WaitlistForm from '@/components/WaitlistForm'
+import { QRCodeSVG } from 'qrcode.react'
+import { APP_STORE_URL } from '@/lib/constants/app-store'
 
 export default function HomePage() {
   return (
@@ -124,27 +125,42 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── iOS App Waitlist ─────────────────────────────────── */}
+      {/* ─── iOS App Download ────────────────────────────────── */}
       <section className="relative overflow-hidden px-4 py-20 md:py-24 bg-gradient-to-br from-gray-900 via-primary-900 to-gray-900">
         <div className="pointer-events-none absolute inset-0 bg-mesh-dark" aria-hidden="true" />
         <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-3xl" aria-hidden="true" />
 
         <div className="relative mx-auto max-w-3xl text-center">
-          <span className="badge bg-primary-500/20 text-primary-100 ring-1 ring-primary-400/30 backdrop-blur-sm mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary-300 animate-pulse" />
-            iOS App — In Entwicklung
+          <span className="badge bg-success-500/20 text-success-100 ring-1 ring-success-400/30 backdrop-blur-sm mb-5">
+            <span className="w-1.5 h-1.5 rounded-full bg-success-300 animate-pulse" />
+            iOS App — Jetzt verfügbar
           </span>
           <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight tracking-tight text-balance">
-            Nie wieder eine Frist verpassen
+            Jetzt im App Store verfügbar
           </h2>
-          <p className="text-gray-300 mb-8 text-lg text-pretty max-w-xl mx-auto">
-            Die PflegePilot iOS-App mit Push-Benachrichtigungen, Budgetübersicht und
-            Antrags-Helfer ist in Entwicklung. Trag dich ein — wir melden uns, wenn sie live geht.
+          <p className="text-gray-300 mb-10 text-lg text-pretty max-w-xl mx-auto">
+            Mit Push-Benachrichtigungen, Budget-Übersicht und Antrags-Helfer.
+            Lade dir die kostenlose iOS-App jetzt herunter.
           </p>
-          <div className="flex justify-center">
-            <WaitlistForm />
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+            <a
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-transform hover:scale-[1.03]"
+            >
+              <img
+                src="/badges/app-store-badge-de.svg"
+                alt="Im App Store laden"
+                className="h-14 md:h-16"
+              />
+            </a>
+            <div className="hidden md:flex flex-col items-center gap-2 p-4 bg-white rounded-2xl shadow-soft">
+              <QRCodeSVG value={APP_STORE_URL} size={120} bgColor="transparent" />
+              <p className="text-xs text-gray-500">QR scannen</p>
+            </div>
           </div>
-          <p className="text-gray-400 text-xs mt-4">Kein Spam · Nur eine E-Mail wenn die App live geht</p>
+          <p className="text-gray-400 text-xs mt-6">Kostenlos · Kein Abo · Keine In-App-Käufe</p>
         </div>
       </section>
 

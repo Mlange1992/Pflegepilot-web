@@ -32,7 +32,7 @@ const FAQ = [
   {
     frage: 'Gibt es eine iOS-App?',
     antwort:
-      'Die iOS-App ist in Entwicklung. Tragen Sie sich auf unserer Warteliste ein — wir benachrichtigen Sie, sobald sie verfügbar ist.',
+      'Ja — die iOS-App ist im App Store verfügbar. Mit Push-Benachrichtigungen für Fristen, Budget-Tracking, Antrags-Helfer und Selbsttest. Komplett kostenlos.',
   },
   {
     frage: 'Bleibt PflegePilot kostenlos?',
