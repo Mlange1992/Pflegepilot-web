@@ -31,9 +31,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+# (.env.production wird absichtlich getrackt — enthaelt nur NEXT_PUBLIC_-Werte,
+#  die ohnehin im Client-Bundle sichtbar sind. Echte Secrets liegen in
+#  .env.local oder als Cloudflare-Worker-Secrets.)
 .env*.local
 .env
-.env.production
 
 # vercel
 .vercel
