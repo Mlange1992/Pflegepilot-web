@@ -24,7 +24,7 @@ export default function HomePage() {
             jedes Jahr
           </h1>
           <p className="mb-10 text-lg md:text-xl text-gray-600 text-pretty max-w-2xl mx-auto leading-relaxed">
-            Schätzungen zufolge über 10 Milliarden Euro — weil Familien nicht wissen, was ihnen
+            Schätzungen zufolge rund 12 Milliarden Euro — weil Familien nicht wissen, was ihnen
             zusteht. PflegePilot zeigt Ihre Ansprüche, warnt vor Fristen und verhindert, dass
             Ihr Geld verfällt.
           </p>
