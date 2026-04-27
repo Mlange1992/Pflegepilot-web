@@ -99,7 +99,7 @@ export default function HomePage() {
               {
                 icon: '⏰',
                 title: 'Fristen-Autopilot',
-                desc: 'Push und E-Mail 90, 30 und 7 Tage vor Verfall. Damit kein Geld mehr unbemerkt verfällt.',
+                desc: 'Erinnerungen 90, 30 und 7 Tage vor Verfall — als Push direkt in der iOS-App, im Web-Dashboard sichtbar als Hinweis. So geht kein Geld mehr unbemerkt verloren.',
                 tone: 'from-warning-50 to-warning-100/40',
               },
               {
