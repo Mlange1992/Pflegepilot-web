@@ -3,9 +3,6 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { NavbarWrapper } from '@/components/marketing/NavbarWrapper'
 import { FooterWrapper } from '@/components/marketing/FooterWrapper'
-import { PostHogProvider } from '@/components/analytics/PostHogProvider'
-import { PageViewTracker } from '@/components/analytics/PageViewTracker'
-import { Suspense } from 'react'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -67,14 +64,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <PostHogProvider>
-          <Suspense fallback={null}>
-            <PageViewTracker />
-          </Suspense>
-          <NavbarWrapper />
-          {children}
-          <FooterWrapper />
-        </PostHogProvider>
+        <NavbarWrapper />
+        {children}
+        <FooterWrapper />
       </body>
     </html>
   )
