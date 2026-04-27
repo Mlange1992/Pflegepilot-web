@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { QRCodeSVG } from 'qrcode.react'
 import { APP_STORE_URL } from '@/lib/constants/app-store'
+import { ratgeberArtikel } from '@/lib/ratgeber-data'
 
 export default function HomePage() {
   return (
@@ -202,7 +203,7 @@ export default function HomePage() {
               href="/ratgeber"
               className="inline-flex items-center gap-2 text-primary-700 font-semibold text-sm hover:gap-3 transition-all hover:text-primary-800"
             >
-              Alle 21 Ratgeber-Artikel ansehen <span>→</span>
+              Alle {ratgeberArtikel.length} Ratgeber-Artikel ansehen <span>→</span>
             </Link>
           </div>
         </div>
