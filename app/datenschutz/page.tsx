@@ -74,10 +74,9 @@ export default function DatenschutzPage() {
         </p>
         <ul className="list-disc pl-5 space-y-2">
           <li>
-            <strong>Supabase Inc.</strong> (Datenbankhosting, USA) — Rechtsgrundlage:
-            EU-US Data Privacy Framework (Art. 45 DSGVO, Primäroption) sowie
-            Standardvertragsklauseln gemäß Art. 46 DSGVO. Es besteht ein
-            Auftragsverarbeitungsvertrag nach Art. 28 DSGVO.
+            <strong>Supabase</strong> (Datenbankhosting) — Server-Standort:
+            Frankfurt am Main, Deutschland. Es besteht ein Auftragsverarbeitungsvertrag
+            nach Art. 28 DSGVO.
           </li>
           <li>
             <strong>Resend Inc.</strong> (E-Mail-Versand, USA) — nur für Transaktions-E-Mails
