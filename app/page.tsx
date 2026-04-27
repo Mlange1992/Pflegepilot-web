@@ -81,6 +81,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ─── Trust-Signal-Leiste ─────────────────────────────── */}
+      <section className="px-4 py-10 mt-12 bg-white border-y border-gray-100">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-xs text-center text-gray-400 uppercase tracking-wider mb-4">
+            Datenquellen &amp; Referenzen
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm text-gray-500">
+            <span>BMG · Bundesministerium für Gesundheit</span>
+            <span className="text-gray-300">·</span>
+            <span>GKV-Spitzenverband</span>
+            <span className="text-gray-300">·</span>
+            <span>VdK-Pflegestudie 2022</span>
+            <span className="text-gray-300">·</span>
+            <span>SGB XI · Stand 2026</span>
+          </div>
+        </div>
+      </section>
+
       {/* ─── Features ─────────────────────────────────────────── */}
       <section className="px-4 py-20 md:py-28">
         <div className="mx-auto max-w-5xl">
