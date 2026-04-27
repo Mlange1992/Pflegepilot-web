@@ -27,7 +27,7 @@ const FAQ = [
   {
     frage: 'Werden meine Daten gespeichert?',
     antwort:
-      'Der Pflegegrad-Selbsttest läuft lokal auf Ihrem Gerät — ohne Registrierung, ohne Datenspeicherung. Für das Budget-Dashboard können Sie optional einen Account erstellen. Alle Daten werden verschlüsselt auf EU-Servern gespeichert (Supabase, Frankfurt).',
+      'Der Pflegegrad-Selbsttest läuft lokal auf Ihrem Gerät — ohne Registrierung, ohne Datenspeicherung. Für das Budget-Dashboard können Sie optional einen Account erstellen. Daten werden verschlüsselt gespeichert (Supabase Inc., USA — geschützt durch EU-US Data Privacy Framework und Standardvertragsklauseln gemäß Art. 46 DSGVO). Details siehe Datenschutzerklärung.',
   },
   {
     frage: 'Gibt es eine iOS-App?',
