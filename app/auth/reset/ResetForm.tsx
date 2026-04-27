@@ -29,12 +29,54 @@ export function ResetForm() {
 
   useEffect(() => {
     let active = true
-    supabase.auth.getSession().then(({ data }) => {
+    let timeoutId: ReturnType<typeof setTimeout> | null = null
+
+    const finalize = (ok: boolean) => {
       if (!active) return
-      setHasSession(Boolean(data.session))
+      setHasSession(ok)
       setCheckingSession(false)
+    }
+
+    // Code aus Query (PKCE) clientseitig einloesen — Verifier liegt im Browser-Storage.
+    const url = new URL(window.location.href)
+    const code = url.searchParams.get('code')
+
+    const start = async () => {
+      if (code) {
+        const { error: exErr } = await supabase.auth.exchangeCodeForSession(code)
+        if (exErr) {
+          console.error('exchangeCodeForSession:', exErr)
+        }
+        // Code aus URL entfernen (sieht haesslich aus + verhindert Re-Use)
+        url.searchParams.delete('code')
+        window.history.replaceState({}, '', url.pathname + url.search + url.hash)
+      }
+
+      const { data } = await supabase.auth.getSession()
+      if (data.session) {
+        finalize(true)
+        return
+      }
+
+      // Bei Implicit/Hash-Flow setzt Supabase die Session asynchron — warten auf Event.
+      timeoutId = setTimeout(() => finalize(false), 4000)
+    }
+
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!active) return
+      if (event === 'PASSWORD_RECOVERY' || (event === 'SIGNED_IN' && session)) {
+        if (timeoutId) clearTimeout(timeoutId)
+        finalize(true)
+      }
     })
-    return () => { active = false }
+
+    void start()
+
+    return () => {
+      active = false
+      if (timeoutId) clearTimeout(timeoutId)
+      sub.subscription.unsubscribe()
+    }
   }, [supabase])
 
   const passwordValid =

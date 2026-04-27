@@ -79,7 +79,7 @@ export function AuthForm() {
     setLoading(true)
     setError(null)
     const { error: supaError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-      redirectTo: `${APP_URL}/auth/callback?next=/auth/reset`,
+      redirectTo: `${APP_URL}/auth/reset`,
     })
     setLoading(false)
     if (supaError) {
